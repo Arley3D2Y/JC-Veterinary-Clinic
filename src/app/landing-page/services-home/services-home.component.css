@@ -1,0 +1,93 @@
+.textos {
+    font-family: "Baloo 2", sans-serif;
+    font-style: normal;
+    font-size: 1.2em;
+    margin: 2%;
+    align-self: center;
+}
+
+.textos span {
+    color: #BE95C4;
+    font-weight: 600;
+}
+
+.title {
+    font-family: "ABeeZee", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 2em;
+    color: #5E548E;
+    margin: 0% 0% 0% 0%;
+}
+
+#servicesCenter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.accordion-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.accordion {
+    flex: 0 0 48%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .accordion {
+        flex: 0 0 100%;
+    }
+}
+
+/* Accordion styles */
+.accordion-item {
+    border: var(--accordion-border-width) solid var(--accordion-border-color);
+    border-radius: var(--accordion-border-radius);
+    margin-bottom: 1rem;
+    font-family: "ABeeZee", sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra del acordeón */
+
+}
+
+.accordion-button {
+    display: flex;
+    flex-direction: column;
+    padding: var(--accordion-btn-padding-y) var(--accordion-btn-padding-x);
+    color: #F5F5F5;
+    background-color: var(--accordion-btn-bg);
+    transition: var(--accordion-transition);
+    border: none;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    font-family: "ABeeZee", sans-serif;
+}
+
+.accordion-button .fa-solid {
+    color: #231942;
+    font-size: 3em;
+}
+
+.accordion-button p {
+    color: #9F86C0;
+    font-family: "ABeeZee", sans-serif;
+    font-size: 200%;
+    font-weight: 600;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #F5F5F5;
+    background-color: var(--accordion-active-bg);
+}
+
+.accordion-body p {
+    text-align: justify;
+
+}

@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+.selector-for-some-widget {
+    box-sizing: content-box;
+}
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+    background-color: #F5F5F5;
+}
+
+body {
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body::-webkit-scrollbar {
+    width: 7px;
+    background-color: #5E548E;
+    border-radius: 16px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #9F86C0;
+    border-radius: 16px;
+    transition: .3 ease;
+}
