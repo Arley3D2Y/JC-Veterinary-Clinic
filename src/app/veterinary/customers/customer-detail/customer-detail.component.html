@@ -1,0 +1,66 @@
+<main>
+    <!-- Información del cliente -->
+    <section class="main-info">
+        <!-- Imagen del cliente -->
+        <img [src]="cliente.fotoString" [alt]="'Foto de ' + cliente.nombre" />
+
+        <article class="box-info">
+            <!-- Título -->
+            <h1>Información de {{ cliente.nombre }}</h1>
+
+            <!-- Información -->
+            <div class="celda">
+                <h3 class="title-celda">Nombre</h3>
+                <p class="celda-info">{{ cliente.nombre }}</p>
+            </div>
+
+            <div class="celda">
+                <h3 class="title-celda">Cedula</h3>
+                <p class="celda-info">{{ cliente.cedula }}</p>
+            </div>
+
+            <div class="celda">
+                <h3 class="title-celda">Correo</h3>
+                <p class="celda-info">{{ cliente.correo }}</p>
+            </div>
+
+            <div class="celda">
+                <h3 class="title-celda">Dirección</h3>
+                <p class="celda-info">{{ cliente.direccion }}</p>
+            </div>
+
+            <div class="celda">
+                <h3 class="title-celda">Celular</h3>
+                <p class="celda-info">{{ cliente.celular }}</p>
+            </div>
+
+            <div class="celda">
+                <h3 class="title-celda">ID</h3>
+                <p class="celda-info">{{ cliente.id }}</p>
+            </div>
+
+            <!-- Botones -->
+            <a class="btn btn-dark" href="#mascotas">Mascotas</a>
+            <a class="btn btn-success" [routerLink]="['/veterinario/clientes/update', cliente.id]">Modificar</a>
+        </article>
+    </section>
+
+    <!-- Tarjetas de mascotas -->
+    <h2>Mascotas</h2>
+    <section class="cards-main" id="mascotas">
+        <article class="cards">
+            <div class="mascota" *ngFor="let mascota of petList">
+                <a [routerLink]="['/veterinario/mascotas/find', mascota.id]" title="Detalles">
+                    <img [src]="mascota.fotoString" alt="Imagen de mascota" height="100" width="100" />
+                    <h3>{{ mascota.nombre }}</h3>
+                    <p>{{ mascota.raza }}</p>
+                </a>
+            </div>
+        </article>
+        <div>
+            <a [routerLink]="['/veterinario/mascotas/add', cliente.id]" title="Añadir Mascota">
+                <i class="fa-solid fa-circle-plus"></i>
+            </a>
+        </div>
+    </section>
+</main>
