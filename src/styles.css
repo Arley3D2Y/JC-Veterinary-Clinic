@@ -28,3 +28,25 @@ body::-webkit-scrollbar-thumb {
 h1, h2, h3, h4, h5, h6 {
     font-family: "ABeeZee", sans-serif;
 }
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.mg-10{
+    margin: 10px;
+}
+
+.mg-5{
+    margin: 5px;
+}
+
+.round-border{
+    border-radius: 5px;
+}
