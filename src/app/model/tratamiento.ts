@@ -1,6 +1,6 @@
-import { Mascota } from "../Mascota/mascota";
-import { TratamientoDroga } from "../TratamientoDroga/tratamientoDroga";
-import { Veterinario } from "../Veterinario/veterinario";
+import { Mascota } from "./mascota";
+import { TratamientoDroga } from "./tratamientoDroga";
+import { Veterinario } from "./veterinario";
 
 
 export interface Tratamiento {

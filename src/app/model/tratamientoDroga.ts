@@ -1,5 +1,5 @@
-import { Droga } from "../Droga/droga";
-import { Tratamiento } from "../Tratamiento/tratamiento";
+import { Droga } from "./droga";
+import { Tratamiento } from "./tratamiento";
 
 export interface TratamientoDroga {
     id: number;

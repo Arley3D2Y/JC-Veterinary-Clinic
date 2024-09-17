@@ -1,4 +1,4 @@
-import { Mascota } from "../Mascota/mascota";
+import { Mascota } from "./mascota";
 
 export interface Cliente {
     id: number;

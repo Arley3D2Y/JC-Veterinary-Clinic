@@ -1,5 +1,5 @@
-import { Especialidad } from "../Especialidad/especialidad";
-import { Tratamiento } from "../Tratamiento/tratamiento";
+import { Especialidad } from "./especialidad";
+import { Tratamiento } from "./tratamiento";
 
 export interface Veterinario {
     id: number;

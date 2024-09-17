@@ -1,4 +1,4 @@
-import { Veterinario } from "../Veterinario/veterinario";
+import { Veterinario } from "./veterinario";
 
 
 export interface Especialidad{
