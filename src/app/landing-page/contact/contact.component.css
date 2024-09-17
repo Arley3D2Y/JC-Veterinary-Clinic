@@ -1,0 +1,111 @@
+
+/* Estilos para el footer */
+footer {
+    display: flex;
+    flex-direction: row;
+    background-color: #231942;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    width: auto;
+    height: 100%;
+    flex-shrink: 0;
+    font-size: 1.0em;
+}
+
+#footerLeft,
+#footerCenter,
+#footerRight {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%
+}
+
+.fleft {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: 100%
+}
+
+.fleft #ContactFooter {
+    margin-left: 13%;
+}
+
+#ContactFooter a {
+    display: flex;
+    text-decoration: none;
+    color: #F5F5F5;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1.0em;
+    margin-left: 5%;
+    margin-bottom: 3%;
+}
+
+#ContactFooter a i{
+    margin-right: 20px;
+}
+
+#ContactFooter a:hover {
+    color: #BE95C4;
+    font-size: 1.5em;
+    transition: all 0.5s ease;
+}
+
+
+#HorarioFooter p {
+    text-decoration: none;
+    color: #F5F5F5;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1.0em;
+    margin: 2%;
+    align-self: center;
+}
+
+#footerCenter img {
+    width: 40%;
+    height: 40%;
+    align-self: center;
+}
+
+#RedesFooter a {
+    text-decoration: none;
+    color: #F5F5F5;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1.5em;
+    margin: 2%;
+    align-self: center;
+}
+
+#EnlacesFooter a {
+    text-decoration: none;
+    color: #F5F5F5;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1.1em;
+    margin: 2%;
+    padding-top: 2%;
+    align-self: center;
+}
+
+
+#RedesFooter i:hover {
+    font-size: 1.7em;
+    transition: all 0.5s ease;
+}
+
+#EnlacesFooter a:hover {
+    color: #9F86C0;
+    font-weight: 300;
+    font-size: 1.3em;
+    margin: 2%;
+    transition: all 0.5s ease;
+}

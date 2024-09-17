@@ -1,0 +1,51 @@
+<main>
+    <!-- SEARCH -->
+    <section class="search">
+        <h1>Buscar Cliente</h1>
+        <P>Buscardor de clientes usando el nombre o registra un nuevo cliente a la veterinaria</P>
+
+        <!-- barra buscadora -->
+        <form action="/veterinario/clientes/buscar" method="GET" class="searchBar">
+            <input type="text" id="search" name="search" placeholder="Buscar...">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        <br>
+        <P>O tambien...</P>
+        <a type="button" class="btn btn-dark-add" th:href="@{/veterinario/clientes/add}"
+            title='Agregar cliente'>Registar</a>
+
+        <a th:href="@{/veterinario/clientes}" title="Actualizar">
+            <img src="/images/arrows-rotate-solid.png" alt="logout" width="30px">
+        </a>
+
+    </section>
+
+    <!-- TABLA -->
+    <section class="clientes_table">
+        <!-- Taarjetas  -->
+        <div class="tableCenter" *ngFor="let cliente of customersList">
+            <!-- imagen -->
+            <img [src]="cliente.fotoString" width="90" height="90" [alt]="'Foto de ' + cliente.nombre">
+            <!-- Información -->
+            <div>
+                <h2>{{ cliente.nombre }}</h2>
+                <p>CC: {{ cliente.cedula }}</p>
+            </div>
+            <!-- botones -->
+            <!-- Botones -->
+            <div class="info">
+                <!-- Botón para ver detalles -->
+                <a [routerLink]="['/veterinario/detalles-cliente', cliente.id]">
+                    <button class="btn btn-dark">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </button>
+                </a>
+
+                <!-- Botón para eliminar -->
+                <button class="btn btn-danger" (click)="deleteStudent(cliente)">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
