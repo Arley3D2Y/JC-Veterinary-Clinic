@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { LoginComponent } from './login/login.component';
+import { LoginContainerComponent } from './login/login-container/login-container.component';
 import { VeterinaryComponent } from './veterinary/veterinary.component';
 import { CustomersTableComponent } from './veterinary/customers/customers-table/customers-table.component';
 import { PetsTableComponent } from './veterinary/pets/pets-table/pets-table.component';
@@ -10,7 +10,7 @@ import { PetDetailComponent } from './veterinary/pets/pet-detail/pet-detail.comp
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirección a home
     { path: 'home', component: LandingPageComponent }, // Ruta para la landing page
-    { path: 'login', component:  LoginComponent}, // Login usuario
+    { path: 'login', component:  LoginContainerComponent}, // Login usuario
     { path: 'veterinario',
         component: VeterinaryComponent,
         children: [
