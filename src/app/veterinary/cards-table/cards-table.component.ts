@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Customer } from './../../../model/customer';
-import { CustomerService } from '../../../services/customer.service';
+import { Customer } from './../../model/customer';
+import { CustomerService } from '../../services/customer.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-customers-table',
+  selector: 'app-cards-table',
   standalone: true,
   imports: [
     CommonModule, RouterLink
   ],
-  templateUrl: './customers-table.component.html',
-  styleUrl: './customers-table.component.css'
+  templateUrl: './cards-table.component.html',
+  styleUrl: './cards-table.component.css'
 })
-export class CustomersTableComponent {
+export class CardsTableComponent {
     // Atributos
     customersList!: Customer[];
 

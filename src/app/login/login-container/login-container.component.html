@@ -1,7 +1,7 @@
-<main class="login-container">
-    <div class="container">
+<main>
+    <section class="container">
         <form #loginForm="ngForm" (ngSubmit)="onSubmit()" >
-            <img src="../assets/images/avatar.png" alt="foto" width="70" height="70">
+            <img src="../../../../public/images/avatar.png" alt="foto" width="70" height="70">
 
             <div class="form-group">
                 <input type="text" id="txtCedula" class="form-input" name="cedula" required />
@@ -29,5 +29,5 @@
             
               <button type="submit" class="btnlogin btn-dark" [disabled]="!loginForm.valid" title="Ingresar">INGRESAR</button>
             </form>
-    </div>
+    </section>
 </main>

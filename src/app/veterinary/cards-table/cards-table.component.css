@@ -1,50 +1,6 @@
-/* * Estilos del main y tabla donde se encuentra la información **/
-main {
+.clientes_table {
     width: 100%;
-    height: 85%;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 30px 40px;
-}
-
-h1 {
-    text-align: start;
-    font-size: 3rem;
-    color: #231942;
-    padding: 0;
-    margin: 0;
-}
-
-p {
-    text-align: start;
-    font-size: 1.1rem;
-    padding: 0;
-    margin: 10px 0px 0px 0px;
-}
-
-.search,
-.clientes_table {
-    /* border: #9F86C0 solid 2px; */
-    margin-top: 8%;
-}
-
-.search {
-    width: 30%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-.clientes_table {
-    width: 70%;
-    max-width: 90%;
-    height: 100%;
-    /* Limita el ancho máximo a 90% de la ventana */
+    height: 450px;
     margin-top: 10%;
     margin: auto;
     padding: 20px;
@@ -54,7 +10,6 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Incluye padding y border en el tamaño total del contenedor */
     overflow: auto;
     box-sizing: border-box;
     position: relative;
@@ -65,43 +20,6 @@ p {
     display: block;
     clear: both;
 }
-
-/* buscar clientes */
-
-.searchBar {
-    margin-top: 10%;
-    margin-bottom: 10%;
-    position: relative;
-}
-
-.searchBar input {
-    width: 100%;
-    height: 40px;
-    padding: 0 20px;
-    font-size: 18px;
-    outline: none;
-    border: 1px solid #9F86C0;
-    border-radius: 10px;
-}
-
-.searchBar button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #534886;
-    width: 60px;
-    height: 40px;
-    font-size: 18px;
-    border: none;
-    border-radius: 0 10px 10px 0;
-    cursor: pointer;
-}
-
-.searchBar button:hover {
-    background: #4730acc0;
-    transition: all 0.5s ease;
-}
-
 
 /* Tabla de clientes */
 .tableCenter {
@@ -119,7 +37,6 @@ p {
     font-size: 1.2rem;
     box-sizing: border-box;
 }
-
 
 .tableCenter h2 {
     text-align: center;
@@ -154,8 +71,6 @@ p {
     height: 100%;
 }
 
-
-/* Botones main */
 .btn {
     font-weight: 400;
     text-align: center;
@@ -180,22 +95,6 @@ p {
     border-color: #4730acc0;
 }
 
-.btn-dark-add {
-    width: 110px;
-    height: 36px;
-    color: #fff;
-    font-size: 1.2rem;
-    background-color: #534886;
-    border-color: #534886;
-    align-self: center;
-    margin-top: 5%;
-}
-
-.btn-dark-add:hover {
-    background-color: #4730acc0;
-    border-color: #4730acc0;
-}
-
 .btn-danger {
     color: #fff;
     background-color: #dc3545;
@@ -207,8 +106,4 @@ p {
     color: #fff;
     background-color: #c82333;
     border-color: #bd2130;
-}
-
-.fa-solid {
-    color: #ffffff;
 }

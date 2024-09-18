@@ -1,0 +1,98 @@
+.search h1 {
+    text-align: start;
+    font-family: "ABeeZee", sans-serif;
+    font-size: 3rem;
+    color: #231942;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+
+.search p {
+    text-align: start;
+    font-size: 1.12rem;
+
+    padding: 0;
+    margin: 10px 0px 0px 0px;
+}
+
+.search {
+    margin-top: 8%;
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 12% 13% 5% 13%;
+}
+
+
+/* buscar clientes */
+
+.searchBar {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    position: relative;
+}
+
+.searchBar input {
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    font-size: 18px;
+    outline: none;
+    border: 1px solid #9F86C0;
+    border-radius: 10px;
+}
+
+.searchBar button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #534886;
+    width: 60px;
+    height: 40px;
+    font-size: 18px;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+}
+
+.searchBar button:hover {
+    background: #4730acc0;
+    transition: all 0.5s ease;
+}
+
+/* Botones main */
+.btn {
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.360rem 0.60rem;
+    font-size: 1rem;
+    line-height: 1.1;
+    border-radius: 0.375rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-dark-add {
+    width: 110px;
+    height: 36px;
+    color: #fff;
+    font-family: "Baloo 2", sans-serif;
+    font-size: 1.2rem;
+    background-color: #534886;
+    border-color: #534886;
+    align-self: center;
+    margin-top: 5%;
+}
+
+.btn-dark-add:hover {
+    background-color: #4730acc0;
+    border-color: #4730acc0;
+}
+
+.fa-solid {
+    color: #ffffff;
+}
