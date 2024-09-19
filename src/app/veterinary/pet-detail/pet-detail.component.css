@@ -1,30 +1,16 @@
-/* MAIN */
-
-
-main {
-    width: 100%;
-    height: 85%;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 30px 40px;
-}
-
 .main-info {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 30px 40px;
-    margin-top: 10%;
+    padding: 0px 40px;
+    margin: 0px;
 }
 
 .main-info img {
     width: 40%;
-    height: 80%;
+    height: 70%;
     border-radius: 10%;
 }
 
@@ -42,15 +28,17 @@ main {
 .box-info h1 {
     width: 100%;
     text-align: center;
-  
-    font-size: 3rem;
+    margin-top: 20px;
+    font-size: 2.7rem;
     color: #231942;
     margin: 1%;
+    font-weight: bold;
 }
 
 .box-info h3 {
     text-align: start;
     font-family: "Baloo 2", sans-serif;
+    font-weight: bold;
     font-size: 1.5rem;
     margin: 10px 0;
     color: #5E548E;
@@ -63,7 +51,6 @@ main {
     margin: 10px 0;
     color: #726f6f;
 }
-
 
 .celda {
     width: 45%;
@@ -84,8 +71,6 @@ main {
     margin: 10px 0;
     color: #555;
 }
-
-
 
 .cards-main {
     width: 100%;

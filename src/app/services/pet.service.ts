@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Pet } from '../model/pet';
-import { CustomerService } from './customer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +9,8 @@ export class PetService {
   petList: Pet[] = [];
 
   constructor(
-    private customerService: CustomerService,
-  ) {
+
+    ) {
   this.petList = [
     {
       id: 1,
@@ -20,7 +19,7 @@ export class PetService {
       raza: 'Birmano',
       fechaNacimiento: '2019-01-01',
       fotoString: 'https://content.elmueble.com/medio/2023/04/12/gato-birmano_40aca551_230412112429_900x900.jpg',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
     },
     {
       id: 2,
@@ -29,7 +28,7 @@ export class PetService {
       raza: 'Persa',
       fechaNacimiento: '2020-08-01',
       fotoString: 'https://www.purina.es/sites/default/files/styles/ttt_image_510/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-06Persian-Long-Hair.jpg?itok=AOnt5aNF',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
     },
     {
       id: 3,
@@ -38,7 +37,7 @@ export class PetService {
       raza: 'Burmés',
       fechaNacimiento: '2019-06-13',
       fotoString: 'https://miperroesunico.com/img/razas-de-gatos/Raza-de-Gato-Burmes.jpg',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
     },
     {
       id: 4,
@@ -47,7 +46,7 @@ export class PetService {
       raza: 'Ragdoll',
       fechaNacimiento: '2013-09-14',
       fotoString: 'https://content.elmueble.com/medio/2023/02/24/gato-de-raza-ragdoll_5c5827ec_230224104944_900x900.jpg',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
     },
     {
       id: 5,
@@ -56,7 +55,7 @@ export class PetService {
       raza: 'Siberiano',
       fechaNacimiento: '2020-06-19',
       fotoString: 'https://www.zooplus.es/magazine/wp-content/uploads/2017/10/fotolia_126848656-1024x995.jpg',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
     },
     {
       id: 6,
@@ -65,7 +64,7 @@ export class PetService {
       raza: 'Birmano',
       fechaNacimiento: '2019-01-01',
       fotoString: 'https://content.elmueble.com/medio/2023/04/12/gato-birmano_40aca551_230412112429_900x900.jpg',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
     },
     {
       id: 7,
@@ -74,7 +73,7 @@ export class PetService {
       raza: 'Persa',
       fechaNacimiento: '2020-08-01',
       fotoString: 'https://www.purina.es/sites/default/files/styles/ttt_image_510/public/2024-02/sitesdefaultfilesstylessquare_medium_440x440public2022-06Persian-Long-Hair.jpg?itok=AOnt5aNF',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
     },
     {
       id: 8,
@@ -83,7 +82,7 @@ export class PetService {
       raza: 'Burmés',
       fechaNacimiento: '2019-06-13',
       fotoString: 'https://miperroesunico.com/img/razas-de-gatos/Raza-de-Gato-Burmes.jpg',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
     },
     {
       id: 9,
@@ -92,11 +91,19 @@ export class PetService {
       raza: 'Ragdoll',
       fechaNacimiento: '2013-09-14',
       fotoString: 'https://content.elmueble.com/medio/2023/02/24/gato-de-raza-ragdoll_5c5827ec_230224104944_900x900.jpg',
-      duenho: this.customerService.findById(1)
+      duenho: undefined
+    },
+    {
+      id: 10,
+      nombre: 'Cleo',
+      sexo: 'Macho',
+      raza: 'Siberiano',
+      fechaNacimiento: '2020-06-19',
+      fotoString: 'https://www.zooplus.es/magazine/wp-content/uploads/2017/10/fotolia_126848656-1024x995.jpg',
+      duenho: undefined
     }
   ]
   }
-  
   
   finAll() {
     return this.petList;
@@ -107,4 +114,23 @@ export class PetService {
     return student;
   }
 
+  deletePetById(petId: number): void {
+    const petIndex = this.petList.findIndex(pet => pet.id === petId);
+    if (petIndex !== -1) {
+      this.petList.splice(petIndex, 1); // Eliminar la mascota de la lista
+    }
+  }
+
+  createPet(newPet: Pet): void {
+    const maxId = this.petList.length > 0 ? Math.max(...this.petList.map(pet => pet.id)) : 0;
+    newPet.id = maxId + 1; // Asignar un nuevo ID
+    this.petList.push(newPet);
+  }
+
+  updatePet(id: number, updatedPet: Pet): void {
+    const index = this.petList.findIndex(pet => pet.id === id);
+    if (index !== -1) {
+      this.petList[index] = { ...this.petList[index], ...updatedPet };
+    }
+  }
 }

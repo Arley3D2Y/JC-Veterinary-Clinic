@@ -1,0 +1,44 @@
+<h1>Agregar Mascota de {{ customerSelected.nombre }}</h1>
+
+<!-- Formulario -->
+<form #petForm="ngForm" (ngSubmit)="addPet(petForm)">
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="formPet.nombre" type="text" class="form-control" id="floatingInput"
+            placeholder="Nombre de la mascota" name="nombre">
+        <label for="nombre">Nombre</label>
+    </div>
+    <div class="form-group">
+        <label for="sexo">Sexo de la mascota</label>
+        <select class="form-select form-control" [(ngModel)]="formPet.sexo" id="sexo" name="sexo">
+            <option value="" disabled selected>Elegir sexo</option>
+            <option value="Macho">Macho</option>
+            <option value="Hembra">Hembra</option>
+        </select>
+
+    </div>
+    <br>
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="formPet.raza" type="text" class="form-control" id="floatingInput"
+            placeholder="Ingresa la raza" name="raza">
+        <label for="floatingInput">Raza</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="formPet.fechaNacimiento" type="date" class="form-control" id="floatingInput" 
+            placeholder="Ingresa la fecha" name="fechaNacimiento">
+        <label for="floatingInput">Fecha de nacimiento</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="formPet.fotoString" type="text" class="form-control" id="floatingInput"
+            placeholder="Ingresa URL de la foto" name="fotoString">
+        <label for="floatingInput">Foto URL</label>
+    </div>
+
+    <br>
+    <button type="submit" [disabled]="!petForm.form.valid" class="btn btn-primary">Crear</button>
+    <br>
+
+    <a [routerLink]="['/veterinario/detalles-cliente/', customerSelected.id]" class="btn btn-primary">Volver</a>
+
+</form>

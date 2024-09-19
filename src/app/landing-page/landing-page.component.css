@@ -30,7 +30,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* Estilos para el main */
-main {
+.main-second {
     text-align: center;
     padding: 10px;
     margin: 9vh 6vh;

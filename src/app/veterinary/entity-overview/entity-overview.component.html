@@ -1,4 +1,12 @@
 <app-shared-header></app-shared-header>
 <main>
-    <app-entity-overview [customerSelected]="customerSelected"></app-entity-overview>
+    <ng-container [ngSwitch]="entityType">
+        <ng-container *ngSwitchCase="'cliente'">
+            <app-card-details></app-card-details>
+        </ng-container>
+    
+        <ng-container *ngSwitchCase="'mascota'">
+            <app-pet-detail></app-pet-detail>
+        </ng-container>
+    </ng-container>
 </main>
