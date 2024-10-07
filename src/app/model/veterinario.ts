@@ -8,6 +8,6 @@ export interface Veterinario {
     correo: string;
     password: string;
     fotoString: string;
-    especialidades: Especialidad[];
+    especialidades: Especialidad;
     tratamietos: Tratamiento[];
 }

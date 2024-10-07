@@ -128,6 +128,13 @@ export class CustomerService {
       return student;
     }
 
+    deleteCustomerById(id: number): void {
+      const index = this.customerList.findIndex(o => o.id === id);
+      if (index !== -1) {
+        this.customerList.splice(index, 1);
+      }
+    }
+
     // Asignar mascotas aleatoriamente sin repetir
     assignRandomPets() {
       // Obtener la lista de mascotas de PetService

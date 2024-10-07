@@ -4,24 +4,17 @@
 
 body {
     margin: 0;
-    height: 94vh;
+    height: 97vh;
     /* Ocupa el 100% de la altura de la ventana del navegador */
     width: 100%;
     margin: 0;
     font-family: "Baloo 2", sans-serif;
 }
 
-
 body::-webkit-scrollbar {
     width: 7px;
     background-color: #5E548E;
     border-radius: 16px;
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: #9F86C0;
-    border-radius: 16px;
-    transition: .3 ease;
 }
   
 h1, h2, h3, h4, h5, h6 {

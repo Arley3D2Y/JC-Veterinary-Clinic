@@ -1,0 +1,23 @@
+<!-- SEARCH -->
+<section class="search">
+    <h1>Buscar {{ typeObject }}</h1>
+    <p> Buscardor de {{ typeObject }} usando el nombre. </p>
+
+    <!-- barra buscadora -->
+    <form action="/veterinario/clientes/buscar" method="GET" class="searchBar">
+        <input type="text" id="search" name="search" placeholder="Buscar...">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+    <br>
+
+    <ng-container *ngIf="typeObject === 'clientes'">
+        <P>O tambien...</P>
+        <a type="button" class="btn btn-dark-add" th:href="@{/veterinario/clientes/add}"
+            title='Agregar cliente'>Registar</a>
+    </ng-container>
+
+    <a th:href="@{/veterinario/clientes}" title="Actualizar">
+        <img src="/images/arrows-rotate-solid.png" alt="logout" width="30px">
+    </a>
+
+</section>

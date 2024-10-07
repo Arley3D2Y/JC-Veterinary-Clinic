@@ -1,0 +1,55 @@
+/** Estilos de la caja de items de recordar login o usuario **/
+
+/* Caja de items recordar login o usuario */
+.layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+/* item de recordar logo */
+.remember-user {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    height: auto;
+    padding: 0px;
+}
+.form-check-input {
+    margin: 0px;
+    border-color: #000000d3;
+    width: 14px;
+    height: 14px;
+}
+.form-check-input:checked {
+    background-color: #4730acd3;
+    border-color: #4730acd3;
+}
+.form-check-input:checked ~ .form-check-label {
+    color: #482f97;
+}
+/* Estilo para el label que reemplaza el checkbox */
+.form-check-label {
+    text-align: center;
+    margin: 1.5px 0 0 5px;
+    cursor: pointer;
+    font-size: 0.73rem;
+    user-select: none; /* Evita que el texto sea seleccionado/copiado */
+}
+
+/* item de recordar usuario */
+.new-password {
+    text-align: right;
+    width: 50%;
+    font-size: 0.73rem;
+    font-weight: lighter;
+    user-select: none; /* Evita que el texto sea seleccionado/copiado */
+}
+.new-password a {
+    text-decoration: none;
+}
+.new-password a:hover {
+    text-decoration: underline;
+    color: #482f97;
+}

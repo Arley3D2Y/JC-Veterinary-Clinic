@@ -1,0 +1,22 @@
+main {
+    height: 85%; /* O la altura que desees */
+    width: 100vw; /* O el ancho que desees */
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 40px;
+}
+
+app-search-bar {
+    flex: 1 1 37%; /* Ocupa un tercio del espacio disponible */
+    margin: 0;
+    padding: 0;
+}
+
+app-cards-table {
+    flex: 2 1 63%; /* Ocupa dos tercios del espacio disponible */
+    margin: 0;
+    padding: 0;
+}
