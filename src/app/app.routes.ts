@@ -1,25 +1,30 @@
 import { Routes } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { LoginContainerComponent } from './login/login-container/login-container.component';
-import { VeterinaryComponent } from './veterinary/veterinary.component';
-import { CustomersTableComponent } from './veterinary/customers/customers-table/customers-table.component';
-import { PetsTableComponent } from './veterinary/pets/pets-table/pets-table.component';
-import { CustomerDetailComponent } from './veterinary/customers/customer-detail/customer-detail.component';
-import { PetDetailComponent } from './veterinary/pets/pet-detail/pet-detail.component';
+import { WelcomePageComponent } from './landing-page/welcome-page/welcome-page.component';
+
+import { LoginComponent } from './login/login/login.component';
+import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
+
+import { VeterinarioComponent } from './veterinario/veterinario/veterinario.component';
+import { EntityDetailsComponent } from './veterinario/entity-details/entity-details.component';
+import { FormHandlerComponent } from './veterinario/form-handler/form-handler.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirección a home
-    { path: 'home', component: LandingPageComponent }, // Ruta para la landing page
-    { path: 'login', component:  LoginContainerComponent}, // Login usuario
-    { path: 'veterinario',
-        component: VeterinaryComponent,
-        children: [
-          { path: '', redirectTo: 'clientes', pathMatch: 'full' },  // Redirige a 'clientes' al entrar a 'veterinario'
-          { path: 'clientes', component: CustomersTableComponent },
-          { path: 'detalles-cliente/:id', component: CustomerDetailComponent},
-          { path: 'mascotas', component: PetsTableComponent },
-          { path: 'detalles-mascota/:id', component: PetDetailComponent},
-        ]
-      },
-    { path: '**', redirectTo: '/home' } // Redirección en caso de ruta no encontrada
+    { path: 'home', component: WelcomePageComponent }, // Ruta para la landing page
+    { path: 'login', component: LoginComponent }, // Login usuario
+    // Clientes
+    { path: 'veterinario/clientes', component: VeterinarioComponent, data: { type: 'clientes' } },
+    { path: 'veterinario/detalles/cliente/:id', component: EntityDetailsComponent, data: { type: 'cliente' } },
+    { path: 'veterinario/agregar/cliente', component: FormHandlerComponent },
+    { path: 'veterinario/actualizar/cliente/:id', component: FormHandlerComponent },
+    
+    { path: 'veterinario/mascotas', component: VeterinarioComponent, data: { type: 'mascotas' } },
+    { path: 'veterinario/detalles/mascota/:id', component: EntityDetailsComponent, data: { type: 'mascota' } },
+    { path: 'veterinario/agregar/mascota/cliente/:id', component: FormHandlerComponent },
+    { path: 'veterinario/actualizar/mascota/:id', component: FormHandlerComponent },
+
+    { path: 'page-not-found', component: PageNotFoundComponent },
+    { path: '**', redirectTo: '/page-not-found' }, // Redirección en caso de ruta no encontrada
+
+
 ];

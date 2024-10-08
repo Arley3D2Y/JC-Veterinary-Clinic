@@ -1,0 +1,48 @@
+<form #petForm="ngForm" (ngSubmit)="savePet(petForm)">
+
+
+
+</form>
+
+
+<h1>{{ operation | titlecase }} Cliente</h1>
+<!-- Formulario -->
+<form #petForm="ngForm" (ngSubmit)="savePet(petForm)">
+    <div class="form-floating mb-3">
+        <!-- th:field para indicar que atributo del objeto es el que se va a rellenar -->
+        <input th:field="*{nombre}" type="text" class="form-control" id="floatingInput"
+            placeholder="Ingresa tu nombre">
+        <label for="floatingInput">Nombre</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input th:field="*{cedula}" type="text" class="form-control" id="cedula" placeholder="Ingresa tu cedula">
+        <label for="floatingInput">Cedula</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input th:field="*{correo}" type="text" class="form-control" id="correo" placeholder="Ingresa tu correo">
+        <label for="floatingInput">Email</label>
+
+    </div>
+    <div class="form-floating mb-3">
+        <input th:field="*{celular}" type="text" class="form-control" id="celular" placeholder="Ingresa tu numero">
+        <label for="floatingInput">Numero telefonico</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input th:field="*{direccion}" type="text" class="form-control" id="direccion"
+            placeholder="Ingresa tu dirección">
+        <label for="floatingInput">Dirección</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input th:field="*{fotoString}" type="text" class="form-control" id="floatingInput"
+            placeholder="Ingresa URL de la foto">
+        <label for="floatingInput">Foto URL</label>
+    </div>
+    <br>
+
+    <div class="mn-center-row">
+        <button (click)="pageBack()"
+            class="btn btn-danger">Volver</button>
+        <button type="submit" [disabled]="!petForm.form.valid" class="btn btn-primary">{{ operation | titlecase}}</button>
+    </div>
+
+</form>

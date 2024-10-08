@@ -1,0 +1,63 @@
+<section *ngIf="customerSelected" class="card-info">
+    <!-- Imagen de la mascota -->
+    <img *ngIf="customerSelected.fotoString" [src]="customerSelected.fotoString" [alt]="'Foto de ' + customerSelected.nombre">
+
+    <article class="box-info">
+        <!-- Título -->
+        <h1>Información de {{ customerSelected.nombre }}</h1>
+        <!-- Información -->
+        <div class="celda">
+            <h3 class="title-celda">Nombre</h3>
+            <p class="celda-info">{{ customerSelected.nombre }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Cédula</h3>
+            <p class="celda-info">{{ customerSelected.cedula }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Correo</h3>
+            <p class="celda-info">{{ customerSelected.correo }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Celular</h3>
+            <p class="celda-info">{{ customerSelected.celular }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Dirección</h3>
+            <p class="celda-info">{{ customerSelected.direccion }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">ID</h3>
+            <p class="celda-info">{{ customerSelected.id }}</p>
+        </div>
+
+        <!-- Botones -->
+        <button class="btn btn-success" [routerLink]="['/veterinario/actualizar/cliente', customerSelected.id]">
+            Actualizar
+        </button>        
+
+        <button class="btn btn-danger" (click)="deleteCustomer(customerSelected.id)">
+            Eliminar
+        </button>
+    </article>
+</section>
+
+<h2>Mascotas</h2>
+<section class="card-items-info">
+
+    <article class="panel-cards">
+        <div class="pet-card" *ngFor="let mascota of pets">
+            <a [routerLink]="['/veterinario/detalles/mascota', mascota.id]" title="Detalles">
+                <img [src]="mascota.fotoString" alt="Imagen de mascota">
+                <h3>{{mascota.nombre}}</h3>
+                <p>{{mascota.raza}}</p>
+            </a>
+        </div>
+
+        <div>
+            <a type="button" [routerLink]="['/veterinario/agregar/mascota/cliente', customerSelected.id]" title="Añadir Mascota">
+                <i class="fa-solid fa-circle-plus"></i>
+            </a>
+        </div>
+    </article>
+</section>

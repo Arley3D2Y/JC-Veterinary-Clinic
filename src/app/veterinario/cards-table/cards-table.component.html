@@ -1,0 +1,20 @@
+<section class="items_table">
+    <div class="tableCenter" *ngFor="let item of items">
+    <img [src]="item.fotoString" width="90" height="90" [alt]="'Foto de ' + item.nombre">
+        <div>
+            <h2>{{ item.nombre }}</h2>
+            <p *ngIf="typeObject === 'clientes'">CC: {{ item.cedula }}</p>
+            <p *ngIf="typeObject === 'mascotas'">Raza: {{ item.raza }}</p>
+        </div>
+        <div class="info">
+            <a [routerLink]="'/veterinario/detalles/' + typeObject.slice(0, -1) + '/' + item.id" title="Detalles">
+                <button class="btn btn-dark">
+                    <i class="fa-solid fa-circle-info"></i>
+                </button>
+            </a>
+            <button class="btn btn-danger" (click)="deleteItem(item)">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        </div>
+    </div>
+</section>

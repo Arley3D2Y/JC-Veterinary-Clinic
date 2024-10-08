@@ -1,3 +1,5 @@
+import { Pet } from "./pet";
+
 export interface Customer {
     id: number;
     nombre: string;
@@ -6,4 +8,6 @@ export interface Customer {
     celular: string;
     direccion: string;
     fotoString: string;
+
+    mascotas: Pet[ ];
 }

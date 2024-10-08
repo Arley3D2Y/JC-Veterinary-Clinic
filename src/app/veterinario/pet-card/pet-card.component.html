@@ -1,0 +1,44 @@
+<!-- información del cliente -->
+<section *ngIf="petSelected" class="card-info">
+    <!-- Imagen de la mascota -->
+    <img [src]="petSelected.fotoString" [alt]="'Foto de ' + petSelected.nombre">
+
+    <article class="box-info">
+        <!-- titulo -->
+        <h1>Información de {{ petSelected.nombre }}</h1>
+        <!-- información -->
+        <div class="celda">
+            <h3 class="title-celda">Nombre</h3>
+            <p class="celda-info">{{ petSelected.nombre }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Dueño</h3>
+            <p class="celda-info"> {{ petSelected.duenho?.nombre }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Sexo</h3>
+            <p class="celda-info">{{ petSelected.sexo }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Raza</h3>
+            <p class="celda-info">{{ petSelected.raza }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Fecha de Nacimiento</h3>
+            <p class="celda-info">{{ petSelected.fechaNacimiento }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">ID</h3>
+            <p class="celda-info">{{ petSelected.id }}</p>
+        </div>
+
+        <!-- botones -->
+        <button class="btn btn-success" [routerLink]="['/veterinario/actualizar/mascota', petSelected.id]">
+            Modificar
+        </button>
+
+        <button class="btn btn-danger" (click)="deletePet(petSelected, petSelected.duenho?.id)">
+            Eliminar
+        </button>
+    </article>
+</section>

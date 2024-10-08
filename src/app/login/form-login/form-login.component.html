@@ -1,0 +1,40 @@
+<form #formGroup="ngForm" (ngSubmit)="onSubmit()">
+    <img src="../images/avatar.png" alt="foto" width="85" height="85">
+
+    <ng-container *ngIf="typeUser === 'cliente'">
+        <div class="form-group">
+            <input type="text" id="txtCedula" class="form-input" name="cedula" [(ngModel)]="formCliente.cedula" required />
+            <label for="txtCedula" class="form-label">Ingrese su cédula</label>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+    </ng-container>
+ 
+    <ng-container *ngIf="typeUser === 'veterinario'">
+        <div class="form-group">
+            <input type="text" id="txtCorreo" class="form-input" name="correo" [(ngModel)]="formVeterinario.correo" required />
+            <label for="txtCorreo" class="form-label">Correo de usuario</label>
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="txtPassword" class="form-input" name="password" [(ngModel)]="formVeterinario.password" required />
+            <label for="txtPassword" class="form-label">Contraseña</label>
+        </div>
+    </ng-container>
+
+    <div id="other-login">
+        <ng-container *ngIf="typeUser === 'cliente'">
+            <a type="button" (click)="changeUserType('veterinario')">Ingresar como veterinario</a>
+        </ng-container>
+    
+        <ng-container *ngIf="typeUser === 'veterinario'">
+            <a type="button" (click)="changeUserType('cliente')">Ingresar como cliente</a>
+        </ng-container>
+    </div>
+
+    <app-login-options></app-login-options>
+
+    <button type="submit" class="btn btn-dark" title='Ingresar' [disabled]="!formGroup.valid">INGRESAR</button>
+</form>
