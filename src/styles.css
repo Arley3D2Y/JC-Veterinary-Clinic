@@ -13,8 +13,12 @@ body {
 
 body::-webkit-scrollbar {
     width: 7px;
-    background-color: #5E548E;
-    border-radius: 16px;
+    background-color: #796fa8a4;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #8b78dd;
+    border-radius: 10px;
 }
   
 h1, h2, h3, h4, h5, h6 {

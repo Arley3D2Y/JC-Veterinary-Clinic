@@ -12,12 +12,12 @@
 
     <ng-container *ngIf="typeObject === 'clientes'">
         <P>O tambien...</P>
-        <a type="button" class="btn btn-dark-add" th:href="@{/veterinario/clientes/add}"
-            title='Agregar cliente'>Registar</a>
+        <button class="btn btn-dark-add" [routerLink]="['/veterinario/agregar/cliente']"
+            title='Agregar cliente'>Registar</button>
     </ng-container>
 
-    <a th:href="@{/veterinario/clientes}" title="Actualizar">
-        <img src="/images/arrows-rotate-solid.png" alt="logout" width="30px">
+    <a (click)="refresh()" title="Actualizar">
+        <img id="refresh" src="/images/arrows-rotate-solid.png" alt="logout" width="30px">
     </a>
 
 </section>

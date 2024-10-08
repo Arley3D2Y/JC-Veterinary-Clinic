@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 import { Customer } from '../../model/customer';
-import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
-import { Router } from '@angular/router';
-import { PetService } from '../../services/pet.service';
+import { Pet } from '../../model/pet';
 
 @Component({
   selector: 'app-customer-card',
@@ -14,6 +13,7 @@ import { PetService } from '../../services/pet.service';
   imports: [
     CommonModule,
     RouterLink,
+    
   ],
   templateUrl: './customer-card.component.html',
   styleUrl: './customer-card.component.css',
@@ -21,17 +21,22 @@ import { PetService } from '../../services/pet.service';
 export class CustomerCardComponent {
   @Input()
   customerSelected!: Customer;
+
+  visiblePets: Boolean = false;
+  pets!: Pet[]
   
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private petService: PetService,
     private customerService: CustomerService
   ) {
   }
 
-  displayPets(id: number) {
-    
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+      this.pets = this.customerService.getPetsByCustomerId(id);
+    });
   }
 
   // Función para eliminar una mascota

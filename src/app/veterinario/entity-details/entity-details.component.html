@@ -1,11 +1,11 @@
 <app-shared-header></app-shared-header>
 
 <main>
-    <ng-container *ngIf="typeEntity === 'cliente'">
-        <app-customer-card [customerSelected]="customer"></app-customer-card>
-    </ng-container>
+  <ng-container *ngIf="typeEntity === 'cliente'">
+    <app-customer-card [customerSelected]="customer"></app-customer-card>
+  </ng-container>
 
-    <ng-container *ngIf="typeEntity === 'mascota'">
-        <app-pet-card [petSelected]="pet"></app-pet-card>
-    </ng-container>
+  <ng-container *ngIf="typeEntity === 'mascota'">
+    <app-pet-card [petSelected]="pet"></app-pet-card>
+  </ng-container>
 </main>

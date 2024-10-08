@@ -1,5 +1,5 @@
 <!-- información del cliente -->
-<section class="main-info">
+<section *ngIf="petSelected" class="card-info">
     <!-- Imagen de la mascota -->
     <img [src]="petSelected.fotoString" [alt]="'Foto de ' + petSelected.nombre">
 
@@ -33,9 +33,9 @@
         </div>
 
         <!-- botones -->
-        <a type="button" class="btn btn-success" [routerLink]="['/veterinario/mascota/update', petSelected.id]">
+        <button class="btn btn-success" [routerLink]="['/veterinario/actualizar/mascota', petSelected.id]">
             Modificar
-        </a>
+        </button>
 
         <button class="btn btn-danger" (click)="deletePet(petSelected, petSelected.duenho?.id)">
             Eliminar

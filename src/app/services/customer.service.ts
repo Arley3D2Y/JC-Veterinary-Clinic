@@ -124,8 +124,19 @@ export class CustomerService {
     }
 
     findById(id : number):Customer {
-      const student:Customer = this.customerList.find(o => o.id === id)!;
-      return student;
+      const customer:Customer = this.customerList.find(o => o.id === id)!;
+      return customer;
+    }
+
+    async createCustomer(customer: Customer): Promise<void> {
+      this.customerList.push(customer);
+    }
+
+    async updateCustomer(id: number, customer: Customer): Promise<void> {
+      const index = this.customerList.findIndex(o => o.id === id);
+      if (index !== -1) {
+        this.customerList[index] = customer;
+      }
     }
 
     deleteCustomerById(id: number): void {
@@ -157,27 +168,25 @@ export class CustomerService {
     }
 
     addPetToCustomer(customerId: number, petId: number): void {
-      // Buscar el cliente por ID
       const customer = this.findById(customerId);
       
       if (customer) {
-        // Buscar la mascota por ID desde el servicio de mascotas
         const pet = this.petService.findById(petId);
         
         if (pet) {
-          // Relacionar la mascota con el cliente si aún no la tiene
-          const petAlreadyAssigned = customer.mascotas.some(existingPet => existingPet.id === pet.id);
-          
-          if (!petAlreadyAssigned) {
-            pet.duenho = customer; // Asignar el dueño a la mascota
-            customer.mascotas.push(pet); // Añadir la mascota al cliente
+          const petIndex = customer.mascotas.findIndex(existingPet => existingPet.id === pet.id);
+          pet.duenho = customer; // Asignar el dueño a la mascota
+    
+          if (petIndex === -1) {
+            customer.mascotas.push(pet);
+          } else {
+            customer.mascotas[petIndex] = pet;
           }
         }
       }
     }
-    
 
-      // Eliminar una mascota de la lista del cliente
+    // Eliminar una mascota de la lista del cliente
     removePetFromCustomer(customerId: number, petId: number): void {
       const customer = this.findById(customerId);
       if (customer) {

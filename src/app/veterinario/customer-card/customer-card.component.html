@@ -32,13 +32,9 @@
         </div>
 
         <!-- Botones -->
-        <button class="btn btn-dark" (click)="displayPets(customerSelected.id)">
-            Mascotas
-        </button>
-
-        <a type="button" class="btn btn-success" [routerLink]="['/veterinario/cliente', customerSelected.id, 'actualizar']">
+        <button class="btn btn-success" [routerLink]="['/veterinario/actualizar/cliente', customerSelected.id]">
             Actualizar
-        </a>        
+        </button>        
 
         <button class="btn btn-danger" (click)="deleteCustomer(customerSelected.id)">
             Eliminar
@@ -46,22 +42,22 @@
     </article>
 </section>
 
-<!-- Tarjetas de mascotas 
-<H2>Mascotas</H2>
-<section class="cards-main" id="mascotas">
-    <article class="cards">
-        <div class="mascota" *ngFor="let mascota of mascotas">
-            <a [routerLink]="['/veterinario/detalles-mascota', mascota.id]" title="Detalles">
-                <img [src]="mascota.fotoString" alt="Imagen de mascota" height="100" weidth="100">
+<h2>Mascotas</h2>
+<section class="card-items-info">
+
+    <article class="panel-cards">
+        <div class="pet-card" *ngFor="let mascota of pets">
+            <a [routerLink]="['/veterinario/detalles/mascota', mascota.id]" title="Detalles">
+                <img [src]="mascota.fotoString" alt="Imagen de mascota">
                 <h3>{{mascota.nombre}}</h3>
                 <p>{{mascota.raza}}</p>
             </a>
         </div>
+
+        <div>
+            <a type="button" [routerLink]="['/veterinario/agregar/mascota/cliente', customerSelected.id]" title="Añadir Mascota">
+                <i class="fa-solid fa-circle-plus"></i>
+            </a>
+        </div>
     </article>
-    <div>
-        <a type="button" [routerLink]="['/veterinario/mascotas/add', customerSelected.id]" title="Añadir Mascota">
-            <i class="fa-solid fa-circle-plus"></i>
-        </a>
-    </div>
 </section>
--->

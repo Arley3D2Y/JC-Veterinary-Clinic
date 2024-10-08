@@ -96,3 +96,7 @@
 .fa-solid {
     color: #ffffff;
 }
+
+#refresh {
+    cursor: pointer;
+}

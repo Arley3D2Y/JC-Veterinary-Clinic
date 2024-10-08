@@ -4,11 +4,13 @@ import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { CustomerService } from '../../services/customer.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pet-card',
   standalone: true,
   imports: [
+    CommonModule,
     RouterLink
   ],
   templateUrl: './pet-card.component.html',

@@ -23,44 +23,33 @@ import { PetService } from '../../services/pet.service';
 })
 export class EntityDetailsComponent {
   typeEntity?: string;
+  entityId!: number;
   customer!: Customer;
   pet!: Pet;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private serviceCustomer: CustomerService,
     private servicePet: PetService
   ) {}
 
   ngOnInit(): void {
-    // Detectar el cambio en la URL
-    this.route.url.subscribe(() => {
-      const id = Number(this.route.snapshot.params['id']);
-      
-      // Cambiar entityType según la ruta actual
-      const currentPath = this.router.url;
-      if (currentPath.includes('cliente')) {
-        this.typeEntity = 'cliente';
-        this.searchCustomer(id);
-      } else if (currentPath.includes('mascota')) {
-        this.typeEntity = 'mascota';
-        this.searchPet(id);
+    this.route.data.subscribe(data => {
+      this.typeEntity = data['type'];
+      this.entityId = Number(this.route.snapshot.params['id']);
+      if (this.typeEntity === 'cliente') {
+        this.loadCustomer(this.entityId);
+      } else if (this.typeEntity === 'mascota') {
+        this.loadPet(this.entityId);
       }
     });
   }
 
-  searchCustomer(id: number): void {
-    const customer = this.serviceCustomer.findById(id);
-    if (customer) {
-      this.customer = customer;
-    }
+  loadCustomer(id: number): void {
+    this.customer = this.serviceCustomer.findById(id);
   }
 
-  searchPet(id: number): void {
-    const pet = this.servicePet.findById(id);
-    if (pet) {
-      this.pet = pet;
-    }
+  loadPet(id: number): void {
+    this.pet = this.servicePet.findById(id);
   }
 }
