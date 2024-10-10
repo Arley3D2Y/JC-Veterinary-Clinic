@@ -123,6 +123,11 @@ export class CustomerService {
       return this.customerList;
     }
 
+    findByCedula(cedula: string): Customer{
+      const customer: Customer= this.customerList.find(cliente => cliente.cedula === cedula)!;
+      return customer;
+    }
+    
     findById(id : number):Customer {
       const customer:Customer = this.customerList.find(o => o.id === id)!;
       return customer;

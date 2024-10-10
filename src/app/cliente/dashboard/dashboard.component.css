@@ -1,0 +1,36 @@
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+}
+
+/* Estilos para el main con display en columna */
+.datos_cliente {
+    padding: 0px;
+    width: 30%;
+    height: 100%;
+    background-color: #5E548E;
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.2), /* Sombra principal */
+        0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra secundaria para efecto de profundidad */
+}
+
+/* Estilos para el main */
+.main-mascotas {
+    width: 70%;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 20px 50px;
+    font-family: "ABeeZee", sans-serif;
+
+}
+.main-mascotas h1 {
+    text-align: center;
+    font-family: "ABeeZee", sans-serif;
+    color: #5E548E;
+    margin: 0;
+    padding: 10px 20px;
+
+}
