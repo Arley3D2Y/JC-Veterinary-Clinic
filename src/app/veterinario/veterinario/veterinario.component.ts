@@ -13,7 +13,7 @@ import { CardsTableComponent } from '../cards-table/cards-table.component';
     CommonModule,
     SearchBarComponent,
     SharedHeaderComponent,
-    CardsTableComponent
+    CardsTableComponent,
   ],
   templateUrl: './veterinario.component.html',
   styleUrl: './veterinario.component.css'

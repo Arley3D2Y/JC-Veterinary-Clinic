@@ -7,10 +7,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.438);
     max-width: 400px;
     width: 90%;
+    max-height: 100%;
 }
 
 .cat-error {
-    max-width: 80%;
+    max-width: 75%;
     height: auto;
     margin: 10px 0;
 }
@@ -32,9 +33,9 @@ p {
     color: #ffffff;
     background-color: #5E548E;
     padding: 10px 20px;
-    border-radius: 25px;
+    border-radius: 15px;
     transition: background-color 0.3s ease;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .btn:hover {

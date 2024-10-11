@@ -1,15 +1,15 @@
 <app-shared-header></app-shared-header>
 
 <main>
-    <ng-container *ngIf="typeEntity === 'mascota'">
+    <ng-container *ngIf="mostrarForm && typeEntity === 'mascota'">
         <app-pet-form [customer]="customerSelected" [petUpdated]="petSelected"
             [operation]="typeOperation" (addPetEvent)="saveEntity($event)">
         </app-pet-form>
     </ng-container>
 
-    <ng-container *ngIf="typeEntity === 'cliente'">
+    <ng-container *ngIf="mostrarForm && typeEntity === 'cliente'">
         <app-customer-form [customer]="customerSelected"
             [operation]="typeOperation" (addCustomerEvent)="saveEntity($event)">
-        </app-customer-form>    
+        </app-customer-form>
     </ng-container>
 </main>

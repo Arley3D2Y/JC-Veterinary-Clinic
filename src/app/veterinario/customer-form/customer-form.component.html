@@ -2,32 +2,34 @@
 <!-- Formulario -->
 <form #petForm="ngForm" (ngSubmit)="savePet(petForm)">
     <div class="form-floating mb-3">
-        <!-- th:field para indicar que atributo del objeto es el que se va a rellenar -->
-        <input th:field="*{nombre}" type="text" class="form-control" id="floatingInput"
-            placeholder="Ingresa tu nombre">
+        <input [(ngModel)]="formCustomer.nombre" type="text" class="form-control" id="floatingInput"
+            placeholder="Nombre" name="nombre">
         <label for="floatingInput">Nombre</label>
     </div>
     <div class="form-floating mb-3">
-        <input th:field="*{cedula}" type="text" class="form-control" id="cedula" placeholder="Ingresa tu cedula">
+        <input [(ngModel)]="formCustomer.cedula" type="text" class="form-control" id="floatingInput"
+            placeholder="Cedula" name="cedula">
         <label for="floatingInput">Cedula</label>
     </div>
     <div class="form-floating mb-3">
-        <input th:field="*{correo}" type="text" class="form-control" id="correo" placeholder="Ingresa tu correo">
+        <input [(ngModel)]="formCustomer.correo" type="text" class="form-control" id="floatingInput"
+            placeholder="Correo" name="correo">
         <label for="floatingInput">Email</label>
 
     </div>
     <div class="form-floating mb-3">
-        <input th:field="*{celular}" type="text" class="form-control" id="celular" placeholder="Ingresa tu numero">
+        <input [(ngModel)]="formCustomer.celular" type="text" class="form-control" id="floatingInput"
+            placeholder="Numero" name="celular">
         <label for="floatingInput">Numero telefonico</label>
     </div>
     <div class="form-floating mb-3">
-        <input th:field="*{direccion}" type="text" class="form-control" id="direccion"
-            placeholder="Ingresa tu dirección">
+        <input [(ngModel)]="formCustomer.direccion" type="text" class="form-control" id="floatingInput"
+            placeholder="Dirección" name="direccion">
         <label for="floatingInput">Dirección</label>
     </div>
     <div class="form-floating mb-3">
-        <input th:field="*{fotoString}" type="text" class="form-control" id="floatingInput"
-            placeholder="Ingresa URL de la foto">
+        <input [(ngModel)]="formCustomer.fotoString" type="text" class="form-control" id="floatingInput"
+            placeholder="Ingresa URL de la foto" name="fotoString">
         <label for="floatingInput">Foto URL</label>
     </div>
     <br>

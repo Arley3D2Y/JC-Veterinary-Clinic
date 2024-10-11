@@ -3,7 +3,7 @@ import { EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 import { CommonModule } from '@angular/common';
-import { Customer } from '../../model/customer';
+import { Cliente } from '../../model/cliente';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -18,24 +18,22 @@ import { FormsModule } from '@angular/forms';
 })
 export class CustomerFormComponent {
   // Queremos que la mascota se transmita al componente padre a través de un evento
-  @Output() addCustomerEvent = new EventEmitter<Customer>();  // Usa EventEmitter de @angular/core
+  @Output() addCustomerEvent = new EventEmitter<Cliente>();  // Usa EventEmitter de @angular/core
 
-  @Input() customer!: Customer;  // Recibe el cliente desde el padre
+  @Input() customer!: Cliente;  // Recibe el cliente desde el padre
   @Input() operation!: string;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
-    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
-    if (this.operation === 'actualizar') {
+    if (this.operation === 'actualizar' && this.customer) {
       this.formCustomer = { ...this.customer};
     }
   }
 
-  formCustomer: Customer = {
+  formCustomer: Cliente = {
     id: 0,
     nombre: '',
     cedula: '',
@@ -48,7 +46,9 @@ export class CustomerFormComponent {
 
   pageBack() {
     if (this.operation === 'agregar') {
+      this.router.navigate(['/veterinario/clientes']);
     } else {
+      this.router.navigate(['/veterinario/detalles/cliente/', this.customer.id]);
     }
   }
 
