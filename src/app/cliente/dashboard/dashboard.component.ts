@@ -5,7 +5,7 @@ import { PetCardComponent } from '../pet-card/pet-card.component';
 import { PetListComponent } from '../pet-list/pet-list.component';
 import { CustomerService } from '../../services/customer.service';
 import { ActivatedRoute } from '@angular/router';
-import { Pet } from '../../model/pet';
+import { Mascota } from '../../model/mascota';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +16,8 @@ import { Pet } from '../../model/pet';
 })
 export class DashboardComponent implements OnInit {
   cliente: any;
-  mascotas: Pet[] = [];
-  mascotaSeleccionada!: Pet;
+  mascotas: Mascota[] = [];
+  mascotaSeleccionada!: Mascota;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Este método se ejecuta cuando una mascota es seleccionada en la lista
-  onMascotaSeleccionada(mascota: Pet) {
+  onMascotaSeleccionada(mascota: Mascota) {
     this.mascotaSeleccionada = mascota;
     console.log('Mascota seleccionada:', this.mascotaSeleccionada);
   }

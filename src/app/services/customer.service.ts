@@ -24,6 +24,11 @@ export class CustomerService {
     return this.http.get<Cliente>(`${this.baseUrl}/find/${id}`);
   }
 
+  findByCedula(document: string): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/clientes/search-by-document/${document}`);
+  }
+
+
   getCustomerByPetId(id: Number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.baseUrl}/search-by-pet/${id}`);
   }
