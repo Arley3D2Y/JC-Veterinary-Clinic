@@ -36,8 +36,9 @@
     </div>
 
     <div class="mn-center-row">
-        <button (click)="pageBack()"
-            class="btn btn-danger">Volver</button>
+        <button (click)="pageBack()" class="btn btn-danger">
+            Volver
+        </button>
         <button type="submit" [disabled]="!petForm.form.valid" class="btn btn-primary">{{ operation | titlecase}}</button>
     </div>
 

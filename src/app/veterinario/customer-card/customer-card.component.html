@@ -1,4 +1,4 @@
-<section *ngIf="customerSelected" class="card-info">
+<section *ngIf="customerSelected && customerSelected.id" class="card-info">
     <!-- Imagen de la mascota -->
     <img *ngIf="customerSelected.fotoString" [src]="customerSelected.fotoString" [alt]="'Foto de ' + customerSelected.nombre">
 
@@ -43,10 +43,10 @@
 </section>
 
 <h2>Mascotas</h2>
-<section class="card-items-info">
+<section class="card-items-info" *ngIf="customerSelected && customerSelected.id">
 
     <article class="panel-cards">
-        <div class="pet-card" *ngFor="let mascota of pets">
+        <div class="pet-card" *ngFor="let mascota of customerSelected?.mascotas">
             <a [routerLink]="['/veterinario/detalles/mascota', mascota.id]" title="Detalles">
                 <img [src]="mascota.fotoString" alt="Imagen de mascota">
                 <h3>{{mascota.nombre}}</h3>

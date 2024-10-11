@@ -1,0 +1,42 @@
+<div class="layout">
+  <nav>
+  <a [routerLink]="['/login']" routerLinkActive="active" title="Logout">
+    <img src="/images/logout.png" alt="logout" width="45px">
+  </a>
+</nav>
+
+<form>
+
+  <div class="foto-cliente">
+    <img [src]="cliente.fotoString" [alt]="'Foto de ' + cliente.nombre" with="100" height="auto">
+  </div>
+
+  <legend>Datos Personales</legend>
+
+  <label for="nombre">
+    <h3>Nombre</h3>
+    <p>{{ cliente.nombre }}</p>
+  </label>
+
+  <label for="cedula">
+    <h3>Cédula</h3>
+    <p>{{ cliente.cedula }}</p>
+  </label>
+
+  <label for="correo">
+    <h3>Correo</h3>
+    <p>{{ cliente.correo }}</p>
+  </label>
+
+  <label for="celular">
+    <h3>Celular</h3>
+    <p>{{ cliente.celular }}</p>
+  </label>
+
+  <label>
+    <h3>Dirección</h3>
+    <p>{{ cliente.direccion }}</p>
+  </label>
+
+</form>
+</div>

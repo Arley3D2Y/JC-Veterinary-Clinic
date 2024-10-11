@@ -63,11 +63,12 @@ p {
 
 /* Botones main */
 .btn {
-    width: 15%;
-    height: 40px;
+    width: 17%;
+    height: 50px;
     margin: 5% 2% 0% 2%;
     border-radius: 10px;
     padding: 4px 12px 7px 12px;
+    font-size: 1.6rem;
 }
 
 .btn-dark:hover {
@@ -78,14 +79,12 @@ p {
 .btn-danger {
     color: #fff;
     font-family: "Baloo 2", sans-serif;
-    font-size: 1.4rem;
     align-self: center;
 }
 
 .btn-success {
     color: #fff;
     font-family: "Baloo 2", sans-serif;
-    font-size: 1.4rem;
 }
 
 .fa-circle-plus {

@@ -1,45 +1,58 @@
 import { Component, Input } from '@angular/core';
-import { Pet } from '../../model/pet';
+import { Mascota } from '../../model/mascota';
 import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { CustomerService } from '../../services/customer.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-pet-card',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './pet-card.component.html',
   styleUrl: './pet-card.component.css'
 })
 export class PetCardComponent {
   @Input()
-  petSelected!: Pet;
+  petSelected!: Mascota;
+  isPetUpdated: Boolean = false;
   
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private petService: PetService,
-    private customerService: CustomerService
+    private location: Location,
   ) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
-      this.petSelected = this.petService.findById(id);
+      this.petService.findById(id).subscribe(pet => {
+        this.petSelected = pet;
+        this.petSelected.cliente = pet.cliente;
+      })
     });
   }
 
+  updatePet() {
+    this.isPetUpdated = true;
+    this.router.navigate(['/veterinario/actualizar/mascota', this.petSelected.id])
+  }
+
   // Función para eliminar una mascota
-  deletePet(mascota: Pet, duenhoId?: number) {
-    if (duenhoId !== undefined) {
-      this.customerService.removePetFromCustomer(duenhoId, mascota.id);
-      this.router.navigate(['veterinario/detalles-cliente', duenhoId]); // Redirigir al componente de detalles del cliente
-    }
-  }    
+  deletePet(id: Number) {
+    this.petService.deletePetById(id).subscribe(() => {
+      if (this.isPetUpdated === true) {
+        this.location.back();
+      } else if (this.isPetUpdated === false) {
+        this.router.navigate(['/veterinario/mascotas']);
+      }
+    })
+  }
 }

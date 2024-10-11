@@ -1,0 +1,32 @@
+
+<div class="info-pet">
+    <div class="img-pet">
+      <img [src]="mascotaSeleccionada?.fotoString || '/images/cat.png'" alt="Imagen de mascota" height="150" width="auto">
+    </div>
+
+    <div class="text-pet">
+      <form class="form-pet">
+        <label for="nombre">
+          <h3>Nombre</h3>
+          <p>{{ mascotaSeleccionada?.nombre || '-' }}</p>
+        </label>
+
+        <label for="sexo">
+          <h3>Sexo</h3>
+          <p>{{ mascotaSeleccionada?.sexo || '-' }}</p>
+        </label>
+
+        <label for="raza">
+          <h3>Raza</h3>
+          <p>{{ mascotaSeleccionada?.raza || '-' }}</p>
+        </label>
+
+        <label for="nacimiento">
+          <h3>Nacimiento</h3>
+          <p>{{ mascotaSeleccionada?.fechaNacimiento || '-' }}</p>
+        </label>
+
+      </form>
+    </div>
+  </div>
+  

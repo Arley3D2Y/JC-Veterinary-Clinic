@@ -13,7 +13,7 @@
         </div>
         <div class="celda">
             <h3 class="title-celda">Dueño</h3>
-            <p class="celda-info"> {{ petSelected.duenho?.nombre }}</p>
+            <p class="celda-info"> {{ petSelected.cliente?.nombre }}</p>
         </div>
         <div class="celda">
             <h3 class="title-celda">Sexo</h3>
@@ -33,11 +33,11 @@
         </div>
 
         <!-- botones -->
-        <button class="btn btn-success" [routerLink]="['/veterinario/actualizar/mascota', petSelected.id]">
+        <button class="btn btn-success" (click)="updatePet()">
             Modificar
         </button>
 
-        <button class="btn btn-danger" (click)="deletePet(petSelected, petSelected.duenho?.id)">
+        <button class="btn btn-danger" (click)="deletePet(petSelected.id)">
             Eliminar
         </button>
     </article>

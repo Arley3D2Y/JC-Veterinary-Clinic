@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Customer } from './../../model/customer';
+import { Cliente } from '../../model/cliente';
 import { CustomerService } from '../../services/customer.service';
 import { RouterLink } from '@angular/router';
-import { Pet } from '../../model/pet';
+import { Mascota } from '../../model/mascota';
 import { PetService } from '../../services/pet.service';
 
 @Component({
@@ -31,17 +31,29 @@ export class CardsTableComponent {
     // Se realiza llamados cuando ya se carga la interfaz
     ngOnInit(): void {
       if (this.typeObject === 'clientes') {
-        this.items = this.customerService.finAll();
+        this.customerService.finAll().subscribe(
+          (customersData) => {
+          this.items = customersData;
+        });
       } else if (this.typeObject === 'mascotas') {
-        this.items = this.petService.finAll();
+        this.petService.finAll().subscribe(
+          (mascotasData) => {
+          this.items = mascotasData;
+        });
       }
     }
     // Método genérico para eliminar el item (ya sea cliente o mascota)
     deleteItem(item: any) {
       if (this.typeObject === 'clientes') {
-        this.customerService.deleteCustomerById(item.id);
+        this.customerService.deleteCustomerById(item.id).subscribe(() => {
+          // Eliminar el elemento de la lista local
+          this.items = this.items.filter(i => i.id !== item.id);
+        });
       } else if (this.typeObject === 'mascotas') {
-        this.petService.deletePetById(item.id);
+        this.petService.deletePetById(item.id).subscribe(() => {
+          // Eliminar el elemento de la lista local
+          this.items = this.items.filter(i => i.id !== item.id);
+        });
       }
-    }  
+    }
 }

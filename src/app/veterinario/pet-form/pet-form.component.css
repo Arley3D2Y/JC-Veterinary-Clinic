@@ -1,7 +1,7 @@
 /* FORMULARIO */
 h1 {
     text-align: center;
-    font-size: 2rem;
+    font-size: 2.1rem;
     color: #5E548E;
     margin: 1.5%;
 }
@@ -10,17 +10,34 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: 18px;
     width: 100%;
     max-width: 400px;
-    margin: 0px;
-    padding: 20px 40px;
+    height: 90%;
+    margin-bottom: 30px;
+    padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
 }
 
+.form-floating label {
+    height: 20px;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    font-size: 20px;
+    height: auto; /* Para que el label se ajuste a su contenido */
+    padding: 0px 10px; /* Añade un pequeño padding para ajustar la posición */
+    display: flex;
+    align-items: flex-start; /* Asegura que el contenido se alinee hacia la parte superior */
+}
+
+.form-floating input {
+    font-size: 21px;
+}
+
 .btn {
+    margin: 0px;
     font-size: 20px;
     align-self: center;
 }

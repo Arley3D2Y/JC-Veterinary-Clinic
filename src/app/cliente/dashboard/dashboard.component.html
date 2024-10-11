@@ -1,1 +1,12 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+  <header class="datos_cliente">
+    <app-cliente-card [cliente]="cliente"></app-cliente-card>
+  </header>
+
+  <main class="main-mascotas">
+    <h1>Mascotas</h1>
+    <app-pet-list [mascotas]="mascotas" (mascotaSeleccionada)="onMascotaSeleccionada($event)"></app-pet-list>
+
+    <app-pet-card [mascotaSeleccionada]="mascotaSeleccionada"></app-pet-card>
+  </main>
+</div>

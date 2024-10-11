@@ -6,10 +6,11 @@ import { SharedHeaderComponent } from '../shared-header/shared-header.component'
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Pet } from '../../model/pet';
-import { Customer } from '../../model/customer';
+import { Mascota } from '../../model/mascota';
+import { Cliente } from '../../model/cliente';
 import { CustomerService } from '../../services/customer.service';
 import { PetService } from '../../services/pet.service';
+import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-entity-details',
@@ -24,8 +25,8 @@ import { PetService } from '../../services/pet.service';
 export class EntityDetailsComponent {
   typeEntity?: string;
   entityId!: number;
-  customer!: Customer;
-  pet!: Pet;
+  customer!: Cliente;
+  pet!: Mascota;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,10 +47,25 @@ export class EntityDetailsComponent {
   }
 
   loadCustomer(id: number): void {
-    this.customer = this.serviceCustomer.findById(id);
+    this.route.paramMap.subscribe(params => {
+      this.serviceCustomer.findById(id).pipe(
+        mergeMap(
+          (customerInfo) => {
+            this.customer = customerInfo;
+            return this.servicePet.getPetsByCustomerId(id);
+          }
+        )
+      ).subscribe(
+        (mascotasInfo) => {
+          this.customer.mascotas = mascotasInfo;
+        }
+      )
+    })
   }
 
   loadPet(id: number): void {
-    this.pet = this.servicePet.findById(id);
+    this.servicePet.findById(id).subscribe(pet => {
+      this.pet = pet;
+    })
   }
 }

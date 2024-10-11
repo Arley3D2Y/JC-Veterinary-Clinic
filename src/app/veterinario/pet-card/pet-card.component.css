@@ -72,19 +72,19 @@ p {
 
 /* Botones main */
 .btn {
-    width: 15%;
-    height: 40px;
+    width: 17%;
+    height: 50px;
     margin-top: 5%;
     margin-left: 2%;
     margin-right: 2%;
     border-radius: 10px;
     padding: 4px 12px 7px 12px;
+    font-size: 1.6rem;
 }
 
 .btn-dark {
     color: #fff;
     font-family: "Baloo 2", sans-serif;
-    font-size: 1.4rem;
     background-color: #9F86C0;
     border-color: #9F86C0;
 }
@@ -97,14 +97,12 @@ p {
 .btn-danger {
     color: #fff;
     font-family: "Baloo 2", sans-serif;
-    font-size: 1.4rem;
     align-self: center;
 }
 
 .btn-success {
     color: #fff;
     font-family: "Baloo 2", sans-serif;
-    font-size: 1.4rem;
 }
 
 .fa-circle-plus {
