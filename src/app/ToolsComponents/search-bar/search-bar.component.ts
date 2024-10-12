@@ -13,8 +13,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './search-bar.component.css'
 })
 export class SearchBarComponent {
-  @Input()
-  typeObject: String = "";
+  @Input() dynamicActionUrl: string = "";
+  @Input() typeObject: String = "";
 
   constructor() { }
 

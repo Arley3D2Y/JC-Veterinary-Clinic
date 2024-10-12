@@ -1,0 +1,16 @@
+<!-- HEADER -->
+<header>
+    <!-- Navbar -->
+    <div class="logout-layout">
+        <a type="button" (click)="logout()" title="Logout">
+            <img src="/images/logout.png" alt="logout" width="45px">
+        </a>
+    </div>
+    <nav>
+        <ul>
+            <li *ngFor="let link of navLinks">
+                <a [routerLink]="[link.path]" routerLinkActive="active">{{ link.label }}</a>
+            </li>
+        </ul>
+    </nav>
+</header>

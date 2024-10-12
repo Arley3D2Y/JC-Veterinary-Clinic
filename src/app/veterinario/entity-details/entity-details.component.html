@@ -1,5 +1,8 @@
-<app-shared-header></app-shared-header>
-
+<app-shared-header [navLinks]="[
+    { path: '/veterinario/tratamientos', label: 'Tratamientos' },
+    { path: '/veterinario/mascotas', label: 'Mascotas' },
+    { path: '/veterinario/clientes', label: 'Clientes' }
+]" [logoutRedirectUrl]="'/login'"></app-shared-header>
 <main>
   <ng-container *ngIf="typeEntity === 'cliente'">
     <app-customer-card [customerSelected]="customer"></app-customer-card>

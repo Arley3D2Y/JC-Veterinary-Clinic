@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 
-import { SharedHeaderComponent } from '../shared-header/shared-header.component';
+import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
 import { PetFormComponent } from '../pet-form/pet-form.component';
 import { CustomerFormComponent } from '../customer-form/customer-form.component';
 

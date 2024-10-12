@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Veterinario } from '../model/veterinario';
 
-import { Especialidad } from '../model/especialidad';
-import { Tratamiento } from '../model/tratamiento';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -41,6 +38,13 @@ export class VeterinaryService {
   findByCedula(cedula : string):Veterinario {
     const vet:Veterinario = this.veterinaryList.find(o => o.cedula === cedula)!;
     return vet;
+  }
+
+  deleteVetById(id : number): void {
+    const index = this.veterinaryList.findIndex(o => o.id === id);
+    if (index !== -1) {
+      this.veterinaryList.splice(index, 1);
+    }
   }
   
 }

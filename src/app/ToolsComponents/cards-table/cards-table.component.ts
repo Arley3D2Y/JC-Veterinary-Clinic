@@ -1,11 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Customer } from './../../model/customer';
-import { CustomerService } from '../../services/customer.service';
+import { CommonModule } from '@angular/common';import { CustomerService } from '../../services/customer.service';
 import { RouterLink } from '@angular/router';
-import { Pet } from '../../model/pet';
 import { PetService } from '../../services/pet.service';
-
+import { VeterinaryService } from '../../services/veterinary.service';
+import { DrogaService } from '../../services/droga.service';
 @Component({
   selector: 'app-cards-table',
   standalone: true,
@@ -19,12 +17,14 @@ export class CardsTableComponent {
     // Datos genéricos, pueden ser clientes o mascotas
     items: any[] = [];
     // Atributo que recibe el tipo de objeto (clientes o mascotas)
-    @Input() typeObject!: 'clientes' | 'mascotas'; 
+    @Input() typeObject!: 'clientes' | 'mascotas' | 'veterinarios'| 'drogas'| 'dashboard'; 
 
     // Inyectar dependencias
     constructor(
       private customerService: CustomerService,
-      private petService: PetService
+      private petService: PetService,
+      private vetService: VeterinaryService,
+      private drogaService:DrogaService 
     ) {
     }
 
@@ -35,6 +35,12 @@ export class CardsTableComponent {
       } else if (this.typeObject === 'mascotas') {
         this.items = this.petService.finAll();
       }
+      else if (this.typeObject === 'veterinarios') {
+        this.items = this.vetService.finAll();
+      }
+      else if (this.typeObject === 'drogas') {
+        this.items = this.drogaService.finAll();
+      }
     }
     // Método genérico para eliminar el item (ya sea cliente o mascota)
     deleteItem(item: any) {
@@ -42,6 +48,10 @@ export class CardsTableComponent {
         this.customerService.deleteCustomerById(item.id);
       } else if (this.typeObject === 'mascotas') {
         this.petService.deletePetById(item.id);
+      } else if (this.typeObject === 'veterinarios') {
+        this.vetService.deleteVetById(item.id);
+      } else if (this.typeObject === 'drogas') {
+        this.drogaService.deletePetById(item.id);
       }
     }  
 }

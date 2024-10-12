@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CustomerCardComponent } from '../customer-card/customer-card.component';
 import { PetCardComponent } from '../pet-card/pet-card.component';
 
-import { SharedHeaderComponent } from '../shared-header/shared-header.component';
+import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { SharedHeaderComponent } from '../shared-header/shared-header.component';
+import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
 
 @Component({
   selector: 'app-pet-form',

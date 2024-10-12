@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-
-import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { SharedHeaderComponent } from '../../veterinario/shared-header/shared-header.component';
-import { CardsTableComponent } from '../cards-table/cards-table.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SearchBarComponent } from '../../ToolsComponents/search-bar/search-bar.component';
+import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
+import { CardsTableComponent } from '../../ToolsComponents/cards-table/cards-table.component';
 
 @Component({
   selector: 'app-veterinario',
@@ -21,7 +20,9 @@ import { CardsTableComponent } from '../cards-table/cards-table.component';
 export class VeterinarioComponent {
   // Definimos una propiedad para manejar el tipo de objeto
   typeSection!: 'clientes' | 'mascotas';
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   // Puedes inicializar el tipo según lo que necesites o pasar dinámicamente al cargar
   setTypeObject(type: 'clientes' | 'mascotas') {

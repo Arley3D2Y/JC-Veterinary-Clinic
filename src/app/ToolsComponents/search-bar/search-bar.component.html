@@ -1,0 +1,29 @@
+<!-- SEARCH -->
+<section class="search">
+    <h1>Buscar {{ typeObject }}</h1>
+    <p> Buscardor de {{ typeObject }} usando el nombre. </p>
+
+    <!-- barra buscadora -->
+    <form [attr.action]="[dynamicActionUrl]" method="GET" class="searchBar">
+        <input type="text" id="search" name="search" placeholder="Buscar...">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+    <br>
+
+    <ng-container *ngIf="typeObject === 'clientes'|| typeObject === 'veterinario' ">
+        <P>O tambien...</P>
+        <ng-container *ngIf="typeObject === 'clientes'">
+            <button class="btn btn-dark-add" [routerLink]="['/veterinario/agregar/cliente']"
+                title='Agregar cliente'>Registar</button>
+        </ng-container>
+        <ng-container *ngIf="typeObject === 'veterinario'">
+            <button class="btn btn-dark-add" [routerLink]="['/veterinario/agregar/veterinario']"
+                title=' agregar veterinario'>Registar</button>
+        </ng-container>
+    </ng-container>
+
+    <a (click)="refresh()" title="Actualizar">
+        <img id="refresh" src="/images/arrows-rotate-solid.png" alt="logout" width="30px">
+    </a>
+
+</section>
