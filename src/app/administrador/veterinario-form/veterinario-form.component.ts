@@ -48,6 +48,6 @@ export class VeterinarioFormComponent {
   }
 
   saveVet(form: any) {
-    this.addVeterinarioEvent.emit(this.formVeterinario);
+    this.addVeterinarioEvent.emit(form);
   }
 }
