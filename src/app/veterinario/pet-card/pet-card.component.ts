@@ -5,13 +5,15 @@ import { ActivatedRoute } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { CustomerService } from '../../services/customer.service';
 import { CommonModule } from '@angular/common';
+import { PetTratamientoTableComponent } from '../pet-tratamiento-table/pet-tratamiento-table.component';
 
 @Component({
   selector: 'app-pet-card',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    PetTratamientoTableComponent
   ],
   templateUrl: './pet-card.component.html',
   styleUrl: './pet-card.component.css'

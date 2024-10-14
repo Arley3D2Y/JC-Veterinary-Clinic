@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pet } from '../model/pet';
+import { Tratamiento } from '../model/tratamiento';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { Pet } from '../model/pet';
 export class PetService {
 
   petList: Pet[] = [];
-
+  tratamientoList: Tratamiento[] = [];
   constructor(
 
   ) {
@@ -119,6 +120,9 @@ export class PetService {
     if (petIndex !== -1) {
       this.petList.splice(petIndex, 1); // Eliminar la mascota de la lista
     }
+  }
+  findTratamientosByPetId(petId: number): Tratamiento[] {
+    return this.tratamientoList.filter(tratamiento => tratamiento.mascota.id === petId);
   }
 
   async createPet(pet: Pet): Promise<Pet> {
