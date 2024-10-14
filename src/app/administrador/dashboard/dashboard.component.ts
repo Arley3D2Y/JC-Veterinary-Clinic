@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../services/dashboard.service';
-import { Pet } from '../../model/pet';
+import { Mascota } from '../../model/mascota';
 import { Cliente } from '../../model/cliente';
-import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +9,7 @@ import { Chart } from 'chart.js';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  mascotas: Pet[] = [];
+  mascotas: Mascota[] = [];
   clientes: Cliente[] = [];
   tratamientos: any[] = [];
   tratamientoMasComun: string = '';
@@ -38,7 +37,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  actualizarGraficoMascotas(mascotas: Pet[]): void {
+  actualizarGraficoMascotas(mascotas: Mascota[]): void {
     const tiposMascotas = mascotas.reduce((acc, mascota) => {
       acc[mascota.tipo] = (acc[mascota.tipo] || 0) + 1;
       return acc;
