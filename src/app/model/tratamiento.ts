@@ -1,5 +1,5 @@
+import { Droga } from "./droga";
 import { Mascota } from "./mascota";
-import { TratamientoDroga } from "./tratamientoDroga";
 import { Veterinario } from "./veterinario";
 
 
@@ -9,7 +9,8 @@ export interface Tratamiento {
     observaciones: string;
     fechaInicio: Date;
     fechaFin: Date;
-    veterinario: Veterinario;
-    tratamientoDroga: TratamientoDroga[];
+
+    droga: Droga;
     mascota: Mascota;
+    veterinario: Veterinario;
 }

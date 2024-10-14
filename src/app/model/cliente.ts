@@ -9,5 +9,5 @@ export interface Cliente {
     direccion: string;
     fotoString: string;
 
-    mascotas?: Mascota[ ];
+    mascotas?: Mascota[];
 }

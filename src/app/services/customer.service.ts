@@ -8,15 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class CustomerService {
 
-  private baseUrl = 'http://localhost:8091/veterinario/clientes'; // Definimos la URL base para facilitar
+  private baseUrl = 'http://localhost:8091/clientes'; // Definimos la URL base para facilitar
 
-  constructor(
-    private http: HttpClient,
-  ) {
+  constructor( private http: HttpClient ) { }
 
-  }
-
-  finAll(): Observable<Cliente[]> {
+  findAll(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(`${this.baseUrl}`);
   }
 
@@ -24,34 +20,24 @@ export class CustomerService {
     return this.http.get<Cliente>(`${this.baseUrl}/find/${id}`);
   }
 
-  findByCedula(document: string): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.baseUrl}/clientes/search-by-document/${document}`);
-  }
-
-
-  getCustomerByPetId(id: Number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.baseUrl}/search-by-pet/${id}`);
-  }
-
-  deleteCustomerById(id: Number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
-  }
-
-  createCustomer(customer: Cliente) {
+  addCustomer(customer: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(`${this.baseUrl}/add`, customer);
   }
 
-  updateCustomer(id: number, cliente: Cliente) {
+  updateCustomer(id: number, cliente: Cliente): Observable<Cliente> {
     return this.http.put<Cliente>(`${this.baseUrl}/update/${id}`, cliente);
   }
 
-  addPetToCustomer(customerId: number, petId: number): void {
-    this.http.post(`${this.baseUrl}/${customerId}/add-pet/${petId}`, {}).subscribe();
+  deleteCustomer(id: Number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
 
-  // Eliminar una mascota de la lista del cliente
-  removePetFromCustomer(customerId: number, petId: number): void {
-    this.http.delete(`${this.baseUrl}/${customerId}/remove-pet/${petId}`).subscribe();
+  searchByDocument(document: string): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/clientes/search-by-document/${document}`);
+  }
+
+  getCustomerByPetId(id: Number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/search-by-pet/${id}`);
   }
 
 }

@@ -33,17 +33,10 @@ export class EntityDetailsComponent {
 
   typeEntity?: string;
   entityId!: number;
-<<<<<<< HEAD:src/app/veterinario/entity-details/entity-details.component.ts
+  
   customer!: Cliente;
   pet!: Mascota;
-=======
-  
-  customer!: Customer;
-  
-  pet!: Pet;
-  
   vet!: Veterinario;
->>>>>>> FeaturesFrontend:src/app/ToolsComponents/entity-details/entity-details.component.ts
 
   constructor(
     private route: ActivatedRoute,
@@ -58,20 +51,17 @@ export class EntityDetailsComponent {
       this.typeEntity = data['type'];
       this.entityId = Number(this.route.snapshot.params['id']);
       if (this.typeEntity === 'cliente') {
-
+        this.loadCliente(this.entityId);
       } else if (this.typeEntity === 'mascota') {
-
+        this.loadMascota(this.entityId);
       } else if (this.typeEntity === 'veterinario') {
-        this.loadVeterinary(this.entityId);
-
+        this.loadVeterinario(this.entityId);
       }
     });
   }
 
-<<<<<<< HEAD:src/app/veterinario/entity-details/entity-details.component.ts
-  loadCustomer(id: number): void {
-    this.route.paramMap.subscribe(params => {
-      this.serviceCustomer.findById(id).pipe(
+  loadCliente(id: number): void {
+      this.serviceClient.findById(id).pipe(
         mergeMap(
           (customerInfo) => {
             this.customer = customerInfo;
@@ -83,23 +73,21 @@ export class EntityDetailsComponent {
           this.customer.mascotas = mascotasInfo;
         }
       )
-    })
-  }
+    }
 
-  loadPet(id: number): void {
-    this.servicePet.findById(id).subscribe(pet => {
-      this.pet = pet;
-    })
-=======
-  loadClient(id: number): void {
-  }
-
-  loadVeterinary(id: number): void {
-    this.serviceVet.findById(id).subscribe(
-      (data: Veterinario) => {
-        this.vet = data;
+  loadMascota(id: number): void {
+    this.servicePet.findById(id).subscribe(
+      (petInfo) => {
+        this.pet = petInfo;
       }
-    );
->>>>>>> FeaturesFrontend:src/app/ToolsComponents/entity-details/entity-details.component.ts
+    )
+  }
+
+  loadVeterinario(id: number): void {
+    this.serviceVet.findById(id).subscribe(
+      (vetInfo) => {
+        this.vet = vetInfo;
+      }
+    )
   }
 }

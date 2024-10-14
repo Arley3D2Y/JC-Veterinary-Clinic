@@ -26,6 +26,11 @@ export const routes: Routes = [
     { path: 'veterinario/agregar/mascota/cliente/:id', component: FormHandlerComponent },
     { path: 'veterinario/actualizar/mascota/:id', component: FormHandlerComponent },
 
+    { path: 'veterinario/tratamientos', component: VeterinarioComponent, data: { type: 'tratamientos' } },
+    { path: 'veterinario/detalles/tratamiento/:id', component: EntityDetailsComponent, data: { type: 'tratamiento' } },
+    { path: 'veterinario/agregar/tratamiento/mascota/:id', component: FormHandlerComponent },
+    { path: 'veterinario/actualizar/tratamiento/:id', component: FormHandlerComponent },
+
     { path: 'administrador/veterinario', component: AdministradorComponent, data: { type: 'veterinarios' } },
     { path: 'administrador/medicamentos', component: AdministradorComponent, data: { type: 'medicamentos' } },
     { path: 'administrador/dashboard', component: AdministradorComponent, data: { type: 'dashboard' } },

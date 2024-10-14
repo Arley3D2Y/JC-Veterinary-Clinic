@@ -3,14 +3,8 @@ import { Mascota } from '../../model/mascota';
 import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PetService } from '../../services/pet.service';
-import { CustomerService } from '../../services/customer.service';
-<<<<<<< HEAD
 import { CommonModule, Location } from '@angular/common';
-import { mergeMap } from 'rxjs';
-=======
-import { CommonModule } from '@angular/common';
 import { PetTratamientoTableComponent } from '../pet-tratamiento-table/pet-tratamiento-table.component';
->>>>>>> FeaturesFrontend
 
 @Component({
   selector: 'app-pet-card',
@@ -18,10 +12,7 @@ import { PetTratamientoTableComponent } from '../pet-tratamiento-table/pet-trata
   imports: [
     CommonModule,
     RouterLink,
-<<<<<<< HEAD
-=======
     PetTratamientoTableComponent
->>>>>>> FeaturesFrontend
   ],
   templateUrl: './pet-card.component.html',
   styleUrl: './pet-card.component.css'
@@ -56,7 +47,7 @@ export class PetCardComponent {
 
   // Función para eliminar una mascota
   deletePet(id: Number) {
-    this.petService.deletePetById(id).subscribe(() => {
+    this.petService.deleteMascota(id).subscribe(() => {
       if (this.isPetUpdated === true) {
         this.location.back();
       } else if (this.isPetUpdated === false) {

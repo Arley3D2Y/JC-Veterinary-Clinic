@@ -31,17 +31,11 @@ export class FormHandlerComponent {
   typeEntity!: string;
   typeOperation!: string;
   entityId!: number;
+  mostrarForm: boolean = false;
 
-<<<<<<< HEAD:src/app/veterinario/form-handler/form-handler.component.ts
   petSelected!: Mascota;
   customerSelected!: Cliente;
-
-  mostrarForm: boolean = false;
-=======
-  petSelected!: Pet;
-  customerSelected!: Customer;
   veterinarySelected!: Veterinario;
->>>>>>> FeaturesFrontend:src/app/ToolsComponents/form-handler/form-handler.component.ts
 
   constructor(
     private router: Router,
@@ -58,134 +52,85 @@ export class FormHandlerComponent {
   }
 
   ngOnInit() {
-<<<<<<< HEAD:src/app/veterinario/form-handler/form-handler.component.ts
-    // Mostrar formulario inmediatamente si es una operación de "agregar"
-    if (this.typeOperation === 'agregar') {
-      if (this.typeEntity === 'mascota') {
-        this.route.paramMap.subscribe(params => {
-          this.serviceCustomer.findById(this.entityId).subscribe(customer => {
-            this.customerSelected = customer;
-          })
-        })
-      }
-      this.mostrarForm = true;
-    } else if (this.typeOperation === 'actualizar') {
-      // Si es una actualización, cargar la entidad primero
-      if (this.typeEntity === 'cliente') {
-        this.serviceCustomer.findById(this.entityId).subscribe(customer => {
-          this.customerSelected = customer;
-          this.mostrarForm = true;  // Mostrar formulario después de cargar cliente
-        });
-      } else if (this.typeEntity === 'mascota') {
-        this.servicePet.findById(this.entityId).subscribe(pet => {
-          if (pet.cliente) {
-            this.customerSelected = pet.cliente;
-          }
-          this.petSelected = pet;
-          this.mostrarForm = true;  // Mostrar formulario después de cargar mascota
-        });
-      }
-    }
-  }
-
-  // Método para guardar entidad
-  saveEntity(entity: Mascota | Cliente) {
-=======
     this.searchEntity();
   }
 
   searchEntity() {
     if (this.typeEntity === 'cliente') {
       if (this.typeOperation === 'actualizar') {
-        this.customerSelected = this.serviceClient.findById(this.entityId);
+        this.serviceClient.findById(this.entityId).subscribe(customerInfo => {
+          this.customerSelected = customerInfo;
+        })
       }
     } else if (this.typeEntity === 'mascota') {
       if (this.typeOperation === 'agregar') {
-        this.petSelected = this.servicePet.findById(this.entityId); // Se obtiene el cliente asociado a la mascota
+        this.serviceClient.findById(this.entityId).subscribe(customerInfo => {
+          this.customerSelected = customerInfo;
+        });
       } else if (this.typeOperation === 'actualizar') {
-        this.petSelected = this.servicePet.findById(this.entityId);
-        this.customerSelected = this.serviceClient.findById(this.petSelected.duenho!.id);
+        this.servicePet.findById(this.entityId).subscribe(petInfo => {
+          this.petSelected = petInfo;
+        })
+        this.serviceClient.findById(this.petSelected.cliente!.id).subscribe(customerInfo => {
+          this.customerSelected = customerInfo;
+        })
       }
     } else if (this.typeEntity === 'veterinario') {
       if (this.typeOperation === 'actualizar') {
-        this.serviceVet.findById(this.entityId);
+        this.serviceVet.findById(this.entityId).subscribe(vetInfo => {
+          this.veterinarySelected = vetInfo;
+        })
       }
     }
   }
   // Método para guardar entidad
-  saveEntity(entity: Pet | Customer | Veterinario) {
->>>>>>> FeaturesFrontend:src/app/ToolsComponents/form-handler/form-handler.component.ts
+  saveEntity(entity: Mascota | Cliente | Veterinario) {
     if (this.typeEntity === 'cliente') {
       this.saveCustomer(entity as Cliente);
     } else if (this.typeEntity === 'mascota') {
-<<<<<<< HEAD:src/app/veterinario/form-handler/form-handler.component.ts
       this.savePet(entity as Mascota);
-=======
-      this.savePet(entity as Pet);
     } else if (this.typeEntity === 'veterinario') {
       this.saveVet(entity as Veterinario);
->>>>>>> FeaturesFrontend:src/app/ToolsComponents/form-handler/form-handler.component.ts
     }
   }
 
   saveCustomer(customer: Cliente) {
     if (this.typeOperation === 'agregar') {
-<<<<<<< HEAD:src/app/veterinario/form-handler/form-handler.component.ts
-      this.serviceCustomer.createCustomer(customer).subscribe(newCustomer => {
-        this.router.navigate(['veterinario/detalles/cliente', newCustomer.id]);
+      this.serviceClient.addCustomer(customer).subscribe(newClient => {
+        this.router.navigate(['veterinario/detalles/cliente', newClient.id]);
       });
     } else if (this.typeOperation === 'actualizar') {
-      this.serviceCustomer.updateCustomer(this.customerSelected.id, customer).subscribe(() => {
-=======
-      this.serviceClient.createCustomer(customer).then(() => {
-        this.router.navigate(['veterinario/detalles/cliente', customer.id]);
-      });
-    } else if (this.typeOperation === 'actualizar') {
-      this.serviceClient.updateCustomer(this.customerSelected.id, customer).then(() => {
-        this.router.navigate(['veterinario/detalles/cliente', customer.id]);
+      this.serviceClient.updateCustomer(this.customerSelected.id, customer).subscribe(updateClient => {
+        this.router.navigate(['veterinario/detalles/cliente', updateClient.id]);
       });
     }
-  }
-
-  savePet(pet: Pet) {
-    if (this.typeOperation === 'agregar') {
-      this.servicePet.createPet(pet).then((newPet) => {
-        this.serviceClient.addPetToCustomer(this.customerSelected.id, newPet.id);
->>>>>>> FeaturesFrontend:src/app/ToolsComponents/form-handler/form-handler.component.ts
-        this.router.navigate(['veterinario/detalles/cliente', this.customerSelected.id]);
-      });
-    }
+    
   }
 
   savePet(pet: Mascota) {
     if (this.typeOperation === 'agregar') {
-      this.servicePet.createPet(pet, this.customerSelected.id).subscribe(newPet => {
+      this.servicePet.addMascota(this.customerSelected.id, pet).subscribe(newPet => {
         this.router.navigate(['veterinario/detalles/mascota', newPet.id]);
       });
     } else if (this.typeOperation === 'actualizar') {
-      this.servicePet.updatePet(this.petSelected.id, pet).subscribe(() => {
-        this.router.navigate(['veterinario/detalles/mascota', this.petSelected.id]);
+      this.servicePet.updatePet(this.petSelected.id, pet).subscribe(updatePet => {
+        this.router.navigate(['veterinario/detalles/mascota', updatePet.id]);
       });
     }
   }
-<<<<<<< HEAD:src/app/veterinario/form-handler/form-handler.component.ts
-=======
 
   saveVet(vet: Veterinario) {
     if (this.typeOperation === 'agregar') {
-      this.serviceVet.addveterinario(vet).subscribe(
-        (newPet => {
-          this.router.navigate(['administrador/detalles/veterinario', newPet.id]);
-        })
+      this.serviceVet.addveterinario(vet).subscribe(newVet => {
+          this.router.navigate(['administrador/detalles/veterinario', newVet.id]);
+        }
       );
     } else if (this.typeOperation === 'actualizar') {
-      this.serviceVet.updateveterinario(this.veterinarySelected.id, vet).subscribe(
-        (updateVet => {
+      this.serviceVet.updateveterinario(this.veterinarySelected.id, vet).subscribe(updateVet => {
           this.router.navigate(['administrador/detalles/veterinario', updateVet.id]);
-        })
+        }
       );
     }
   }
 
->>>>>>> FeaturesFrontend:src/app/ToolsComponents/form-handler/form-handler.component.ts
 }

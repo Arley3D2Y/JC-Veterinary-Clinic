@@ -30,7 +30,9 @@ export class DashboardComponent implements OnInit {
       
       // Usa el servicio para buscar al cliente
       if (cedula) {
-        this.cliente = this.clienteService.findByCedula(cedula);
+        this.clienteService.searchByDocument(cedula).subscribe(cliente => {
+          this.cliente = cliente;
+        })
         
         if (this.cliente) {
           // Obtén las mascotas del cliente

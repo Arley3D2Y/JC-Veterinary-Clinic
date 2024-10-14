@@ -8,13 +8,11 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 })
 export class PetService {
 
-  private baseUrl = 'http://localhost:8091/veterinario/mascotas'; // Definimos la URL base para facilitar
+  private baseUrl = 'http://localhost:8091/mascotas'; // Definimos la URL base para facilitar
 
-  constructor(
-    private http: HttpClient,
-  ) {  }
+  constructor( private http: HttpClient ) {  }
 
-  finAll(): Observable<Mascota[]> {
+  findAll(): Observable<Mascota[]> {
     return this.http.get<Mascota[]>(`${this.baseUrl}`);
   }
 
@@ -22,19 +20,23 @@ export class PetService {
     return this.http.get<Mascota>(`${this.baseUrl}/find/${id}`);
   }
 
-  deletePetById(id: Number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  addMascota(customerId: Number, pet: Mascota): Observable<Mascota> {
+    return this.http.post<Mascota>(`${this.baseUrl}/add/cliente-id/${customerId}`, pet);
   }
-
-  createPet(pet: Mascota, customerId: Number) {
-    return this.http.post<Mascota>(`${this.baseUrl}/add/cliente/${customerId}`, pet);
-  }
-
-  updatePet(id: number, mascota: Mascota) {
+  
+  updatePet(id: number, mascota: Mascota): Observable<Mascota> {
     return this.http.put<Mascota>(`${this.baseUrl}/update/${id}`, mascota);
   }
 
+  deleteMascota(id: Number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
+
   getPetsByCustomerId(id: Number): Observable<Mascota[]> {
-    return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-client/${id}`);
+    return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-client_id/${id}`);
+  }
+
+  searhcByPetName(name: String): Observable<Mascota[]> {
+    return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 }

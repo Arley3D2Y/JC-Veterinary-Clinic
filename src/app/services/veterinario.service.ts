@@ -10,10 +10,10 @@ export class VeterinarioService {
 
   private baseUrl = 'http://localhost:8091/veterinarios';
 
-  constructor(private http: HttpClient) { }
+  constructor( private http: HttpClient ) { }
 
   // Obtener todos los veterinarios
-  finAll(): Observable<Veterinario[]> {
+  findAll(): Observable<Veterinario[]> {
     return this.http.get<Veterinario[]>(`${this.baseUrl}`);
   }
 
@@ -43,13 +43,13 @@ export class VeterinarioService {
   }
 
   // Buscar veterinarios por cedula
-  searchByDocument(docuemnt: string): Observable<Veterinario[]> {
-    return this.http.get<Veterinario[]>(`${this.baseUrl}/search-by-document/${docuemnt}`);
+  searchByDocument(docuemnt: string): Observable<Veterinario> {
+    return this.http.get<Veterinario>(`${this.baseUrl}/search-by-document/${docuemnt}`);
   }
 
   // Obtener veterinario por correo
   searchbyEmail(email: string): Observable<Veterinario> {
-    return this.http.get<Veterinario>(`${this.baseUrl}/find-by-email/${email}`);
+    return this.http.get<Veterinario>(`${this.baseUrl}/search-by-email/${email}`);
   }
 
 }

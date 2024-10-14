@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ActivatedRoute,Router } from '@angular/router';
 
-import { Customer } from '../../model/customer';
 import { VeterinarioService } from '../../services/veterinario.service';
 import { Veterinario } from '../../model/veterinario';
 @Component({
@@ -22,7 +21,6 @@ export class VeterinarioCardComponent {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private vetService: VeterinarioService
   ) {
   }

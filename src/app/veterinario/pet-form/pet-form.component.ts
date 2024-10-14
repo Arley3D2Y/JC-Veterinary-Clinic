@@ -43,12 +43,14 @@ export class PetFormComponent {
   formPet: Mascota = {
     id: 0,
     nombre: '',
+    edad: '',
+    peso: '',
+    estado: '',
+    enfermedad: '',
     sexo: '',
     raza: '',
-    fechaNacimiento: '',
     fotoString: '',
-    tratamientos: [],
-    cliente: undefined
+    cliente: this.customer
   }
 
   pageBack() {

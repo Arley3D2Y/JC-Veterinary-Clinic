@@ -1,73 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Droga } from '../model/droga';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DrogaService {
 
-  constructor() { }
+  private baseUrl = 'http://localhost:8091/drogas';
 
-  drogasList: any[] = [
-    {
-      id: 1,
-      nombre: "acetaminofen",
-      precioCompra: 200,
-      precioVenta: 150,
-      unidadesDisponibles: 20,
-      UnidadesVendidas: 100,
-      tratamientoDroga: [] as any[]
-    },
-    {
-      id: 2,
-      nombre: "ibuprofeno",
-      precioCompra: 200,
-      precioVenta: 150,
-      unidadesDisponibles: 20,
-      UnidadesVendidas: 100,
-      tratamientoDroga: [] as any[]
-    },
-    {
-      id: 3,
-      nombre: "paracetamol",
-      precioCompra: 200,
-      precioVenta: 150,
-      unidadesDisponibles: 20,
-      UnidadesVendidas: 100,
-      tratamientoDroga: [] as any[]
-    },
-    {
-      id: 4,
-      nombre: "amoxicilina",
-      precioCompra: 200,
-      precioVenta: 150,
-      unidadesDisponibles: 20,
-      UnidadesVendidas: 100,
-      tratamientoDroga: [] as any[]
-    }
-  ];
+  constructor( private http: HttpClient ) { }
 
-  finAll() {
-    return this.drogasList;
+  findAll(): Observable<Droga[]> {
+    return this.http.get<Droga[]>(this.baseUrl);
   }
 
-  finById(id: number): Droga {
-    const drug: Droga = this.drogasList.find(droga => droga.id === id)!;
-    return drug;
+  finById(id: number): Observable<Droga> {
+    return this.http.get<Droga>(`${this.baseUrl}/find/${id}`);
   }
 
-  deletePetById(id: number): void {
-    const index = this.drogasList.findIndex(droga => droga.id === id);
-    if (index !== -1) {
-      this.drogasList.splice(index, 1);
-    }
+  addDroga(drug: Droga): Observable<Droga> {
+    return this.http.post<Droga>(`${this.baseUrl}/add`, drug);
   }
 
-  async updateDrug(id: number, drug: Droga): Promise<void> {
-    const index = this.drogasList.findIndex(droga => droga.id === id);
-    if (index !== -1) {
-      this.drogasList[index] = {...this.drogasList[index], ...drug};
-    }
+  updateDroga(id: number, drug: Droga): Observable<Droga> {
+    return this.http.put<Droga>(`${this.baseUrl}/update/${id}`, drug);
   }
+
+  deleteDroga(id: number) {
+    this.http.delete<void>(`${this.baseUrl}/delete/${id}`).subscribe();
+  }
+
+  searchByName(name: String): Observable<Droga[]> {
+    return this.http.get<Droga[]>(`${this.baseUrl}/search-by-name/${name}`);
+  }
+
 
 }

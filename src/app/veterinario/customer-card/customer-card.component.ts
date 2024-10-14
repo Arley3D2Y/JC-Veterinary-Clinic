@@ -51,7 +51,7 @@ export class CustomerCardComponent {
 
   // Función para eliminar una mascota
   deleteCustomer(id: number) {
-    this.customerService.deleteCustomerById(id).subscribe(() => {
+    this.customerService.deleteCustomer(id).subscribe(() => {
       this.router.navigate(['veterinario/clientes']); // Redirigir al componente de detalles del cliente
     })
   }

@@ -3,8 +3,14 @@ import { CommonModule } from '@angular/common'; import { CustomerService } from 
 import { RouterLink } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { VeterinarioService } from '../../services/veterinario.service';
-import { DrogaService } from '../../services/droga.service';
+
 import { Veterinario } from '../../model/veterinario';
+import { Droga } from '../../model/droga';
+import { Mascota } from '../../model/mascota';
+import { Cliente } from '../../model/cliente';
+import { TratamientoService } from '../../services/tratamiento.service';
+import { Tratamiento } from '../../model/tratamiento';
+
 @Component({
   selector: 'app-cards-table',
   standalone: true,
@@ -18,7 +24,7 @@ export class CardsTableComponent {
   // Datos genéricos, pueden ser clientes o mascotas
   items: any[] = [];
   // Atributo que recibe el tipo de objeto (clientes o mascotas)
-  @Input() typeObject!: 'clientes' | 'mascotas' | 'veterinarios' | 'drogas' | 'dashboard';
+  @Input() typeObject!: 'clientes' | 'mascotas' | 'veterinarios' | 'drogas' | 'tratamientos';
   @Input() dynamicActionUrl: string = "";
 
   // Inyectar dependencias
@@ -26,7 +32,7 @@ export class CardsTableComponent {
     private customerService: CustomerService,
     private petService: PetService,
     private vetService: VeterinarioService,
-    private drogaService: DrogaService
+    private tratamientoService: TratamientoService
   ) {
   }
 
@@ -34,44 +40,66 @@ export class CardsTableComponent {
   ngOnInit(): void {
     if (this.typeObject === 'clientes') {
       this.dynamicActionUrl = '/veterinario/detalles/';
-      this.items = this.customerService.finAll();
-
+      this.loadClientes();
 
     } else if (this.typeObject === 'mascotas') {
       this.dynamicActionUrl = '/veterinario/detalles/';
-      this.items = this.petService.finAll();
-
+      this.loadMascotas();
 
     } else if (this.typeObject === 'veterinarios') {
       this.dynamicActionUrl = '/administrador/detalles/';
       this.loadVeterinarios();
 
-    } else if (this.typeObject === 'drogas') {
-      this.dynamicActionUrl = '/administrador/detalles/';
-      this.items = this.drogaService.finAll();
-
+    } else if (this.typeObject === 'tratamientos') {
+      this.dynamicActionUrl = '/veterinario/detalles/';
+      this.loadTratamientos();
 
     }
   }
   // Método genérico para eliminar el item (ya sea cliente o mascota)
   deleteItem(item: any) {
     if (this.typeObject === 'clientes') {
-      this.customerService.deleteCustomerById(item.id);
+      this.customerService.deleteCustomer(item.id);
     } else if (this.typeObject === 'mascotas') {
-      this.petService.deletePetById(item.id);
+      this.petService.deleteMascota(item.id);
     } else if (this.typeObject === 'veterinarios') {
       this.vetService.deleteVeterinario(item.id);
     } else if (this.typeObject === 'drogas') {
-      this.drogaService.deletePetById(item.id);
+      this.tratamientoService.deleteTratamiento(item.id);
     }
   }
 
 
   loadVeterinarios(): void {
-    this.vetService.finAll().subscribe(
+    this.vetService.findAll().subscribe(
       (data: Veterinario[]) => {
         this.items = data;
       }
     );
   }
+
+  loadTratamientos(): void {
+    this.tratamientoService.findAll().subscribe(
+      (data: Tratamiento[]) => {
+        this.items = data;
+      }
+    );
+  }
+
+  loadMascotas(): void {
+    this.petService.findAll().subscribe(
+      (data: Mascota[]) => {
+        this.items = data;
+      }
+    );
+  }
+
+  loadClientes(): void {
+    this.customerService.findAll().subscribe(
+      (data: Cliente[]) => {
+        this.items = data;
+      }
+    );
+  }
+
 }

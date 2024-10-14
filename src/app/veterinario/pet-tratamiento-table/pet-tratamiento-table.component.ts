@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Pet } from '../../model/pet';
+import { Mascota } from '../../model/mascota';
 import { PetService } from '../../services/pet.service';
 import { CommonModule } from '@angular/common';
 import { Tratamiento } from '../../model/tratamiento';
@@ -15,7 +15,7 @@ import { Tratamiento } from '../../model/tratamiento';
 })
 export class PetTratamientoTableComponent {
 
-  @Input() petSelected!: Pet; 
+  @Input() petSelected!: Mascota; 
   tratamientos: Tratamiento[] = []; 
 
   constructor(private petService: PetService) {}
@@ -23,7 +23,6 @@ export class PetTratamientoTableComponent {
   ngOnInit(): void {
     if (this.petSelected) {
     
-      this.tratamientos = this.petService.findTratamientosByPetId(this.petSelected.id);
     }
   }
 

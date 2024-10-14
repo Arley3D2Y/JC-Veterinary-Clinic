@@ -1,42 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Administrador } from '../model/administrador';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdministradorService {
 
-  constructor() { }
+  private baseUrl = 'http://localhost:8091/administradores';
 
-  administradors: Administrador[] = [
-    {
-      id: 1,
-      usuario: 'admin',
-      password: '102938'
-    },
-    {
-      id: 2,
-      usuario: 'admin2',
-      password: '019283'
-    },
-    {
-      id: 3,
-      usuario: 'admin3',
-      password: '678534'
-    }
-  ];
+  constructor( private http: HttpClient ) { }
 
-  finAll() {
-    return this.administradors;
+  findAll(): Observable<Administrador[]> {
+    return this.http.get<Administrador[]>(`${this.baseUrl}`);
   }
 
-  findById(id: number): Administrador {
-    const admin: Administrador = this.administradors.find(o => o.id === id)!;
-    return admin;
+  findById(id: number): Observable<Administrador> {
+    return this.http.get<Administrador>(`${this.baseUrl}/find/${id}`);
   }
 
-  findByUser(user: string): Administrador {
-    const admin: Administrador = this.administradors.find(o => o.usuario === user)!;
-    return admin;
+  seachByUser(user: string): Observable<Administrador> {
+    return this.http.get<Administrador>(`${this.baseUrl}/find-by-user/${user}`);
   }
 }

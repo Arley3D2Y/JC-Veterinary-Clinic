@@ -1,36 +1,55 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../../services/dashboard.service';
+import { CommonModule } from '@angular/common';
+
+import { DrogaService } from '../../services/droga.service';
+import { CustomerService } from '../../services/customer.service';
+import { TratamientoService } from '../../services/tratamiento.service';
+import { PetService } from '../../services/pet.service';
+
 import { Mascota } from '../../model/mascota';
 import { Cliente } from '../../model/cliente';
+import { Tratamiento } from '../../model/tratamiento';
+
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
+  imports: [
+    CommonModule,
+  ],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'] // Corrección aquí
 })
 export class DashboardComponent implements OnInit {
   mascotas: Mascota[] = [];
   clientes: Cliente[] = [];
-  tratamientos: any[] = [];
+  tratamientos: Tratamiento[] = [];
+  
   tratamientoMasComun: string = '';
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private drogaService: DrogaService,
+    private clienteService: CustomerService,
+    private tratamientoService: TratamientoService,
+    private petService: PetService
+  ) {}
 
   ngOnInit(): void {
     // Cargar los datos de mascotas
-    this.dashboardService.getMascotas().subscribe(mascotas => {
+    this.petService.findAll().subscribe(mascotas => {
       this.mascotas = mascotas;
       this.actualizarGraficoMascotas(mascotas);
     });
 
     // Cargar los datos de clientes
-    this.dashboardService.getClientes().subscribe(clientes => {
+    this.clienteService.findAll().subscribe(clientes => {
       this.clientes = clientes;
       this.actualizarGraficoClientes(clientes);
     });
 
     // Cargar los datos de tratamientos
-    this.dashboardService.getTratamientos().subscribe(tratamientos => {
+    this.tratamientoService.findAll().subscribe(tratamientos => {
       this.tratamientos = tratamientos;
       this.tratamientoMasComun = this.obtenerTratamientoMasComun(tratamientos);
       this.actualizarGraficoTratamientos(tratamientos);
@@ -38,10 +57,10 @@ export class DashboardComponent implements OnInit {
   }
 
   actualizarGraficoMascotas(mascotas: Mascota[]): void {
-    const tiposMascotas = mascotas.reduce((acc, mascota) => {
-      acc[mascota.tipo] = (acc[mascota.tipo] || 0) + 1;
+    const tiposMascotas = mascotas.reduce((acc: Map<string, number>, mascota) => {
+      acc.set(mascota.enfermedad, (acc.get(mascota.enfermedad) || 0) + 1);
       return acc;
-    }, {});
+    }, new Map());
 
     const mascotasData = {
       labels: Object.keys(tiposMascotas),
@@ -62,7 +81,9 @@ export class DashboardComponent implements OnInit {
     const clientesData = {
       labels: clientes.map(cliente => cliente.nombre),
       datasets: [{
-        data: clientes.map(cliente => cliente.frecuenciaVisitas),
+        data: clientes.map(cliente => 
+          cliente.mascotas ? cliente.mascotas.length : 0
+      ),
         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
       }]
     };
