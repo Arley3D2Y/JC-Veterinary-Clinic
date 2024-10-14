@@ -119,3 +119,13 @@ p {
     font-size: 3.5rem;
     margin-left: 20%;
 }
+
+.pet-tr-table {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 40px;
+    margin: 0px;
+}
