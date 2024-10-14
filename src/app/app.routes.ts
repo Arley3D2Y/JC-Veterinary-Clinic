@@ -5,8 +5,9 @@ import { LoginComponent } from './login/login/login.component';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { DashboardComponent } from './cliente/dashboard/dashboard.component';
 import { VeterinarioComponent } from './veterinario/veterinario/veterinario.component';
-import { EntityDetailsComponent } from './veterinario/entity-details/entity-details.component';
-import { FormHandlerComponent } from './veterinario/form-handler/form-handler.component';
+import { EntityDetailsComponent } from './ToolsComponents/entity-details/entity-details.component';
+import { FormHandlerComponent } from './ToolsComponents/form-handler/form-handler.component';
+import { AdministradorComponent } from './administrador/administrador/administrador.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirección a home
@@ -24,6 +25,14 @@ export const routes: Routes = [
     { path: 'veterinario/detalles/mascota/:id', component: EntityDetailsComponent, data: { type: 'mascota' } },
     { path: 'veterinario/agregar/mascota/cliente/:id', component: FormHandlerComponent },
     { path: 'veterinario/actualizar/mascota/:id', component: FormHandlerComponent },
+
+    { path: 'administrador/veterinario', component: AdministradorComponent, data: { type: 'veterinarios' } },
+    { path: 'administrador/medicamentos', component: AdministradorComponent, data: { type: 'medicamentos' } },
+    { path: 'administrador/dashboard', component: AdministradorComponent, data: { type: 'dashboard' } },
+    { path: 'administrador/detalles/veterinario/:id', component: EntityDetailsComponent, data: { type: 'veterinario' } },
+    { path: 'administrador/agregar/veterinario', component: FormHandlerComponent },
+    { path: 'administrador/actualizar/veterinario/:id', component: FormHandlerComponent },
+    
 
     { path: 'page-not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/page-not-found' }, // Redirección en caso de ruta no encontrada

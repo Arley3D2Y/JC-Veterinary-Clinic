@@ -1,7 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CustomerService } from '../../services/customer.service';
+
 import { CommonModule } from '@angular/common';
 import { Cliente } from '../../model/cliente';
 import { FormsModule } from '@angular/forms';

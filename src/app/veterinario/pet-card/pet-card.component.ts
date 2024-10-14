@@ -4,8 +4,13 @@ import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { CustomerService } from '../../services/customer.service';
+<<<<<<< HEAD
 import { CommonModule, Location } from '@angular/common';
 import { mergeMap } from 'rxjs';
+=======
+import { CommonModule } from '@angular/common';
+import { PetTratamientoTableComponent } from '../pet-tratamiento-table/pet-tratamiento-table.component';
+>>>>>>> FeaturesFrontend
 
 @Component({
   selector: 'app-pet-card',
@@ -13,6 +18,10 @@ import { mergeMap } from 'rxjs';
   imports: [
     CommonModule,
     RouterLink,
+<<<<<<< HEAD
+=======
+    PetTratamientoTableComponent
+>>>>>>> FeaturesFrontend
   ],
   templateUrl: './pet-card.component.html',
   styleUrl: './pet-card.component.css'

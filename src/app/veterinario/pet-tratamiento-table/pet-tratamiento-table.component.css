@@ -1,0 +1,24 @@
+h1  , h2{
+    width: 100%;
+    text-align: center;
+    font-size: 2.7rem;
+    color: #231942;
+    font-weight: bold;
+}
+
+h3 {
+    text-align: start;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #5E548E;
+}
+
+p {
+    text-align: center;
+    font-family: "Baloo 2", sans-serif;
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #726f6f;
+}

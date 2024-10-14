@@ -1,0 +1,9 @@
+<app-shared-header [navLinks]="[
+    { path: '/administrador/medicamentos', label: 'Medicamentos' },
+    { path: '/administrador/veterinario', label: 'Veterinario' },
+    { path: '/adfinistrador/dashboard', label: 'Dashboard' }
+]" [logoutRedirectUrl]="'/login'"></app-shared-header>
+<main>
+    <app-search-bar [typeObject]="typeSection" [dynamicActionUrl]="'/administrador/clientes/buscar'"></app-search-bar>
+    <app-cards-table [typeObject]="typeSection"></app-cards-table>
+</main>

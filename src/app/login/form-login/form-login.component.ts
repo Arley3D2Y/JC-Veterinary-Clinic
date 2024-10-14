@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 import { LoginOptionsComponent } from '../login-options/login-options.component';
-import { VeterinaryService } from '../../services/veterinary.service';
+import { VeterinarioService } from '../../services/veterinario.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -31,7 +31,7 @@ export class FormLoginComponent {
 
   constructor(
     private router: Router,
-    private vetService: VeterinaryService, // Inyectar el servicio
+    private vetService: VeterinarioService, // Inyectar el servicio
     private route: ActivatedRoute
   ) {
     
@@ -59,12 +59,18 @@ export class FormLoginComponent {
     if (this.typeUser === 'cliente') {
       this.router.navigate(['cliente/dashboard', this.formCliente.cedula]); // Redirige a la página del cliente
     } else if (this.typeUser === 'veterinario') {
-      const veterinario = this.vetService.findByCorreo(this.formVeterinario.correo);
-
-      if (veterinario.password === this.formVeterinario.password) {
-        this.router.navigate(['veterinario/clientes']);
-      }
+      this.vetService.searchbyEmail(this.formVeterinario.correo).subscribe(
+        (veterinario) => {
+          if (veterinario) {
+            if (veterinario.password === this.formVeterinario.password) {
+              this.router.navigate(['veterinario/clientes']);
+            } else {
+              alert('Contraseña incorrecta');
+            }
+          } else {
+            alert('Veterinario no encontrado');
+          }
+        })
     }
   }
-
 }

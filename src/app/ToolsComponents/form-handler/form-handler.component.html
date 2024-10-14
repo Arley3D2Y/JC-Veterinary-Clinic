@@ -1,0 +1,36 @@
+<!-- Header -->
+<ng-container *ngIf="typeEntity === 'mascota' || typeEntity === 'cliente' ">
+    <app-shared-header [navLinks]="[
+      { path: '/veterinario/tratamientos', label: 'Tratamientos' },
+      { path: '/veterinario/mascotas', label: 'Mascotas' },
+      { path: '/veterinario/clientes', label: 'Clientes' }
+  ]" [logoutRedirectUrl]="'/login'"></app-shared-header>
+</ng-container>
+<ng-container *ngIf="typeEntity === 'veterinario' || typeEntity === 'medicamento' ">
+    <app-shared-header [navLinks]="[
+      { path: '/administrador/medicamento', label: 'Medicamentos' },
+      { path: '/administrador/veterinario', label: 'Veterinario' },
+      { path: '/administrador/dashboard', label:'Dashboard' }
+  ]" [logoutRedirectUrl]="'/login'"></app-shared-header>
+</ng-container>
+
+<!-- main  -->
+<main>
+    <ng-container *ngIf="typeEntity === 'mascota'">
+        <app-pet-form [customer]="customerSelected" [petUpdated]="petSelected" [operation]="typeOperation"
+            (addPetEvent)="saveEntity($event)">
+        </app-pet-form>
+    </ng-container>
+
+    <ng-container *ngIf="typeEntity === 'cliente'">
+        <app-customer-form [customer]="customerSelected" [operation]="typeOperation"
+            (addCustomerEvent)="saveEntity($event)">
+        </app-customer-form>
+    </ng-container>
+
+    <ng-container *ngIf="typeEntity === 'veterinario'">
+        <app-veterinario-form [veterinary]="veterinarySelected" [operation]="typeOperation"
+            (addVeterinarioEvent)="saveEntity($event)">
+        </app-veterinario-form>
+    </ng-container>
+</main>

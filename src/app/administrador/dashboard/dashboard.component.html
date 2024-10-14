@@ -1,0 +1,68 @@
+<div class="container">
+    <header>
+      <h1>Dashboard Administrador - Veterinaria</h1>
+    </header>
+  
+    <div class="dashboard-grid">
+      <!-- Sección Mascotas -->
+      <div class="dashboard-item">
+        <h2>Mascotas</h2>
+        <ul>
+          <li>Total de mascotas: <strong>{{ mascotas.length }}</strong></li>
+          <li>Mascota más reciente: <strong>{{ mascotas[0]?.nombre }} ({{ mascotas[0]?.tipo }})</strong></li>
+        </ul>
+        <div class="chart-container">
+          <canvas id="mascotasChart"></canvas>
+        </div>
+      </div>
+  
+      <!-- Sección Clientes -->
+      <div class="dashboard-item">
+        <h2>Clientes</h2>
+        <ul>
+          <li>Total de clientes: <strong>{{ clientes.length }}</strong></li>
+          <li>Cliente más frecuente: <strong>{{ clientes[0]?.nombre }}</strong></li>
+        </ul>
+        <div class="chart-container">
+          <canvas id="clientesChart"></canvas>
+        </div>
+      </div>
+  
+      <!-- Sección Tratamientos -->
+      <div class="dashboard-item">
+        <h2>Tratamientos</h2>
+        <ul>
+          <li>Tratamientos activos: <strong>{{ tratamientos.length }}</strong></li>
+          <li>Tratamiento más común: <strong>{{ tratamientoMasComun }}</strong></li>
+        </ul>
+        <div class="chart-container">
+          <canvas id="tratamientosChart"></canvas>
+        </div>
+      </div>
+  
+      <!-- Sección Veterinarios -->
+      <div class="dashboard-item">
+        <h2>Veterinarios</h2>
+        <ul>
+          <li>Total de veterinarios: <strong>{{ veterinarios.length }}</strong></li>
+          <li>Veterinario más activo: <strong>{{ veterinarios[0]?.nombre }}</strong></li>
+        </ul>
+        <div class="chart-container">
+          <canvas id="veterinariosChart"></canvas>
+        </div>
+      </div>
+  
+      <!-- Sección Drogas -->
+      <div class="dashboard-item">
+        <h2>Drogas</h2>
+        <ul>
+          <li>Total de drogas: <strong>{{ drogas.length }}</strong></li>
+          <li>Droga más recetada: <strong>{{ drogas[0]?.nombre }}</strong></li>
+        </ul>
+        <div class="chart-container">
+          <canvas id="drogasChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  

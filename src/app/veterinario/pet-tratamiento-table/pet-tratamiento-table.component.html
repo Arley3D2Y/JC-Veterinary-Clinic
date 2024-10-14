@@ -1,0 +1,33 @@
+<section *ngIf="tratamientos.length > 0">
+    <h2>Tratamientos de {{ petSelected.nombre }}</h2>
+    
+    <!-- Tabla de tratamientos -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th>Veterinario</th>
+            <th>Observaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tratamiento of tratamientos">
+            <td>{{ tratamiento.descripcion }}</td>
+            <td>{{ tratamiento.fechaInicio | date }}</td>
+            <td>{{ tratamiento.fechaFin | date }}</td>
+            <td>{{ tratamiento.veterinario.nombre }}</td>
+            <td>{{ tratamiento.observaciones }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      
+  </section>
+  
+  <!-- Si no hay tratamientos -->
+  <section *ngIf="tratamientos.length === 0">
+    <p>No hay tratamientos para esta mascota.</p>
+  </section>
+  
