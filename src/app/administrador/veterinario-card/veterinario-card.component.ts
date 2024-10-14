@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ActivatedRoute,Router } from '@angular/router';
 
 import { Customer } from '../../model/customer';
-import { VeterinaryService } from '../../services/veterinary.service';
+import { VeterinarioService } from '../../services/veterinario.service';
 import { Veterinario } from '../../model/veterinario';
 @Component({
   selector: 'app-veterinario-card',
@@ -23,7 +23,7 @@ export class VeterinarioCardComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private vetService: VeterinaryService
+    private vetService: VeterinarioService
   ) {
   }
 
@@ -36,7 +36,7 @@ export class VeterinarioCardComponent {
 
   // Función para eliminar una mascota
   deleteVet(id: number) {
-    this.vetService.deleteVetById(id);
+    this.vetService.deleteVeterinario(id);
     this.router.navigate(['administrador/veterinario']); // Redirigir al componente de detalles del cliente
   }
 

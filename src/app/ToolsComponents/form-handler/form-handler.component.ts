@@ -12,7 +12,7 @@ import { Pet } from '../../model/pet';
 import { Customer } from '../../model/customer';
 import { PetService } from '../../services/pet.service';
 import { CustomerService } from '../../services/customer.service';
-import { VeterinaryService } from '../../services/veterinary.service';
+import { VeterinarioService } from '../../services/veterinario.service';
 import { Veterinario } from '../../model/veterinario';
 
 @Component({
@@ -41,8 +41,8 @@ export class FormHandlerComponent {
     private router: Router,
     private route: ActivatedRoute,
     private servicePet: PetService,
-    private serviceCustomer: CustomerService,
-    private serviceVet: VeterinaryService
+    private serviceClient: CustomerService,
+    private serviceVet: VeterinarioService
   ) {
     this.route.url.subscribe(url => {
       this.typeEntity = url[2].path;
@@ -58,18 +58,18 @@ export class FormHandlerComponent {
   searchEntity() {
     if (this.typeEntity === 'cliente') {
       if (this.typeOperation === 'actualizar') {
-        this.customerSelected = this.serviceCustomer.findById(this.entityId);
+        this.customerSelected = this.serviceClient.findById(this.entityId);
       }
     } else if (this.typeEntity === 'mascota') {
       if (this.typeOperation === 'agregar') {
         this.petSelected = this.servicePet.findById(this.entityId); // Se obtiene el cliente asociado a la mascota
       } else if (this.typeOperation === 'actualizar') {
         this.petSelected = this.servicePet.findById(this.entityId);
-        this.customerSelected = this.serviceCustomer.findById(this.petSelected.duenho!.id);
+        this.customerSelected = this.serviceClient.findById(this.petSelected.duenho!.id);
       }
     } else if (this.typeEntity === 'veterinario') {
       if (this.typeOperation === 'actualizar') {
-        this.veterinarySelected = this.serviceVet.findById(this.entityId);
+        this.serviceVet.findById(this.entityId);
       }
     }
   }
@@ -86,11 +86,11 @@ export class FormHandlerComponent {
 
   saveCustomer(customer: Customer) {
     if (this.typeOperation === 'agregar') {
-      this.serviceCustomer.createCustomer(customer).then(() => {
+      this.serviceClient.createCustomer(customer).then(() => {
         this.router.navigate(['veterinario/detalles/cliente', customer.id]);
       });
     } else if (this.typeOperation === 'actualizar') {
-      this.serviceCustomer.updateCustomer(this.customerSelected.id, customer).then(() => {
+      this.serviceClient.updateCustomer(this.customerSelected.id, customer).then(() => {
         this.router.navigate(['veterinario/detalles/cliente', customer.id]);
       });
     }
@@ -99,7 +99,7 @@ export class FormHandlerComponent {
   savePet(pet: Pet) {
     if (this.typeOperation === 'agregar') {
       this.servicePet.createPet(pet).then((newPet) => {
-        this.serviceCustomer.addPetToCustomer(this.customerSelected.id, newPet.id);
+        this.serviceClient.addPetToCustomer(this.customerSelected.id, newPet.id);
         this.router.navigate(['veterinario/detalles/cliente', this.customerSelected.id]);
       });
     } else if (this.typeOperation === 'actualizar') {
@@ -111,13 +111,17 @@ export class FormHandlerComponent {
 
   saveVet(vet: Veterinario) {
     if (this.typeOperation === 'agregar') {
-      this.serviceVet.createVet(vet).then(() => {
-        this.router.navigate(['administrador//detalles/veterinario', vet.id]);
-      });
+      this.serviceVet.addveterinario(vet).subscribe(
+        (newPet => {
+          this.router.navigate(['administrador/detalles/veterinario', newPet.id]);
+        })
+      );
     } else if (this.typeOperation === 'actualizar') {
-      this.serviceVet.updateVet(this.veterinarySelected.id, vet).then(() => {
-        this.router.navigate(['administrador/detalles/veterinario', vet.id]);
-      });
+      this.serviceVet.updateveterinario(this.veterinarySelected.id, vet).subscribe(
+        (updateVet => {
+          this.router.navigate(['administrador/detalles/veterinario', updateVet.id]);
+        })
+      );
     }
   }
 
