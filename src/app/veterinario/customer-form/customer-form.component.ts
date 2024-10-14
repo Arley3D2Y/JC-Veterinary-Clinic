@@ -1,7 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CustomerService } from '../../services/customer.service';
+
 import { CommonModule } from '@angular/common';
 import { Customer } from '../../model/customer';
 import { FormsModule } from '@angular/forms';
@@ -24,9 +23,6 @@ export class CustomerFormComponent {
   @Input() operation!: string;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {

@@ -15,7 +15,7 @@ export class VeterinaryService {
       cedula: '11223344',
       correo: 'dc@m.com',
       password: '1234',
-      fotoString: 'https://img.a.transfermarkt.technology/portrait/big/94540-1636851420.jpg?lm=1',
+      fotoString: 'https://png.pngtree.com/png-vector/20230928/ourmid/pngtree-young-afro-professional-doctor-png-image_10148632.png',
       especialidades: 'Neurolocat, Scicent' as any,
       tratamietos: [] as any[],
     },
@@ -47,4 +47,14 @@ export class VeterinaryService {
     }
   }
   
+  async createVet(vet: Veterinario):Promise<void> {
+    this.veterinaryList.push(vet);
+  }
+
+  async updateVet(id: number, vet: Veterinario): Promise<void> {
+    const index = this.veterinaryList.findIndex(o => o.id === id);
+    if (index !== -1) {
+      this.veterinaryList[index] = vet;
+    }
+  }
 }

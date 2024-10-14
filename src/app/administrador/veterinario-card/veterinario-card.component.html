@@ -1,0 +1,42 @@
+<section *ngIf="veterinarySelected" class="card-info">
+    <!-- Imagen de la mascota -->
+    <img *ngIf="veterinarySelected.fotoString" [src]="veterinarySelected.fotoString"
+        [alt]="'Foto de ' + veterinarySelected.nombre">
+
+    <article class="box-info">
+        <!-- Título -->
+        <h1>Información de {{ veterinarySelected.nombre }}</h1>
+        <!-- Información -->
+        <div class="celda">
+            <h3 class="title-celda">Nombre</h3>
+            <p class="celda-info">{{ veterinarySelected.nombre }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Cédula</h3>
+            <p class="celda-info">{{ veterinarySelected.cedula }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Correo</h3>
+            <p class="celda-info">{{ veterinarySelected.correo }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Especialidades</h3>
+            <p class="celda-info">{{ veterinarySelected.especialidades }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">ID</h3>
+            <p class="celda-info">{{ veterinarySelected.id }}</p>
+        </div>
+        <!-- Botones -->
+        <div class="btns">
+            <button class="btn btn-success"
+                [routerLink]="['/administrador/actualizar/veterinario', veterinarySelected.id]">
+                Actualizar
+            </button>
+
+            <button class="btn btn-danger" (click)="deleteVet(veterinarySelected.id)">
+                Eliminar
+            </button>
+        </div>
+    </article>
+</section>

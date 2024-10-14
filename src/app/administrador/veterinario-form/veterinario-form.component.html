@@ -1,0 +1,41 @@
+<h1>{{ operation | titlecase }} Cliente</h1>
+<!-- Formulario -->
+<form #vetForm="ngForm" (ngSubmit)="saveVet(vetForm)">
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="veterinary.nombre" name="nombre" required type="text" class="form-control"
+            id="floatingInput" placeholder="Ingresa tu nombre">
+        <label for="floatingInput">Nombre</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="veterinary.cedula" name="cedula" required type="text" class="form-control" id="cedula"
+            placeholder="Ingresa tu cédula">
+        <label for="cedula">Cédula</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="veterinary.correo" name="correo" required type="email" class="form-control" id="correo"
+            placeholder="Ingresa tu correo">
+        <label for="correo">Email</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="veterinary.celular" name="celular" required type="text" class="form-control" id="celular"
+            placeholder="Ingresa tu número">
+        <label for="celular">Número telefónico</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="veterinary.fotoString" name="fotoString" type="text" class="form-control" id="fotoString"
+            placeholder="Ingresa URL de la foto">
+        <label for="fotoString">Foto URL</label>
+    </div>
+    <br>
+
+    <div class="mn-center-row">
+        <button (click)="pageBack()" class="btn btn-danger">Volver</button>
+        <button type="submit" [disabled]="!vetForm.form.valid" class="btn btn-primary">{{ operation |
+            titlecase}}</button>
+    </div>
+
+</form>

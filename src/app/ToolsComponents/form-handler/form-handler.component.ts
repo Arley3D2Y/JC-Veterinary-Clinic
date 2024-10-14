@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
 
-import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
-import { PetFormComponent } from '../pet-form/pet-form.component';
-import { CustomerFormComponent } from '../customer-form/customer-form.component';
+import { SharedHeaderComponent } from '../shared-header/shared-header.component';
+import { PetFormComponent } from '../../veterinario/pet-form/pet-form.component';
+import { CustomerFormComponent } from '../../veterinario/customer-form/customer-form.component';
+import { VeterinarioFormComponent } from '../../administrador/veterinario-form/veterinario-form.component';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,6 +12,8 @@ import { Pet } from '../../model/pet';
 import { Customer } from '../../model/customer';
 import { PetService } from '../../services/pet.service';
 import { CustomerService } from '../../services/customer.service';
+import { VeterinaryService } from '../../services/veterinary.service';
+import { Veterinario } from '../../model/veterinario';
 
 @Component({
   selector: 'app-form-handler',
@@ -20,23 +23,26 @@ import { CustomerService } from '../../services/customer.service';
     SharedHeaderComponent,
     PetFormComponent,
     CustomerFormComponent,
+    VeterinarioFormComponent
   ],
   templateUrl: './form-handler.component.html',
   styleUrl: './form-handler.component.css'
 })
 export class FormHandlerComponent {
-  typeEntity!: string;  // Tipo de entidad (cliente o mascota)
-  typeOperation!: string; // Tipo de operación (crear o actualizar)
-  entityId!: number;     // ID de la entidad (cliente o mascota)
+  typeEntity!: string;
+  typeOperation!: string;
+  entityId!: number;
 
   petSelected!: Pet;
   customerSelected!: Customer;
+  veterinarySelected!: Veterinario;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private servicePet: PetService,
-    private serviceCustomer: CustomerService
+    private serviceCustomer: CustomerService,
+    private serviceVet: VeterinaryService
   ) {
     this.route.url.subscribe(url => {
       this.typeEntity = url[2].path;
@@ -56,21 +62,25 @@ export class FormHandlerComponent {
       }
     } else if (this.typeEntity === 'mascota') {
       if (this.typeOperation === 'agregar') {
-        this.customerSelected = this.serviceCustomer.findById(this.entityId); // Se obtiene el cliente asociado a la mascota
+        this.petSelected = this.servicePet.findById(this.entityId); // Se obtiene el cliente asociado a la mascota
       } else if (this.typeOperation === 'actualizar') {
         this.petSelected = this.servicePet.findById(this.entityId);
         this.customerSelected = this.serviceCustomer.findById(this.petSelected.duenho!.id);
       }
+    } else if (this.typeEntity === 'veterinario') {
+      if (this.typeOperation === 'actualizar') {
+        this.veterinarySelected = this.serviceVet.findById(this.entityId);
+      }
     }
   }
-
-
   // Método para guardar entidad
-  saveEntity(entity: Pet | Customer) {
+  saveEntity(entity: Pet | Customer | Veterinario) {
     if (this.typeEntity === 'cliente') {
       this.saveCustomer(entity as Customer);
     } else if (this.typeEntity === 'mascota') {
       this.savePet(entity as Pet);
+    } else if (this.typeEntity === 'veterinario') {
+      this.saveVet(entity as Veterinario);
     }
   }
 
@@ -95,6 +105,18 @@ export class FormHandlerComponent {
     } else if (this.typeOperation === 'actualizar') {
       this.servicePet.updatePet(this.petSelected.id, pet).then(() => {
         this.router.navigate(['veterinario/detalles/mascota', this.petSelected.id]);
+      });
+    }
+  }
+
+  saveVet(vet: Veterinario) {
+    if (this.typeOperation === 'agregar') {
+      this.serviceVet.createVet(vet).then(() => {
+        this.router.navigate(['administrador//detalles/veterinario', vet.id]);
+      });
+    } else if (this.typeOperation === 'actualizar') {
+      this.serviceVet.updateVet(this.veterinarySelected.id, vet).then(() => {
+        this.router.navigate(['administrador/detalles/veterinario', vet.id]);
       });
     }
   }

@@ -5,9 +5,10 @@
             <h2>{{ item.nombre }}</h2>
             <p *ngIf="typeObject === 'clientes'">CC: {{ item.cedula }}</p>
             <p *ngIf="typeObject === 'mascotas'">Raza: {{ item.raza }}</p>
+            <p *ngIf="typeObject === 'veterinarios'">Especialidad: {{ item.especialidades }}</p>
         </div>
         <div class="info">
-            <a [routerLink]="'/veterinario/detalles/' + typeObject.slice(0, -1) + '/' + item.id" title="Detalles">
+            <a [routerLink]=" dynamicActionUrl + typeObject.slice(0, -1) + '/' + item.id" title="Detalles">
                 <button class="btn btn-dark">
                     <i class="fa-solid fa-circle-info"></i>
                 </button>

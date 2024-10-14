@@ -1,0 +1,29 @@
+<ng-container *ngIf="typeEntity === 'mascota' || typeEntity === 'cliente' ">
+  <app-shared-header [navLinks]="[
+    { path: '/veterinario/tratamientos', label: 'Tratamientos' },
+    { path: '/veterinario/mascotas', label: 'Mascotas' },
+    { path: '/veterinario/clientes', label: 'Clientes' }
+]" [logoutRedirectUrl]="'/login'"></app-shared-header>
+</ng-container>
+
+<ng-container *ngIf="typeEntity === 'veterinario' ">
+  <app-shared-header [navLinks]="[
+    { path: '/administrador/medicamento', label: 'Medicamentos' },
+    { path: '/administrador/veterinario', label: 'Veterinario' },
+    { path: '/administrador/dashboard', label:'Dashboard' }
+]" [logoutRedirectUrl]="'/login'"></app-shared-header>
+</ng-container>
+
+<main>
+  <ng-container *ngIf="typeEntity === 'cliente'">
+    <app-customer-card [customerSelected]="customer"></app-customer-card>
+  </ng-container>
+
+  <ng-container *ngIf="typeEntity === 'mascota'">
+    <app-pet-card [petSelected]="pet"></app-pet-card>
+  </ng-container>
+
+  <ng-container *ngIf="typeEntity === 'veterinario'">
+    <app-veterinario-card [veterinarySelected]="vet"></app-veterinario-card>
+  </ng-container>
+</main>

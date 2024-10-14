@@ -5,8 +5,8 @@ import { LoginComponent } from './login/login/login.component';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { DashboardComponent } from './cliente/dashboard/dashboard.component';
 import { VeterinarioComponent } from './veterinario/veterinario/veterinario.component';
-import { EntityDetailsComponent } from './veterinario/entity-details/entity-details.component';
-import { FormHandlerComponent } from './veterinario/form-handler/form-handler.component';
+import { EntityDetailsComponent } from './ToolsComponents/entity-details/entity-details.component';
+import { FormHandlerComponent } from './ToolsComponents/form-handler/form-handler.component';
 import { AdministradorComponent } from './administrador/administrador/administrador.component';
 
 export const routes: Routes = [
