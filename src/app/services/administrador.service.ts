@@ -20,7 +20,7 @@ export class AdministradorService {
     return this.http.get<Administrador>(`${this.baseUrl}/find/${id}`);
   }
 
-  seachByUser(user: string): Observable<Administrador> {
-    return this.http.get<Administrador>(`${this.baseUrl}/find-by-user/${user}`);
+  seachByUser(usuario: string): Observable<Administrador> {
+    return this.http.get<Administrador>(`${this.baseUrl}/find/search-by-username/${usuario}`);
   }
 }

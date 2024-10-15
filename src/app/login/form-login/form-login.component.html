@@ -1,38 +1,59 @@
 <form #formGroup="ngForm" (ngSubmit)="onSubmit()">
     <img src="../images/avatar.png" alt="foto" width="85" height="85">
 
-    <ng-container *ngIf="typeUser === 'cliente'">
-        <div class="form-group">
-            <input type="text" id="txtCedula" class="form-input" name="cedula" [(ngModel)]="formCliente.cedula" required />
-            <label for="txtCedula" class="form-label">Ingrese su cédula</label>
-        </div>
+    <!-- Login de Usuario -->
+    <ng-container *ngIf="userType === null">
+        <ng-container *ngIf="typeUser === 'cliente'">
+            <div class="form-group">
+                <input type="text" id="txtCedula" class="form-input" name="cedula" [(ngModel)]="formCliente.cedula"
+                    required />
+                <label for="txtCedula" class="form-label">Ingrese su cédula</label>
+            </div>
 
-        <div class="form-group">
+            <div class="form-group">
 
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="typeUser === 'veterinario'">
+            <div class="form-group">
+                <input type="text" id="txtCorreo" class="form-input" name="correo" [(ngModel)]="formVeterinario.correo"
+                    required />
+                <label for="txtCorreo" class="form-label">Correo de usuario</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="txtPassword" class="form-input" name="password"
+                    [(ngModel)]="formVeterinario.password" required />
+                <label for="txtPassword" class="form-label">Contraseña</label>
+            </div>
+        </ng-container>
+
+        <div id="other-login">
+            <ng-container *ngIf="typeUser === 'cliente'">
+                <a type="button" (click)="changeUserType('veterinario')">Ingresar como veterinario</a>
+            </ng-container>
+
+            <ng-container *ngIf="typeUser === 'veterinario'">
+                <a type="button" (click)="changeUserType('cliente')">Ingresar como cliente</a>
+            </ng-container>
         </div>
     </ng-container>
- 
-    <ng-container *ngIf="typeUser === 'veterinario'">
+
+    <!-- login de administrador -->
+    <ng-container *ngIf="typeUser === 'administrador'">
         <div class="form-group">
-            <input type="text" id="txtCorreo" class="form-input" name="correo" [(ngModel)]="formVeterinario.correo" required />
-            <label for="txtCorreo" class="form-label">Correo de usuario</label>
+            <input type="text" id="txtUsuario" class="form-input" name="usuario" [(ngModel)]="formAdmin.usuario"
+                required />
+            <label for="txtUsuario" class="form-label">Usuario</label>
         </div>
 
         <div class="form-group">
-            <input type="password" id="txtPassword" class="form-input" name="password" [(ngModel)]="formVeterinario.password" required />
+            <input type="password" id="txtPassword" class="form-input" name="password" [(ngModel)]="formAdmin.password"
+                required />
             <label for="txtPassword" class="form-label">Contraseña</label>
         </div>
     </ng-container>
-
-    <div id="other-login">
-        <ng-container *ngIf="typeUser === 'cliente'">
-            <a type="button" (click)="changeUserType('veterinario')">Ingresar como veterinario</a>
-        </ng-container>
-    
-        <ng-container *ngIf="typeUser === 'veterinario'">
-            <a type="button" (click)="changeUserType('cliente')">Ingresar como cliente</a>
-        </ng-container>
-    </div>
 
     <app-login-options></app-login-options>
 

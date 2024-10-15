@@ -13,14 +13,15 @@ export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirección a home
     { path: 'home', component: WelcomePageComponent }, // Ruta para la landing page
     { path: 'login', component: LoginComponent }, // Login usuario
+    { path: 'login/administrador', component: LoginComponent, data: { type: 'administrador' } }, 
 
-    { path: 'cliente/dashboard/:cedula', component: DashboardComponent, data: { type: 'cliente' }}, // Ruta para el dashboard del cliente
+    { path: 'cliente/dashboard/:cedula', component: DashboardComponent, data: { type: 'cliente' } }, // Ruta para el dashboard del cliente
     // Clientes
     { path: 'veterinario/clientes', component: VeterinarioComponent, data: { type: 'clientes' } },
     { path: 'veterinario/detalles/cliente/:id', component: EntityDetailsComponent, data: { type: 'cliente' } },
     { path: 'veterinario/agregar/cliente', component: FormHandlerComponent },
     { path: 'veterinario/actualizar/cliente/:id', component: FormHandlerComponent },
-    
+
     { path: 'veterinario/mascotas', component: VeterinarioComponent, data: { type: 'mascotas' } },
     { path: 'veterinario/detalles/mascota/:id', component: EntityDetailsComponent, data: { type: 'mascota' } },
     { path: 'veterinario/agregar/mascota/cliente/:id', component: FormHandlerComponent },
@@ -37,7 +38,7 @@ export const routes: Routes = [
     { path: 'administrador/detalles/veterinario/:id', component: EntityDetailsComponent, data: { type: 'veterinario' } },
     { path: 'administrador/agregar/veterinario', component: FormHandlerComponent },
     { path: 'administrador/actualizar/veterinario/:id', component: FormHandlerComponent },
-    
+
 
     { path: 'page-not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/page-not-found' }, // Redirección en caso de ruta no encontrada
