@@ -5,7 +5,7 @@
 
   <main class="main-mascotas">
     <h1>Mascotas</h1>
-    <app-pet-list [mascotas]="mascotas" (mascotaSeleccionada)="onMascotaSeleccionada($event)"></app-pet-list>
+    <app-pet-list [mascotas]="cliente.mascotas ?? []" (mascotaSeleccionada)="onMascotaSeleccionada($event)"></app-pet-list>
 
     <app-pet-card [mascotaSeleccionada]="mascotaSeleccionada"></app-pet-card>
   </main>

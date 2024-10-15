@@ -10,7 +10,7 @@ export interface Tratamiento {
     fechaInicio: Date;
     fechaFin: Date;
 
-    droga: Droga;
-    mascota: Mascota;
-    veterinario: Veterinario;
+    droga?: Droga;
+    mascota?: Mascota;
+    veterinario?: Veterinario;
 }

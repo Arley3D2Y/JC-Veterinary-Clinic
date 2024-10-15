@@ -1,0 +1,37 @@
+<h1>{{ operation | titlecase }} tratamiento para {{ pet.nombre }}</h1>
+
+<!-- Formulario -->
+<form #petForm="ngForm" (ngSubmit)="savePet(petForm)">
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="formTreatment.descripcion" type="text" class="form-control" id="floatingInput"
+            placeholder="Nombre" name="nombre">
+        <label for="nombre">Descripcion</label>
+    </div>
+
+    <br>
+    <div class="form-floating mb-3">
+        <input [(ngModel)]="formTreatment.observaciones" type="text" class="form-control" id="floatingInput"
+            placeholder="Raza" name="raza">
+        <label for="floatingInput">Observaciones</label>
+    </div>
+
+    <div class="form-floating mb-3" *ngIf="formTreatment.veterinario">
+        <input [(ngModel)]="formTreatment.veterinario.nombre" type="date" class="form-control" id="floatingInput"
+            placeholder="Enfermedad" name="fechaNacimiento">
+        <label for="floatingInput">Veterinario</label>
+    </div>
+
+    <div class="form-floating mb-3" *ngIf="formTreatment.droga">
+        <input [(ngModel)]="formTreatment.droga.nombre" type="text" class="form-control" id="floatingInput"
+            placeholder="Ingresa URL de la foto" name="fotoString">
+        <label for="floatingInput">Droga</label>
+    </div>
+
+    <div class="mn-center-row">
+        <button (click)="pageBack()" class="btn btn-danger">
+            Volver
+        </button>
+        <button type="submit" [disabled]="!petForm.form.valid" class="btn btn-primary">{{ operation | titlecase}}</button>
+    </div>
+
+</form>

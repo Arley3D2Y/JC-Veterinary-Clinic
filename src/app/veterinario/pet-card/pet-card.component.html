@@ -44,6 +44,4 @@
 
 </section>
 
-<section class="pet-tr-table">
-    <app-pet-tratamiento-table [petSelected]="petSelected"></app-pet-tratamiento-table>
-</section>
+<app-pet-tratamiento-table *ngIf="isDataLoaded" [pet]="petSelected"></app-pet-tratamiento-table>

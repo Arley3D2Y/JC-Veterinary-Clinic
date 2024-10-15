@@ -6,7 +6,6 @@ import { PetService } from '../../services/pet.service';
 import { VeterinarioService } from '../../services/veterinario.service';
 
 import { Veterinario } from '../../model/veterinario';
-import { Droga } from '../../model/droga';
 import { Mascota } from '../../model/mascota';
 import { Cliente } from '../../model/cliente';
 import { TratamientoService } from '../../services/tratamiento.service';
@@ -60,13 +59,21 @@ export class CardsTableComponent {
   // Método genérico para eliminar el item (ya sea cliente o mascota)
   deleteItem(item: any) {
     if (this.typeObject === 'clientes') {
-      this.customerService.deleteCustomer(item.id);
+      this.customerService.deleteCustomer(item.id).subscribe(() => {
+        this.loadClientes();
+      })
     } else if (this.typeObject === 'mascotas') {
-      this.petService.deleteMascota(item.id);
+      this.petService.deleteMascota(item.id).subscribe(() => {
+        this.loadMascotas();
+      })
     } else if (this.typeObject === 'veterinarios') {
-      this.vetService.deleteVeterinario(item.id);
+      this.vetService.deleteVeterinario(item.id).subscribe(() => {
+        this.loadVeterinarios();
+      })
     } else if (this.typeObject === 'tratamientos') {
-      this.tratamientoService.deleteTratamiento(item.id);
+      this.tratamientoService.deleteTratamiento(item.id).subscribe(() => {
+        this.loadTratamientos();
+      })
     }
   }
 

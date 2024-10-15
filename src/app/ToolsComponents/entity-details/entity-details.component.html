@@ -1,4 +1,4 @@
-<ng-container *ngIf="typeEntity === 'mascota' || typeEntity === 'cliente' ">
+<ng-container *ngIf="typeEntity === 'mascota' || typeEntity === 'cliente' || typeEntity === 'tratamiento' ">
   <app-shared-header [navLinks]="[
     { path: '/veterinario/tratamientos', label: 'Tratamientos' },
     { path: '/veterinario/mascotas', label: 'Mascotas' },
@@ -25,5 +25,9 @@
 
   <ng-container *ngIf="typeEntity === 'veterinario'">
     <app-veterinario-card [veterinarySelected]="vet"></app-veterinario-card>
+  </ng-container>
+
+  <ng-container *ngIf="typeEntity === 'tratamiento'">
+    <app-tratamiento-card [treatmentSelected]="treatment"></app-tratamiento-card>
   </ng-container>
 </main>

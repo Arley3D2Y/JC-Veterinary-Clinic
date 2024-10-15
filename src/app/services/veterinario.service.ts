@@ -33,8 +33,8 @@ export class VeterinarioService {
   }
 
   // Eliminar veterinario
-  deleteVeterinario(id: number) {
-    this.http.delete<void>(`${this.baseUrl}/delete/${id}`).subscribe();
+  deleteVeterinario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
 
   // Buscar veterinarios por nombre

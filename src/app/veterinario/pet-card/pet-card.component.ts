@@ -21,6 +21,8 @@ export class PetCardComponent {
   @Input()
   petSelected!: Mascota;
   isPetUpdated: Boolean = false;
+
+  isDataLoaded: boolean = false
   
   constructor(
     private router: Router,
@@ -35,7 +37,7 @@ export class PetCardComponent {
       const id = Number(params.get('id'));
       this.petService.findById(id).subscribe(pet => {
         this.petSelected = pet;
-        this.petSelected.cliente = pet.cliente;
+        this.isDataLoaded = true;
       })
     });
   }
