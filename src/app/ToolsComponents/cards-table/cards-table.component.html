@@ -1,14 +1,18 @@
 <section class="items_table">
     <div class="tableCenter" *ngFor="let item of items">
-    <img *ngIf="item.fotoString" [src]="item.fotoString" width="90" height="90" [alt]="'Foto de ' + item.nombre">
-    <img *ngIf="typeObject === 'tratamientos'" [src]="item.mascota?.fotoString" width="90" height="90">
+        <img *ngIf="item.fotoString" [src]="item.fotoString" width="90" height="90" [alt]="'Foto de ' + item.nombre">
+        <img *ngIf="typeObject === 'tratamientos'" [src]="item.mascota?.fotoString" width="90" height="90">
         <div>
             <h2 *ngIf="typeObject !== 'tratamientos'">{{ item.nombre }}</h2>
             <p *ngIf="typeObject === 'tratamientos'">Descipción: {{ item.descripcion }}</p>
             <p *ngIf="typeObject === 'tratamientos'">Droga: {{ item.droga?.nombre }}</p>
             <p *ngIf="typeObject === 'clientes'">CC: {{ item.cedula }}</p>
             <p *ngIf="typeObject === 'mascotas'">Raza: {{ item.raza }}</p>
-            <p *ngIf="typeObject === 'veterinarios'">Especialidad: {{ item.especialidades }}</p>
+            <p *ngIf="typeObject === 'veterinarios'">
+                <span *ngFor="let especialidad of item.especialidades; let last = last">
+                    {{ especialidad.nombre }}{{ !last ? ', ' : '' }}
+                </span>
+            </p>
         </div>
         <div class="info">
             <a [routerLink]=" dynamicActionUrl + typeObject.slice(0, -1) + '/' + item.id" title="Detalles">
