@@ -13,31 +13,31 @@ import { Tratamiento } from '../../model/tratamiento';
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-dashboard-veterinario',
   standalone: true,
   imports: [
     CommonModule,
   ],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'] // Corrección aquí
+  templateUrl: './dashboard-veterinario.component.html',
+  styleUrls: ['./dashboard-veterinario.component.css'] // Corrección aquí
 })
-export class DashboardComponent implements OnInit {
+export class DashboardVeterinarioComponent implements OnInit {
   mascotas: Mascota[] = [];
   clientes: Cliente[] = [];
   tratamientos: Tratamiento[] = [];
   
   tratamientoMasComun: string = '';
-
+  
   constructor(
     private drogaService: DrogaService,
     private clienteService: CustomerService,
     private tratamientoService: TratamientoService,
-    private petService: PetService
+    private mascotaService: PetService
   ) {}
 
   ngOnInit(): void {
     // Cargar los datos de mascotas
-    this.petService.findAll().subscribe(mascotas => {
+    this.mascotaService.findAll().subscribe(mascotas => {
       this.mascotas = mascotas;
       this.actualizarGraficoMascotas(mascotas);
     });

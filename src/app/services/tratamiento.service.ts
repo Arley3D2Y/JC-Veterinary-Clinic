@@ -8,7 +8,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 })
 export class TratamientoService {
 
-  private baseUrl = 'http://localhost:8091/tratamientos'; // Definimos la URL base para facilitar
+  private baseUrl = 'http://localhost:8088/tratamientos'; // Definimos la URL base para facilitar
 
   constructor( private http: HttpClient ) { }
 

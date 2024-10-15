@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class VeterinarioService {
 
-  private baseUrl = 'http://localhost:8091/veterinarios';
+  private baseUrl = 'http://localhost:8088/veterinarios';
 
   constructor( private http: HttpClient ) { }
 

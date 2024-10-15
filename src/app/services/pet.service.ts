@@ -9,7 +9,7 @@ import { Tratamiento } from '../model/tratamiento';
 })
 export class PetService {
 
-  private baseUrl = 'http://localhost:8091/mascotas'; // Definimos la URL base para facilitar
+  private baseUrl = 'http://localhost:8088/mascotas'; // Definimos la URL base para facilitar
 
   constructor( private http: HttpClient ) {  }
 

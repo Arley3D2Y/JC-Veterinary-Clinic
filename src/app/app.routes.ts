@@ -8,6 +8,7 @@ import { VeterinarioComponent } from './veterinario/veterinario/veterinario.comp
 import { EntityDetailsComponent } from './ToolsComponents/entity-details/entity-details.component';
 import { FormHandlerComponent } from './ToolsComponents/form-handler/form-handler.component';
 import { AdministradorComponent } from './administrador/administrador/administrador.component';
+import { DashboardVeterinarioComponent } from './administrador/dashboard-veterinario/dashboard-veterinario.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirección a home
@@ -34,7 +35,7 @@ export const routes: Routes = [
 
     { path: 'administrador/veterinario', component: AdministradorComponent, data: { type: 'veterinarios' } },
     { path: 'administrador/medicamentos', component: AdministradorComponent, data: { type: 'medicamentos' } },
-    { path: 'administrador/dashboard', component: AdministradorComponent, data: { type: 'dashboard' } },
+    { path: 'administrador/dashboard', component: DashboardVeterinarioComponent },
     { path: 'administrador/detalles/veterinario/:id', component: EntityDetailsComponent, data: { type: 'veterinario' } },
     { path: 'administrador/agregar/veterinario', component: FormHandlerComponent },
     { path: 'administrador/actualizar/veterinario/:id', component: FormHandlerComponent },
