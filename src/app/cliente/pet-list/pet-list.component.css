@@ -27,6 +27,7 @@
     width: 150px;
     height: 180px; /* Alto del contenedor */
     border-radius: 10px;
+    
 }
 .card-pet img {
     width: 130px; /* Ancho de la imagen */
@@ -54,4 +55,5 @@
 .card-pet:hover img,
 .card-pet:hover h3 {
     transform: scale(1.03); /* Agranda la tarjeta al hacer hover */
+    cursor: pointer;
 }

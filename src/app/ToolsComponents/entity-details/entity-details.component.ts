@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CustomerCardComponent } from '../../veterinario/customer-card/customer-card.component';
 import { PetCardComponent } from '../../veterinario/pet-card/pet-card.component';
-
+import { TratamientoCardComponent } from '../../veterinario/tratamiento-card/tratamiento-card.component';
 import { VeterinarioCardComponent } from '../../administrador/veterinario-card/veterinario-card.component';
 import { SharedHeaderComponent } from '../shared-header/shared-header.component';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,8 @@ import { mergeMap } from 'rxjs';
 
 import { VeterinarioService } from '../../services/veterinario.service';
 import { Veterinario } from '../../model/veterinario';
+import { Tratamiento } from '../../model/tratamiento';
+import { TratamientoService } from '../../services/tratamiento.service';
 
 @Component({
   selector: 'app-entity-details',
@@ -24,7 +26,8 @@ import { Veterinario } from '../../model/veterinario';
     SharedHeaderComponent,
     CommonModule,
     PetCardComponent,
-    VeterinarioCardComponent
+    VeterinarioCardComponent,
+    TratamientoCardComponent
 ],
   templateUrl: './entity-details.component.html',
   styleUrl: './entity-details.component.css'
@@ -37,13 +40,14 @@ export class EntityDetailsComponent {
   customer!: Cliente;
   pet!: Mascota;
   vet!: Veterinario;
+  treatment!: Tratamiento;
 
   constructor(
     private route: ActivatedRoute,
     private serviceClient: CustomerService,
     private servicePet: PetService,
-    private serviceVet: VeterinarioService
-
+    private serviceVet: VeterinarioService,
+    private serviceTreatment: TratamientoService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +60,8 @@ export class EntityDetailsComponent {
         this.loadMascota(this.entityId);
       } else if (this.typeEntity === 'veterinario') {
         this.loadVeterinario(this.entityId);
+      } else if (this.typeEntity === 'tratamiento') {
+        this.loadTratamiento(this.entityId);
       }
     });
   }
@@ -87,6 +93,14 @@ export class EntityDetailsComponent {
     this.serviceVet.findById(id).subscribe(
       (vetInfo) => {
         this.vet = vetInfo;
+      }
+    )
+  }
+
+  loadTratamiento(id: number): void {
+    this.serviceTreatment.findById(id).subscribe(
+      (treatmentInfo) => {
+        this.treatment = treatmentInfo;
       }
     )
   }

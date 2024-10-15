@@ -1,8 +1,11 @@
 <section class="items_table">
     <div class="tableCenter" *ngFor="let item of items">
-    <img [src]="item.fotoString" width="90" height="90" [alt]="'Foto de ' + item.nombre">
+    <img *ngIf="item.fotoString" [src]="item.fotoString" width="90" height="90" [alt]="'Foto de ' + item.nombre">
+    <img *ngIf="typeObject === 'tratamientos'" [src]="item.mascota?.fotoString" width="90" height="90">
         <div>
-            <h2>{{ item.nombre }}</h2>
+            <h2 *ngIf="typeObject !== 'tratamientos'">{{ item.nombre }}</h2>
+            <p *ngIf="typeObject === 'tratamientos'">Descipción: {{ item.descripcion }}</p>
+            <p *ngIf="typeObject === 'tratamientos'">Droga: {{ item.droga?.nombre }}</p>
             <p *ngIf="typeObject === 'clientes'">CC: {{ item.cedula }}</p>
             <p *ngIf="typeObject === 'mascotas'">Raza: {{ item.raza }}</p>
             <p *ngIf="typeObject === 'veterinarios'">Especialidad: {{ item.especialidades }}</p>

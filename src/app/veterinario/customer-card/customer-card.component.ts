@@ -5,7 +5,6 @@ import { ActivatedRoute,Router } from '@angular/router';
 
 import { Cliente } from '../../model/cliente';
 import { CustomerService } from '../../services/customer.service';
-import { Mascota } from '../../model/mascota';
 import { PetService } from '../../services/pet.service';
 import { mergeMap, tap } from 'rxjs';
 

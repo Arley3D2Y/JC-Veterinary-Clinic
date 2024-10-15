@@ -67,10 +67,13 @@ export class FormLoginComponent {
             } else {
               alert('Contraseña incorrecta');
             }
-          } else {
-            alert('Veterinario no encontrado');
           }
-        })
+        }, (error) => {
+          if (error.status === 404) {
+            alert('Usuario no encontrado');
+          }
+        }
+      )
     }
   }
 }

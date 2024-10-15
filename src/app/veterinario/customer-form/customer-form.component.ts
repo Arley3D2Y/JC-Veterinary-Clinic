@@ -41,7 +41,6 @@ export class CustomerFormComponent {
     celular: '',
     direccion: '',
     fotoString: '',
-    mascotas: []
   };
 
   pageBack() {
@@ -53,7 +52,7 @@ export class CustomerFormComponent {
   }
 
   // Método para agregar o actualizar la mascota
-  savePet(form: any) {
+  saveClient(form: any) {
     this.addCustomerEvent.emit(this.formCustomer);  // Emite el evento con la mascota
   }
 }

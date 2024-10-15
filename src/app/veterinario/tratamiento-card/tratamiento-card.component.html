@@ -1,0 +1,45 @@
+<!-- información del cliente -->
+<section *ngIf="treatmentSelected" class="card-info">
+    <!-- Imagen de la mascota -->
+    <img [src]="treatmentSelected.mascota?.fotoString" [alt]="'Foto de ' + treatmentSelected.mascota?.nombre">
+
+    <article class="box-info">
+        <!-- titulo -->
+        <h1>{{ treatmentSelected.descripcion }}</h1>
+        <!-- información -->
+        <div class="celda">
+            <h3 class="title-celda">Fecha de Inicio</h3>
+            <p class="celda-info">{{ treatmentSelected.fechaInicio }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Fecha de Fin</h3>
+            <p class="celda-info"> {{ treatmentSelected.fechaFin }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Observaciones</h3>
+            <p class="celda-info">{{ treatmentSelected.observaciones }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Mascota</h3>
+            <p class="celda-info">{{ treatmentSelected.mascota?.nombre }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Veterinario</h3>
+            <p class="celda-info">{{ treatmentSelected.veterinario?.nombre }}</p>
+        </div>
+        <div class="celda">
+            <h3 class="title-celda">Droga</h3>
+            <p class="celda-info">{{ treatmentSelected.droga?.nombre }}</p>
+        </div>
+
+        <!-- botones -->
+        <button class="btn btn-success" (click)="updateTratamienot()">
+            Modificar
+        </button>
+
+        <button class="btn btn-danger" (click)="deleteTratamiento(treatmentSelected.id)">
+            Eliminar
+        </button>
+    </article>
+
+</section>

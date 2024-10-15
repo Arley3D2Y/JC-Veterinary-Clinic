@@ -36,5 +36,4 @@ export class TratamientoService {
     return this.http.get<Tratamiento[]>(`${this.baseUrl}/search/${name}`);
   }
 
-
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Mascota } from '../model/mascota';
 import { Observable } from 'rxjs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Tratamiento } from '../model/tratamiento';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,9 @@ export class PetService {
 
   searhcByPetName(name: String): Observable<Mascota[]> {
     return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-name/${name}`);
+  }
+
+  getTreatmentsByPetId(id: Number): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.baseUrl}/findTreatmentsByPetId/${id}`);
   }
 }

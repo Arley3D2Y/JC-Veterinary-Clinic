@@ -1,6 +1,6 @@
 <h1>{{ operation | titlecase }} Cliente</h1>
 <!-- Formulario -->
-<form #petForm="ngForm" (ngSubmit)="savePet(petForm)">
+<form #customerForm="ngForm" (ngSubmit)="saveClient(customerForm)">
     <div class="form-floating mb-3">
         <input [(ngModel)]="formCustomer.nombre" type="text" class="form-control" id="floatingInput"
             placeholder="Nombre" name="nombre">
@@ -37,7 +37,7 @@
     <div class="mn-center-row">
         <button (click)="pageBack()"
             class="btn btn-danger">Volver</button>
-        <button type="submit" [disabled]="!petForm.form.valid" class="btn btn-primary">{{ operation | titlecase}}</button>
+        <button type="submit" [disabled]="!customerForm.form.valid" class="btn btn-primary">{{ operation | titlecase}}</button>
     </div>
 
 </form>

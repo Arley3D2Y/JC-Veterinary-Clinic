@@ -1,5 +1,5 @@
 <!-- Header -->
-<ng-container *ngIf="typeEntity === 'mascota' || typeEntity === 'cliente' ">
+<ng-container *ngIf="typeEntity === 'mascota' || typeEntity === 'cliente' || typeEntity === 'tratamiento' ">
     <app-shared-header [navLinks]="[
       { path: '/veterinario/tratamientos', label: 'Tratamientos' },
       { path: '/veterinario/mascotas', label: 'Mascotas' },
@@ -16,21 +16,27 @@
 
 <!-- main  -->
 <main>
-    <ng-container *ngIf="typeEntity === 'mascota'">
+    <ng-container *ngIf="typeEntity === 'mascota' && isDataLoaded">
         <app-pet-form [customer]="customerSelected" [petUpdated]="petSelected" [operation]="typeOperation"
             (addPetEvent)="saveEntity($event)">
         </app-pet-form>
     </ng-container>
 
-    <ng-container *ngIf="typeEntity === 'cliente'">
+    <ng-container *ngIf="typeEntity === 'cliente' && isDataLoaded">
         <app-customer-form [customer]="customerSelected" [operation]="typeOperation"
             (addCustomerEvent)="saveEntity($event)">
         </app-customer-form>
     </ng-container>
 
-    <ng-container *ngIf="typeEntity === 'veterinario'">
+    <ng-container *ngIf="typeEntity === 'veterinario' && isDataLoaded">
         <app-veterinario-form [veterinary]="veterinarySelected" [operation]="typeOperation"
             (addVeterinarioEvent)="saveEntity($event)">
         </app-veterinario-form>
+    </ng-container>
+
+    <ng-container *ngIf="typeEntity === 'tratamiento' && isDataLoaded">
+        <app-treatment-form [treatmentUpdate]="treatmentSelected" [operation]="typeOperation"
+            (addTreatmentEvent)="saveTreatment($event)">
+        </app-treatment-form>
     </ng-container>
 </main>
