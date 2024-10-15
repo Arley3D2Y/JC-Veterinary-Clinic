@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common'; import { CustomerService } from '../../services/customer.service';
+import { CommonModule } from '@angular/common';
+import { CustomerService } from '../../services/customer.service';
 import { RouterLink } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { VeterinarioService } from '../../services/veterinario.service';
@@ -64,7 +65,7 @@ export class CardsTableComponent {
       this.petService.deleteMascota(item.id);
     } else if (this.typeObject === 'veterinarios') {
       this.vetService.deleteVeterinario(item.id);
-    } else if (this.typeObject === 'drogas') {
+    } else if (this.typeObject === 'tratamientos') {
       this.tratamientoService.deleteTratamiento(item.id);
     }
   }

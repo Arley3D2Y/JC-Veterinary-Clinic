@@ -33,7 +33,7 @@ export class CustomerService {
   }
 
   searchByDocument(document: string): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.baseUrl}/clientes/search-by-document/${document}`);
+    return this.http.get<Cliente>(`${this.baseUrl}/search-by-document/${document}`);
   }
 
   getCustomerByPetId(id: Number): Observable<Cliente> {

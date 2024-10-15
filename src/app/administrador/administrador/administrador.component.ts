@@ -18,12 +18,12 @@ import { CardsTableComponent } from '../../ToolsComponents/cards-table/cards-tab
   styleUrl: './administrador.component.css'
 })
 export class AdministradorComponent {
-  // Defininimos un propiedad para manejar elmtipo de objeto
-  typeSection!: 'veterinarios' | 'drogas' | 'dashboard';
-  constructor(private route: ActivatedRoute) {} 
+  // Defininimos un propiedad para manejar el tipo de objeto
+  typeSection!: 'veterinarios' | 'tratamientos' ;
+  constructor(private route: ActivatedRoute) {}
 
     // Puedes inicializar el tipo según lo que necesites o pasar dinámicamente al cargar
-    setTypeObject(type: 'veterinarios' | 'drogas') {
+    setTypeObject(type: 'veterinarios' | 'tratamientos') {
       this.typeSection = type;
     }
   
