@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CustomerCardComponent } from '../../veterinario/customer-card/customer-card.component';
 import { PetCardComponent } from '../../veterinario/pet-card/pet-card.component';
-import { TratamientoCardComponent } from '../../veterinario/tratamiento-card/tratamiento-card.component';
+import { TratamientoCardComponent } from '../../veterinario/treatment-card/treatment-card.component';
 import { VeterinarioCardComponent } from '../../administrador/veterinario-card/veterinario-card.component';
 import { SharedHeaderComponent } from '../shared-header/shared-header.component';
 import { CommonModule } from '@angular/common';

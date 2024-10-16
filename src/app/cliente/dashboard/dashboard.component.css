@@ -9,28 +9,70 @@
 /* Estilos para el main con display en columna */
 .datos_cliente {
     padding: 0px;
-    width: 30%;
+    width: 27%;
     height: 100%;
     background-color: #5E548E;
-    box-shadow: 
-        0 4px 6px rgba(0, 0, 0, 0.2), /* Sombra principal */
-        0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra secundaria para efecto de profundidad */
+}
+
+.logout-layout {
+    font-family: "ABeeZee", sans-serif;
+    width: 100%;
+    height: 27%;
+    padding: 25px 40px 0px 20px;
+    color: #F5F5F5;
+    background-image: url(/images/fondo-paisaje.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logout-layout a:hover {
+    transition: all 0.5s ease;
+    padding: 10px;
+    color: #F5F5F5;
+}
+
+.foto-cliente {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.foto-cliente img {
+    border-radius: 50%;
 }
 
 /* Estilos para el main */
 .main-mascotas {
-    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 5px;
+
+    width: 73%;
     height: 100%;
     background-color: #ffffff;
-    padding: 20px 50px;
+    padding: 40px;
     font-family: "ABeeZee", sans-serif;
-
 }
+
 .main-mascotas h1 {
     text-align: center;
     font-family: "ABeeZee", sans-serif;
+    font-size: 33px;
+    font-weight: bold;
     color: #5E548E;
     margin: 0;
-    padding: 10px 20px;
+    width: 100%;
+}
 
+app-pet-list {
+    height: 38%;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+app-pet-card {
+    width: 100%;
+    height: 50%;
 }

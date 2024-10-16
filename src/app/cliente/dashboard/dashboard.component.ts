@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { ClienteCardComponent } from '../cliente-card/cliente-card.component';
+import { ClienteInfoCardComponent } from '../cliente-info-card/cliente-info-card.component';
 import { PetCardComponent } from '../pet-card/pet-card.component';
 import { PetListComponent } from '../pet-list/pet-list.component';
 
 import { PetService } from '../../services/pet.service';
 import { CustomerService } from '../../services/customer.service';
-import { ActivatedRoute } from '@angular/router';
+
 import { Mascota } from '../../model/mascota';
 import { Cliente } from '../../model/cliente';
 import { mergeMap } from 'rxjs';
@@ -15,23 +18,27 @@ import { mergeMap } from 'rxjs';
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    ClienteCardComponent,
-    PetCardComponent,
-    PetListComponent
+    CommonModule,
+    ClienteInfoCardComponent,
+    PetListComponent,
+    RouterModule,
+    PetCardComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+
   cliente: any = {
-    mascotas: [],
+    mascotas: []
   };
-  mascotaSeleccionada?: Mascota;
+  isDataLoaded: boolean = false;
+  petSelected?: Mascota;
 
   constructor(
     private route: ActivatedRoute,
     private clienteService: CustomerService, 
-    private mascotaService: PetService
+    private mascotaService: PetService,
   ) { }
 
   ngOnInit(): void {
@@ -40,19 +47,21 @@ export class DashboardComponent implements OnInit {
 
       if (cedula) {
         this.clienteService.searchByDocument(cedula).pipe(
-          mergeMap((customerInfo) => {
+          mergeMap((customerInfo: Cliente) => {
             this.cliente = customerInfo;
             return this.mascotaService.getPetsByCustomerId(customerInfo.id);
           })
-        ).subscribe((mascotasInfo) => {
-          this.cliente.mascotas = mascotasInfo;          
+        ).subscribe((mascotasInfo: Mascota[]) => {
+          this.cliente.mascotas = mascotasInfo; 
+          this.isDataLoaded = true;
         });
+
       }
     });
   }
 
   // Este método se ejecuta cuando una mascota es seleccionada en la lista
   onMascotaSeleccionada(mascota: Mascota) {
-    this.mascotaSeleccionada = mascota;
+    this.petSelected = mascota;
   }
 }

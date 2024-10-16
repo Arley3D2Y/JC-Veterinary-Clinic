@@ -6,14 +6,14 @@ import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-tratamiento-card',
+  selector: 'app-treatment-card',
   standalone: true,
   imports: [
     CommonModule,
     RouterLink,
   ],
-  templateUrl: './tratamiento-card.component.html',
-  styleUrl: './tratamiento-card.component.css'
+  templateUrl: './treatment-card.component.html',
+  styleUrl: './treatment-card.component.css'
 })
 export class TratamientoCardComponent {
   @Input()

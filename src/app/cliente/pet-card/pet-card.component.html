@@ -1,32 +1,77 @@
+<section class="pet-treatment">
+  <div class="info-pet">
+    <div class="primary-data">
+      <img [src]="mascotaSeleccionada?.fotoString || '/images/cat.png'" alt="Imagen de mascota" height="123" width="auto">
 
-<div class="info-pet">
-    <div class="img-pet">
-      <img [src]="mascotaSeleccionada?.fotoString || '/images/cat.png'" alt="Imagen de mascota" height="150" width="auto">
-    </div>
-
-    <div class="text-pet">
       <form class="form-pet">
         <label for="nombre">
           <h3>Nombre</h3>
           <p>{{ mascotaSeleccionada?.nombre || '-' }}</p>
         </label>
 
-        <label for="sexo">
-          <h3>Sexo</h3>
-          <p>{{ mascotaSeleccionada?.sexo || '-' }}</p>
-        </label>
-
         <label for="raza">
           <h3>Raza</h3>
           <p>{{ mascotaSeleccionada?.raza || '-' }}</p>
         </label>
+      </form>
+    </div>
+  
+    <div class="text-pet">
+      <form class="form-pet">
+  
+        <label for="edad">
+          <h3>Edad</h3>
+          <p>{{ mascotaSeleccionada?.edad || '-' }}</p>
+        </label>
 
-        <label for="nacimiento">
+        <label for="sexo">
+          <h3>Sexo</h3>
+          <p>{{ mascotaSeleccionada?.sexo || '-' }}</p>
+        </label>
+  
+        <label for="peso">
+          <h3>Peso</h3>
+          <p>{{ mascotaSeleccionada?.peso || '-' }}</p>
+        </label>
+
+        <label for="enfermedad">
+          <h3>Enfermedad</h3>
+          <p>{{ mascotaSeleccionada?.enfermedad || '-' }}</p>
+        </label>
+  
+        <label for="estado">
           <h3>Estado</h3>
           <p>{{ mascotaSeleccionada?.estado || '-' }}</p>
         </label>
-
+  
       </form>
     </div>
   </div>
   
+  <div class="info-treatment">
+    <div class="text-pet">
+      <form class="form-pet">
+        <label for="nombre">
+          <h3>Nombre</h3>
+          <p>{{ mascotaSeleccionada?.nombre || '-' }}</p>
+        </label>
+  
+        <label for="sexo">
+          <h3>Sexo</h3>
+          <p>{{ mascotaSeleccionada?.sexo || '-' }}</p>
+        </label>
+  
+        <label for="raza">
+          <h3>Raza</h3>
+          <p>{{ mascotaSeleccionada?.raza || '-' }}</p>
+        </label>
+  
+        <label for="nacimiento">
+          <h3>Estado</h3>
+          <p>{{ mascotaSeleccionada?.estado || '-' }}</p>
+        </label>
+  
+      </form>
+    </div>
+  </div>
+</section>
