@@ -1,37 +1,51 @@
 import { Component, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import { Veterinario } from '../../model/veterinario';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Especialidad } from '../../model/especialidad';
+import { EspecialidadesService } from '../../services/especialidades.service'; // Asegúrate de importar tu servicio
 
 @Component({
   selector: 'app-veterinario-form',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule],
+    FormsModule
+  ],
   templateUrl: './veterinario-form.component.html',
   styleUrl: './veterinario-form.component.css'
 })
 export class VeterinarioFormComponent {
-  // Queremos que la mascota se transmita al componente padre a través de un evento
-  @Output() addVeterinarioEvent = new EventEmitter<Veterinario>();  // Usa EventEmitter de @angular/core
-
-  @Input() veterinary!: Veterinario;  // Recibe el cliente desde el padre
+  @Output() addVeterinarioEvent = new EventEmitter<Veterinario>();
+  @Input() veterinary!: Veterinario;
   @Input() operation!: string;
+
   especialidades: Especialidad[] = [];
   selectedEspecialidades: Especialidad[] = [];
- 
+
   constructor(
     private router: Router,
+    private especialidadService: EspecialidadesService  // Inyectamos el servicio
   ) { }
 
   ngOnInit(): void {
-    if (this.operation === 'actualizar') {
+    // Cargar especialidades al iniciar el componente
+    this.especialidadService.findAll().subscribe(
+      (data: Especialidad[]) => {
+        this.especialidades = data;
+      },
+      (error) => {
+        console.error('Error al cargar especialidades', error);
+      }
+
+    );
+
+    if (this.operation === 'actualizar' && this.veterinary) {
       this.formVeterinario = { ...this.veterinary };
+
+      this.selectedEspecialidades = this.formVeterinario.especialidades || [];
     }
   }
 
@@ -42,7 +56,7 @@ export class VeterinarioFormComponent {
     correo: '',
     password: '',
     fotoString: '',
-    especialidades: null as any,
+    especialidades: [],
     tratamietos: [],
   };
 
@@ -53,8 +67,23 @@ export class VeterinarioFormComponent {
       this.router.navigate(['/administrador/detalles/veterinario/', this.veterinary.id]);
     }
   }
+  onSelectSpeciality(event: Event, especialidad: Especialidad) {
+    const isChecked = (event.target as HTMLInputElement).checked;
 
+    if (isChecked) {
+      this.selectedEspecialidades.push(especialidad); // Añadir especialidad seleccionada
+    } else {
+      // Eliminar especialidad no seleccionada
+      this.selectedEspecialidades = this.selectedEspecialidades.filter(e => e.id !== especialidad.id);
+    }
+  }
+  isSpecialitySelected(especialidad: Especialidad): boolean {
+    return this.selectedEspecialidades.some(e => e.id === especialidad.id);
+  }
+  
   saveVet(form: any) {
-    this.addVeterinarioEvent.emit(form);
+    // Aseguramos que las especialidades no sean undefined antes de asignarlas
+    this.formVeterinario.especialidades = this.selectedEspecialidades || [];
+    this.addVeterinarioEvent.emit(this.formVeterinario);
   }
 }

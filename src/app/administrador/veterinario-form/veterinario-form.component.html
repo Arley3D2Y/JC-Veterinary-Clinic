@@ -33,11 +33,18 @@
 
   <!-- Selección de Especialidades -->
   <div class="form-group mb-3">
-    <label for="especialidades">Especialidades</label>
-    <select id="especialidades" class="form-select" [(ngModel)]="selectedEspecialidades" name="especialidades" multiple>
-      <option *ngFor="let especialidad of especialidades" [ngValue]="especialidad">{{ especialidad.nombre }}</option>
-    </select>
+    <label>Especialidades</label>
+    <div *ngFor="let especialidad of especialidades" class="form-check">
+      <input 
+        type="checkbox" 
+        class="form-check-input" 
+        [value]="especialidad | json" 
+        [checked]="selectedEspecialidades.includes(especialidad)"
+        (change)="onSelectSpeciality($event, especialidad)">
+      <label class="form-check-label">{{ especialidad.nombre }}</label>
+    </div>
   </div>
+
 
   <br>
 
