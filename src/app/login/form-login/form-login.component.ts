@@ -40,12 +40,10 @@ export class FormLoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.typeUser = params['typeUser'] || this.typeUser;
-    });
-
     if (this.userType) {
       this.typeUser = this.userType;
+    } else {
+      this.typeUser = 'cliente';
     }
   }
 
@@ -103,7 +101,7 @@ export class FormLoginComponent implements OnInit {
     this.vetService.searchbyEmail(this.form.correo).subscribe({
       next: (veterinario) => {
         if (veterinario.password === this.form.password) {
-          this.router.navigate(['veterinario/clientes']);
+          this.router.navigate(['veterinario/clientes'], { queryParams: { id: veterinario.id } });
         } else {
           alert('Contraseña incorrecta');
         }

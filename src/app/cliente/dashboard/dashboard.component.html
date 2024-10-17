@@ -1,7 +1,7 @@
 <div class="dashboard">
   <header class="datos_cliente">
     <nav class="logout-layout">
-      <a [routerLink]="['/login']" routerLinkActive="active" title="Logout">
+      <a (click)="logout()" title="Logout">
         <img src="/images/logout.png" alt="logout" width="45px">
       </a>
     

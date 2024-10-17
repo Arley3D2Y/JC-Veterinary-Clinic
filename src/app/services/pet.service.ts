@@ -37,7 +37,7 @@ export class PetService {
     return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-client_id/${id}`);
   }
 
-  searhcByPetName(name: String): Observable<Mascota[]> {
+  searhcPetsByName(name: String): Observable<Mascota[]> {
     return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 

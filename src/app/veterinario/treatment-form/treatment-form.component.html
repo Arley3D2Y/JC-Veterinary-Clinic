@@ -3,35 +3,44 @@
 <!-- Formulario -->
 <form #petForm="ngForm" (ngSubmit)="savePet(petForm)">
     <div class="form-floating mb-3">
-        <input [(ngModel)]="formTreatment.descripcion" type="text" class="form-control" id="floatingInput"
-            placeholder="Nombre" name="nombre">
-        <label for="nombre">Descripcion</label>
+        <input [(ngModel)]="formTreatment.descripcion" type="text" class="form-control" id="floatingDescripción"
+            placeholder="Descripción" name="observaciones">
+        <label for="floatingDescripción">Descripción</label>
     </div>
 
-    <br>
     <div class="form-floating mb-3">
-        <input [(ngModel)]="formTreatment.observaciones" type="text" class="form-control" id="floatingInput"
-            placeholder="Raza" name="raza">
-        <label for="floatingInput">Observaciones</label>
+        <textarea rows="10" [(ngModel)]="formTreatment.observaciones" class="form-control custom-textarea" id="floatingObservaciones"
+            placeholder="Observaciones" name="descripcion"></textarea>
+        <label for="floatingObservaciones">Observaciones</label>
     </div>
 
-    <div class="form-floating mb-3" *ngIf="formTreatment.veterinario">
-        <input [(ngModel)]="formTreatment.veterinario.nombre" type="date" class="form-control" id="floatingInput"
-            placeholder="Enfermedad" name="fechaNacimiento">
-        <label for="floatingInput">Veterinario</label>
+    <div class="d-flex flex-row gap-4">
+        <div class="form-floating mb-3" style="width: 46.5%;">
+            <input [(ngModel)]="formTreatment.fechaInicio" type="date" class="form-control" id="floatingFechaInicio"
+                placeholder="Fecha de inicio" name="fechaInicio">
+            <label for="floatingFechaInicio">Fecha de inicio</label>
+        </div>
+
+        <div class="form-floating mb-3" style="width: 47%;">
+            <input [(ngModel)]="formTreatment.fechaFin" type="date" class="form-control" id="floatingFechaFin"
+                placeholder="Fecha de fin" name="fechaFin">
+            <label for="floatingFechaFin">Fecha de fin</label>
+        </div>
     </div>
 
-    <div class="form-floating mb-3" *ngIf="formTreatment.droga">
-        <input [(ngModel)]="formTreatment.droga.nombre" type="text" class="form-control" id="floatingInput"
-            placeholder="Ingresa URL de la foto" name="fotoString">
-        <label for="floatingInput">Droga</label>
+    <div class="form-floating mb-3">
+        <select [(ngModel)]="formTreatment.droga" class="form-control" style="height: 70px;" id="floatingDroga" name="droga">
+            <option value="" disabled selected>Seleccione una droga</option>
+            <option *ngFor="let droga of drogas" [ngValue]="droga">{{ droga.nombre }}</option>
+        </select>
+        <label for="floatingDroga">Droga</label>
     </div>
 
     <div class="mn-center-row">
         <button (click)="pageBack()" class="btn btn-danger">
             Volver
         </button>
-        <button type="submit" [disabled]="!petForm.form.valid" class="btn btn-primary">{{ operation | titlecase}}</button>
+        <button type="submit" [disabled]="!petForm.form.valid" class="btn btn-primary">{{ operation | titlecase }}</button>
     </div>
 
 </form>

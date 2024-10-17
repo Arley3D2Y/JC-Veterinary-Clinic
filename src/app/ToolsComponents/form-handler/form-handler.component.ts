@@ -101,13 +101,21 @@ export class FormHandlerComponent {
         this.isDataLoaded = true; // Establecer la bandera a true
       }
     } else if (this.typeEntity === 'tratamiento') {
-      if (this.typeOperation === 'actualizar') {
-        this.serviceTreatment.findById(this.entityId).subscribe(treatmentInfo => {
-          this.treatmentSelected = treatmentInfo;
+      if (this.typeOperation === 'agregar') {
+        this.servicePet.findById(this.entityId).subscribe(data => {
+          this.petSelected = data;
+          this.isDataLoaded = true; // Establecer la bandera a true
+        });
+      } else if (this.typeOperation === 'actualizar') {
+        this.serviceTreatment.findById(this.entityId).pipe(
+          mergeMap(data => {
+            this.treatmentSelected = data;
+            return this.servicePet.findById(data.mascota!.id);
+          })
+        ).subscribe(petInfo => {
+          this.petSelected = petInfo;
           this.isDataLoaded = true; // Establecer la bandera a true
         })
-      } else {
-        this.isDataLoaded = true; // Establecer la bandera a true
       }
     }
   }
@@ -169,9 +177,13 @@ export class FormHandlerComponent {
 
   saveTreatment(treatment: Tratamiento) {
     if (this.typeOperation === 'agregar') {
-      this.serviceTreatment.addTratamiento(treatment).subscribe(newTreatment => {
-        this.router.navigate(['veterinario/detalles/tratamiento', newTreatment.id]);
-      });
+      this.serviceVet.veterinarioId$.subscribe((id) => {
+        if (id != null) {
+          this.serviceTreatment.addTratamiento(this.petSelected.id, id, treatment).subscribe(newTreatment => {
+            this.router.navigate(['veterinario/detalles/mascota', this.petSelected.id]);
+          });
+        }
+      })
     } else if (this.typeOperation === 'actualizar') {
       this.serviceTreatment.updateTratamiento(this.treatmentSelected.id, treatment).subscribe(updateTreatment => {
         this.router.navigate(['veterinario/detalles/tratamiento', updateTreatment.id]);

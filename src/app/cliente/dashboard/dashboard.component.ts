@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private clienteService: CustomerService, 
     private mascotaService: PetService,
   ) { }
@@ -63,5 +64,16 @@ export class DashboardComponent implements OnInit {
   // Este método se ejecuta cuando una mascota es seleccionada en la lista
   onMascotaSeleccionada(mascota: Mascota) {
     this.petSelected = mascota;
+  }
+
+  logout() {
+    localStorage.clear(); // Eliminar todos los elementos del localStorage
+
+    // Limpiar cualquier otra variable relacionada con la sesión
+    this.cliente = { mascotas: [] };
+    this.isDataLoaded = false;
+    this.petSelected = undefined;
+
+    this.router.navigate(['/login']);
   }
 }

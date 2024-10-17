@@ -16,7 +16,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './treatment-card.component.css'
 })
 export class TratamientoCardComponent {
-  @Input()
   treatmentSelected!: Tratamiento;
   isTreatmentUpdated: Boolean = false;
 

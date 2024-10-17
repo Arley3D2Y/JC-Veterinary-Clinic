@@ -4,6 +4,6 @@
     { path: '/administrador/dashboard', label: 'Dashboard' }
 ]" [logoutRedirectUrl]="'/login'"></app-shared-header>
 <main>
-    <app-search-bar [typeObject]="typeSection" [dynamicActionUrl]="'/administrador/clientes/buscar'"></app-search-bar>
+    <app-search-bar [typeObject]="typeSection" (searchEvent)="onSearch($event)"></app-search-bar>
     <app-cards-table [typeObject]="typeSection"></app-cards-table>
 </main>

@@ -13,15 +13,15 @@ export class TratamientoService {
   constructor( private http: HttpClient ) { }
 
   findAll(): Observable<Tratamiento[]> {
-    return this.http.get<Tratamiento[]>(this.baseUrl);
+    return this.http.get<Tratamiento[]>(`${this.baseUrl}`);
   }
 
   findById(id: number): Observable<Tratamiento> {
     return this.http.get<Tratamiento>(`${this.baseUrl}/find/${id}`);
   }
 
-  addTratamiento(tratamiento: Tratamiento): Observable<Tratamiento> {
-    return this.http.post<Tratamiento>(this.baseUrl, tratamiento);
+  addTratamiento(petId: number, vetId: number, tratamiento: Tratamiento): Observable<Tratamiento> {
+    return this.http.post<Tratamiento>(`${this.baseUrl}/add/mascota-id/${petId}/veterinario-id/${vetId}`, tratamiento);
   }
 
   updateTratamiento(id: number, tratamiento: Tratamiento): Observable<Tratamiento> {
@@ -32,8 +32,16 @@ export class TratamientoService {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
 
-  searchByTratamientoName(name: String): Observable<Tratamiento[]> {
-    return this.http.get<Tratamiento[]>(`${this.baseUrl}/search/${name}`);
+  sarchTratamientosByName(name: String): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.baseUrl}/search-by-name/${name}`);
+  }
+
+  searchTratamientoByVetId(id: number): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.baseUrl}/search-by-veterinario_id/${id}`);
+  }
+
+  searchTratamientoByPetId(id: number): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.baseUrl}/search-by-mascota_id/${id}`);
   }
 
 }

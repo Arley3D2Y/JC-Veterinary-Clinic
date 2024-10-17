@@ -1,62 +1,72 @@
 <div class="container">
-    <header>
-      <h1>Dashboard Administrador - Veterinaria</h1>
-    </header>
-  
-    <div class="dashboard-grid">
-      <!-- Sección Mascotas -->
-      <div class="dashboard-item">
-        <h2>Mascotas</h2>
-        <ul>
-          <li>Total de mascotas: <strong>{{ mascotas.length }}</strong></li>
-        </ul>
-        <div class="chart-container">
-          <canvas id="mascotasChart"></canvas>
-        </div>
+  <header>
+    <h1>Dashboard Administrador - Veterinaria</h1>
+  </header>
+
+  <div class="dashboard-grid">
+    <!-- Sección Tratamientos -->
+    <div class="dashboard-item">
+      <h2>Tratamientos</h2>
+      <ul>
+        <li>Total de tratamientos (último mes): <strong>{{ totalTratamientos }}</strong></li>
+      </ul>
+      <h3>Tratamientos por tipo de medicamento (último mes)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Medicamento</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tratamientosPorMedicamento">
+            <td>{{ item.medicamento }}</td>
+            <td>{{ item.cantidad }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Top 3 tratamientos más vendidos</h3>
+      <ol>
+        <li *ngFor="let tratamiento of topTratamientos">
+          {{ tratamiento.nombre }} - {{ tratamiento.unidades }} unidades
+        </li>
+      </ol>
+    </div>
+
+    <!-- Sección Veterinarios -->
+    <div class="dashboard-item">
+      <h2>Veterinarios</h2>
+      <ul>
+        <li>Veterinarios activos: <strong>{{ veterinariosActivos }}</strong></li>
+        <li>Veterinarios inactivos: <strong>{{ veterinariosInactivos }}</strong></li>
+      </ul>
+      <div class="chart-container">
+        <canvas id="veterinariosChart"></canvas>
       </div>
-  
-      <!-- Sección Clientes -->
-      <div class="dashboard-item">
-        <h2>Clientes</h2>
-        <ul>
-          <li>Total de clientes: <strong>{{ clientes.length }}</strong></li>
-        </ul>
-        <div class="chart-container">
-          <canvas id="clientesChart"></canvas>
-        </div>
+    </div>
+
+    <!-- Sección Mascotas -->
+    <div class="dashboard-item">
+      <h2>Mascotas</h2>
+      <ul>
+        <li>Total de mascotas: <strong>{{ totalMascotas }}</strong></li>
+        <li>Mascotas activas (en tratamiento): <strong>{{ mascotasActivas }}</strong></li>
+      </ul>
+      <div class="chart-container">
+        <canvas id="mascotasChart"></canvas>
       </div>
-  
-      <!-- Sección Tratamientos -->
-      <div class="dashboard-item">
-        <h2>Tratamientos</h2>
-        <ul>
-          <li>Tratamientos activos: <strong>{{ tratamientos.length }}</strong></li>
-          <li>Tratamiento más común: <strong>{{ tratamientoMasComun }}</strong></li>
-        </ul>
-        <div class="chart-container">
-          <canvas id="tratamientosChart"></canvas>
-        </div>
-      </div>
-  
-      <!-- Sección Veterinarios -->
-      <div class="dashboard-item">
-        <h2>Veterinarios</h2>
-        <ul>
-        </ul>
-        <div class="chart-container">
-          <canvas id="veterinariosChart"></canvas>
-        </div>
-      </div>
-  
-      <!-- Sección Drogas -->
-      <div class="dashboard-item">
-        <h2>Drogas</h2>
-        <ul>
-        </ul>
-        <div class="chart-container">
-          <canvas id="drogasChart"></canvas>
-        </div>
+    </div>
+
+    <!-- Sección Finanzas -->
+    <div class="dashboard-item">
+      <h2>Finanzas</h2>
+      <ul>
+        <li>Ventas totales: <strong>{{ ventasTotales }}</strong></li>
+        <li>Ganancias totales: <strong>{{ gananciasTotales }}</strong></li>
+      </ul>
+      <div class="chart-container">
+        <canvas id="finanzasChart"></canvas>
       </div>
     </div>
   </div>
-  
+</div>

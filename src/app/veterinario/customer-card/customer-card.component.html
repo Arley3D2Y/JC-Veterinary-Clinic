@@ -43,7 +43,7 @@
 </section>
 
 <h2>Mascotas</h2>
-<section class="card-items-info" *ngIf="customerSelected && customerSelected.id">
+<section class="card-items-info" *ngIf="customerSelected">
 
     <article class="panel-cards">
         <div class="pet-card" *ngFor="let mascota of customerSelected?.mascotas">

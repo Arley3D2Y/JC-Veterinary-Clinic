@@ -32,6 +32,10 @@ export class CustomerService {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
 
+  sarchCustomersByName(name: String): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(`${this.baseUrl}/search-by-name/${name}`);
+  }
+
   searchByDocument(document: string): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.baseUrl}/search-by-document/${document}`);
   }

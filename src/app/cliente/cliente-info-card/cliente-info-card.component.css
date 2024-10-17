@@ -32,18 +32,25 @@ form label {
     border-radius: 8px;
     width: auto;
 }
+form h1 {
+    text-align: center;
+    font-family: "ABeeZee", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #5E548E;
+    margin-bottom: 10px;
+    width: 100%;
+}
 label h3 {
     position: absolute;
     top: -12px; /* Ajusta la posición vertical */
-    left: 45px;
-    transform: translateX(-50%);
+    left: 15px;
     background-color: #ffffff; /* Fondo para cubrir la línea del borde */
     padding: 0px 5px; /* Ajusta el espacio alrededor del texto */
     margin: 0;
     height: 20px;
     font-size: 14px; /* Ajusta el tamaño de la fuente */
-    font-weight: 600;
-    color: #421919;
+    font-weight: 200;
 }
 label p {
     font-size: 1.1rem;

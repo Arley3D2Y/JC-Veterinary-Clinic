@@ -1,35 +1,94 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-
-import { DashboardAdminComponent } from './dashboard-admin.component';
+import { Component, OnInit } from '@angular/core';
+import { Chart } from 'chart.js';
 import { DashboardService } from '../../services/dashboard.service';
 
-describe('DashboardAdminComponent', () => {
-  let component: DashboardAdminComponent;
-  let fixture: ComponentFixture<DashboardAdminComponent>;
+@Component({
+  selector: 'app-dashboard-veterinario',
+  templateUrl: './dashboard-veterinario.component.html',
+  styleUrls: ['./dashboard-veterinario.component.css']
+})
+export class DashboardVeterinarioComponent implements OnInit {
+  totalTratamientos: number = 0;
+  tratamientosPorMedicamento: any[] = [];
+  veterinariosActivos: number = 0;
+  veterinariosInactivos: number = 0;
+  totalMascotas: number = 0;
+  mascotasActivas: number = 0;
+  ventasTotales: number = 0;
+  gananciasTotales: number = 0;
+  topTratamientos: any[] = [];
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DashboardAdminComponent ],  // Declaramos el componente que estamos probando
-      imports: [ HttpClientTestingModule ],  // Importamos el módulo de testing para HTTP
-      providers: [ DashboardService ]  // Proveemos el servicio que utiliza el componente
-    })
-    .compileComponents();  // Compilamos los componentes
+  constructor(private dashboardService: DashboardService) {}
 
-    fixture = TestBed.createComponent(DashboardAdminComponent);  // Creamos la instancia del componente
-    component = fixture.componentInstance;  // Obtenemos la instancia del componente
-    fixture.detectChanges();  // Detectamos cambios iniciales
-  });
+  ngOnInit() {
+    this.cargarDatos();
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();  // Verificamos que el componente se haya creado correctamente
-  });
+  cargarDatos() {
+    this.dashboardService.obtenerDatosDashboard().subscribe(
+      (datos) => {
+        this.totalTratamientos = datos.totalTratamientos;
+        this.tratamientosPorMedicamento = datos.tratamientosPorMedicamento;
+        this.veterinariosActivos = datos.veterinariosActivos;
+        this.veterinariosInactivos = datos.veterinariosInactivos;
+        this.totalMascotas = datos.totalMascotas;
+        this.mascotasActivas = datos.mascotasActivas;
+        this.ventasTotales = datos.ventasTotales;
+        this.gananciasTotales = datos.gananciasTotales;
+        this.topTratamientos = datos.topTratamientos;
 
-  it('should load dashboard data on init', () => {
-    spyOn(component, 'getDashboardData');  // Espiamos el método 'getDashboardData'
+        this.crearGraficos();
+      },
+      (error) => {
+        console.error('Error al cargar los datos del dashboard', error);
+      }
+    );
+  }
 
-    component.ngOnInit();  // Ejecutamos el ciclo de vida de inicio
+  crearGraficos() {
+    this.crearGraficoVeterinarios();
+    this.crearGraficoMascotas();
+    this.crearGraficoFinanzas();
+  }
 
-    expect(component.getDashboardData).toHaveBeenCalled();  // Verificamos que 'getDashboardData' se haya llamado
-  });
-});
+  crearGraficoVeterinarios() {
+    new Chart('veterinariosChart', {
+      type: 'pie',
+      data: {
+        labels: ['Activos', 'Inactivos'],
+        datasets: [{
+          data: [this.veterinariosActivos, this.veterinariosInactivos],
+          backgroundColor: ['#36A2EB', '#FF6384']
+        }]
+      }
+    });
+  }
+
+  crearGraficoMascotas() {
+    new Chart('mascotasChart', {
+      type: 'bar',
+      data: {
+        labels: ['Total', 'Activas'],
+        datasets: [{
+          label: 'Mascotas',
+          data: [this.totalMascotas, this.mascotasActivas],
+          backgroundColor: ['#4BC0C0', '#FFCE56']
+        }]
+      }
+    });
+  }
+
+  crearGraficoFinanzas() {
+    new Chart('finanzasChart', {
+      type: 'line',
+      data: {
+        labels: ['Ventas', 'Ganancias'],
+        datasets: [{
+          label: 'Finanzas',
+          data: [this.ventasTotales, this.gananciasTotales],
+          borderColor: '#FF9F40'
+        }]
+      }
+    });
+  }
+}

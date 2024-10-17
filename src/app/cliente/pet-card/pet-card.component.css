@@ -8,8 +8,7 @@
 }
 
 /* Estilos para la carta de información */
-.info-pet,
-.info-treatment {
+.info-pet {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -17,7 +16,7 @@
     height: 100%;
     border-radius: 20px;
     box-shadow: 0 1px 10px rgba(78, 0, 138, 0.295);
-    padding: 22px 25px;
+    padding: 25px;
 }
 
 .info-pet .primary-data {
@@ -34,7 +33,13 @@
     margin-bottom: 15px;
 }
 
-.info-pet .text-pet {
+.primary-data img:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.text-pet {
     width: 55%;
     height: 100%;
 }
@@ -45,39 +50,114 @@
     justify-content: center;
     width: 95%;
     margin: 0px;
-    padding: 4px 20px 8px 20px;
+    padding: 6px 20px 14px 20px;
     background-color: #fff;
     border-radius: 15px;
-    box-shadow: 0 1px 10px rgba(78, 0, 138, 0.295);
+    box-shadow: 0 1px 10px rgba(161, 161, 161, 0.295);
     font-family: "Baloo 2", sans-serif;
     margin: 0 10px 0 10px;
 }
 
-form label {
+label {
     position: relative;
     display: inline-block;
     margin: 15px 0 0 0;
     border: rgb(189, 189, 189) 1px solid;
     border-radius: 8px;
     height: 31px;
-    width: auto;
+    width: 100%;
 }
 
 label h3 {
     position: absolute;
-    top: -10px; /* Ajusta la posición vertical */
+    top: -12px; /* Ajusta la posición vertical */
     left: 13px;
     background-color: #ffffff; /* Fondo para cubrir la línea del borde */
     padding: 0px 5px; /* Ajusta el espacio alrededor del texto */
     margin: 0;
     height: 20px;
     font-size: 14px; /* Ajusta el tamaño de la fuente */
-    font-weight: 620;
+    font-weight: 200;
 }
 
 label p {
     font-size: 1.1rem;
     margin: 0;
-    padding: 4px 15px 1px 15px;
+    padding: 3px 14px 1px 14px;
     color: rgb(82, 82, 82);
+}
+
+
+
+
+.info-treatment {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 1px 10px rgba(78, 0, 138, 0.295);
+    padding: 15px 20px;
+    margin: 0px;
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-family: "ABeeZee", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #5E548E;
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+.form-treatment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 95%;
+    margin: 0px;
+    padding: 6px 20px 14px 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 1px 10px rgba(161, 161, 161, 0.295);
+    font-family: "Baloo 2", sans-serif;
+    margin: 0 10px 0 10px;
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 25%;
+    margin: 0px;
+    padding: 0px;
+    gap: 10px;
+}
+
+.btn-treatment {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 15%;
+    margin-top: 10px;
+    padding: 0px 10px;
+}
+
+.btn {
+    font-weight: 400;
+    width: 84px;
+    height: 30px;
+    padding: 0px;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #5E548E;
+    border-color: #5E548E;
 }

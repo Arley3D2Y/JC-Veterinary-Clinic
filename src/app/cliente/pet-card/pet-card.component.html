@@ -49,29 +49,47 @@
   </div>
   
   <div class="info-treatment">
-    <div class="text-pet">
-      <form class="form-pet">
-        <label for="nombre">
-          <h3>Nombre</h3>
-          <p>{{ mascotaSeleccionada?.nombre || '-' }}</p>
+    <h1>Tratamiento</h1>
+    <form class="form-treatment">
+      <label for="descripcion">
+        <h3>Descripción</h3>
+        <p>{{tratamientoSeleccionado?.descripcion || '-'}}</p>
+      </label>
+
+      <label for="observaciones">
+        <h3>Observaciones</h3>
+        <p>{{tratamientoSeleccionado?.observaciones || '-'}}</p>
+      </label>  
+
+      <div class="line">
+        <label for="droga">
+          <h3>Droga</h3>
+          <p>{{tratamientoSeleccionado?.droga?.nombre || '-'}}</p>
         </label>
   
-        <label for="sexo">
-          <h3>Sexo</h3>
-          <p>{{ mascotaSeleccionada?.sexo || '-' }}</p>
+        <label for="veterinario">
+          <h3>Veterinario</h3>
+          <p>{{tratamientoSeleccionado?.veterinario?.nombre || '-'}}</p>
         </label>
-  
-        <label for="raza">
-          <h3>Raza</h3>
-          <p>{{ mascotaSeleccionada?.raza || '-' }}</p>
+      </div>
+
+      <div class="line">
+        <label for="fecha inicio">
+          <h3>Fecha Inicio</h3>
+          <p>{{tratamientoSeleccionado?.fechaInicio || '-'}}</p>
         </label>
-  
-        <label for="nacimiento">
-          <h3>Estado</h3>
-          <p>{{ mascotaSeleccionada?.estado || '-' }}</p>
+
+        <label for="fecha final">
+          <h3>Fecha Final</h3>
+          <p>{{tratamientoSeleccionado?.fechaFin || '-'}}</p>
         </label>
-  
-      </form>
+      </div>
+      
+    </form>
+
+    <div *ngIf="tratamientoSeleccionado" class="btn-treatment">
+      <button [disabled]="tratamientoSeleccionado?.id === 1" (click)="pageBack()" class="btn btn-primary">Anterior</button>
+      <button [disabled]="tratamientoSeleccionado?.id === this.total" (click)="pageNext()" class="btn btn-primary">Siguiente</button>
     </div>
   </div>
 </section>

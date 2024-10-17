@@ -17,7 +17,7 @@ export const routes: Routes = [
     { path: 'login/administrador', component: LoginComponent, data: { type: 'administrador' } }, 
 
     { path: 'cliente/dashboard/:cedula', component: DashboardComponent, data: { type: 'cliente' } }, // Ruta para el dashboard del cliente
-    // Clientes
+    
     { path: 'veterinario/clientes', component: VeterinarioComponent, data: { type: 'clientes' } },
     { path: 'veterinario/detalles/cliente/:id', component: EntityDetailsComponent, data: { type: 'cliente' } },
     { path: 'veterinario/agregar/cliente', component: FormHandlerComponent },

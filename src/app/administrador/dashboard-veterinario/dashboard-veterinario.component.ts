@@ -1,125 +1,101 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { DrogaService } from '../../services/droga.service';
-import { CustomerService } from '../../services/customer.service';
-import { TratamientoService } from '../../services/tratamiento.service';
-import { PetService } from '../../services/pet.service';
-
-import { Mascota } from '../../model/mascota';
-import { Cliente } from '../../model/cliente';
-import { Tratamiento } from '../../model/tratamiento';
-
 import { Chart } from 'chart.js';
+import { DashboardService } from '../../services/dashboard.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-veterinario',
   standalone: true,
   imports: [
-    CommonModule,
+    CommonModule
   ],
   templateUrl: './dashboard-veterinario.component.html',
-  styleUrls: ['./dashboard-veterinario.component.css'] // Corrección aquí
+  styleUrls: ['./dashboard-veterinario.component.css']
 })
 export class DashboardVeterinarioComponent implements OnInit {
-  mascotas: Mascota[] = [];
-  clientes: Cliente[] = [];
-  tratamientos: Tratamiento[] = [];
-  
-  tratamientoMasComun: string = '';
-  
-  constructor(
-    private drogaService: DrogaService,
-    private clienteService: CustomerService,
-    private tratamientoService: TratamientoService,
-    private mascotaService: PetService
-  ) {}
+  totalTratamientos: number = 0;
+  tratamientosPorMedicamento: any[] = [];
+  veterinariosActivos: number = 0;
+  veterinariosInactivos: number = 0;
+  totalMascotas: number = 0;
+  mascotasActivas: number = 0;
+  ventasTotales: number = 0;
+  gananciasTotales: number = 0;
+  topTratamientos: any[] = [];
 
-  ngOnInit(): void {
-    // Cargar los datos de mascotas
-    this.mascotaService.findAll().subscribe(mascotas => {
-      this.mascotas = mascotas;
-      this.actualizarGraficoMascotas(mascotas);
-    });
+  constructor(private dashboardService: DashboardService) {}
 
-    // Cargar los datos de clientes
-    this.clienteService.findAll().subscribe(clientes => {
-      this.clientes = clientes;
-      this.actualizarGraficoClientes(clientes);
-    });
-
-    // Cargar los datos de tratamientos
-    this.tratamientoService.findAll().subscribe(tratamientos => {
-      this.tratamientos = tratamientos;
-      this.tratamientoMasComun = this.obtenerTratamientoMasComun(tratamientos);
-      this.actualizarGraficoTratamientos(tratamientos);
-    });
+  ngOnInit() {
+    /*
+    this.cargarDatos();*/
   }
 
-  actualizarGraficoMascotas(mascotas: Mascota[]): void {
-    const tiposMascotas = mascotas.reduce((acc: Map<string, number>, mascota) => {
-      acc.set(mascota.enfermedad, (acc.get(mascota.enfermedad) || 0) + 1);
-      return acc;
-    }, new Map());
+  /*
+  cargarDatos() {
+    this.dashboardService.obtenerDatosDashboard().subscribe(
+      (datos) => {
+        this.totalTratamientos = datos.totalTratamientos;
+        this.tratamientosPorMedicamento = datos.tratamientosPorMedicamento;
+        this.veterinariosActivos = datos.veterinariosActivos;
+        this.veterinariosInactivos = datos.veterinariosInactivos;
+        this.totalMascotas = datos.totalMascotas;
+        this.mascotasActivas = datos.mascotasActivas;
+        this.ventasTotales = datos.ventasTotales;
+        this.gananciasTotales = datos.gananciasTotales;
+        this.topTratamientos = datos.topTratamientos;
 
-    const mascotasData = {
-      labels: Object.keys(tiposMascotas),
-      datasets: [{
-        data: Object.values(tiposMascotas),
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-      }]
-    };
+        this.crearGraficos();
+      },
+      (error) => {
+        console.error('Error al cargar los datos del dashboard', error);
+      }
+    );
+  }
+*/
+  crearGraficos() {
+    this.crearGraficoVeterinarios();
+    this.crearGraficoMascotas();
+    this.crearGraficoFinanzas();
+  }
 
-    const ctx = document.getElementById('mascotasChart') as HTMLCanvasElement;
-    new Chart(ctx, {
+  crearGraficoVeterinarios() {
+    new Chart('veterinariosChart', {
       type: 'pie',
-      data: mascotasData
+      data: {
+        labels: ['Activos', 'Inactivos'],
+        datasets: [{
+          data: [this.veterinariosActivos, this.veterinariosInactivos],
+          backgroundColor: ['#36A2EB', '#FF6384']
+        }]
+      }
     });
   }
 
-  actualizarGraficoClientes(clientes: Cliente[]): void {
-    const clientesData = {
-      labels: clientes.map(cliente => cliente.nombre),
-      datasets: [{
-        data: clientes.map(cliente => 
-          cliente.mascotas ? cliente.mascotas.length : 0
-      ),
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-      }]
-    };
-
-    const ctx = document.getElementById('clientesChart') as HTMLCanvasElement;
-    new Chart(ctx, {
+  crearGraficoMascotas() {
+    new Chart('mascotasChart', {
       type: 'bar',
-      data: clientesData
+      data: {
+        labels: ['Total', 'Activas'],
+        datasets: [{
+          label: 'Mascotas',
+          data: [this.totalMascotas, this.mascotasActivas],
+          backgroundColor: ['#4BC0C0', '#FFCE56']
+        }]
+      }
     });
   }
 
-  actualizarGraficoTratamientos(tratamientos: any[]): void {
-    const tiposTratamientos = tratamientos.reduce((acc, tratamiento) => {
-      acc[tratamiento.tipo] = (acc[tratamiento.tipo] || 0) + 1;
-      return acc;
-    }, {});
-
-    const tratamientosData = {
-      labels: Object.keys(tiposTratamientos),
-      datasets: [{
-        data: Object.values(tiposTratamientos),
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
-      }]
-    };
-
-    const ctx = document.getElementById('tratamientosChart') as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: tratamientosData
+  crearGraficoFinanzas() {
+    new Chart('finanzasChart', {
+      type: 'line',
+      data: {
+        labels: ['Ventas', 'Ganancias'],
+        datasets: [{
+          label: 'Finanzas',
+          data: [this.ventasTotales, this.gananciasTotales],
+          borderColor: '#FF9F40'
+        }]
+      }
     });
-  }
-
-  obtenerTratamientoMasComun(tratamientos: any[]): string {
-    const tratamientoMasComun = tratamientos.reduce((prev, current) => {
-      return (prev.cantidad > current.cantidad) ? prev : current;
-    });
-    return tratamientoMasComun.tipo;
   }
 }
