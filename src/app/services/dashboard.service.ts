@@ -32,8 +32,8 @@ getTratamientosPorMedicamento(): Observable<GenericoDTO[]> {
   }
 
   // Método para obtener las ventas y ganancias totales
-  getFinanzas(): Observable<{ ventas: number, ganancias: number }> {
-    return this.http.get<{ ventas: number, ganancias: number }>(`${this.apiUrl}/finanzas`);
+  getFinanzas(): Observable<{ ventasTotales: number, gananciasTotales: number }> {
+    return this.http.get<{ ventasTotales: number, gananciasTotales: number }>(`${this.apiUrl}/finanzas`);
   }
 
   // Método para obtener los tratamientos más populares

@@ -20,10 +20,10 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
   tratamientosPorMedicamento: any[] = [ ];
   veterinariosActivos: number = 0;
   veterinariosInactivos: number = 0;
-  totalMascotas: number = 150;
+  totalMascotas: number = 130;
   mascotasActivas: number = 60;
-  ventasTotales: number = 12000;
-  gananciasTotales: number = 8000;
+  ventasTotales: Number = 0;
+  gananciasTotales: Number = 0;
   topTratamientos: any[] = [ ]
 
   graficosCreados: boolean = false; // Bandera para controlar la creación de gráficos
@@ -55,6 +55,14 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
 
       this.crearGraficoVeterinarios();
       this.isDataLoaded = true;
+    })
+
+    this.dashboardService.getFinanzas().subscribe((data: any) => {
+      console.log(data);
+      this.ventasTotales = data.ventasTotales;
+      this.gananciasTotales = data.gananciaTotales;
+
+      this.crearGraficoFinanzas();
     })
   }
 
