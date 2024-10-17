@@ -4,8 +4,10 @@
         <img *ngIf="typeObject === 'tratamientos'" [src]="item.mascota?.fotoString" width="90" height="90">
         <div>
             <h2 *ngIf="typeObject !== 'tratamientos'">{{ item.nombre }}</h2>
-            <p *ngIf="typeObject === 'tratamientos'">Descipción: {{ item.descripcion }}</p>
-            <p *ngIf="typeObject === 'tratamientos'">Droga: {{ item.droga?.nombre }}</p>
+            <div *ngIf="typeObject === 'tratamientos'" class="tratamiento-info">
+                <h4>{{ item.descripcion }}</h4>
+                <p *ngIf="typeObject === 'tratamientos'">Droga: {{ item.droga?.nombre }}</p>
+            </div>
             <p *ngIf="typeObject === 'clientes'">CC: {{ item.cedula }}</p>
             <p *ngIf="typeObject === 'mascotas'">Raza: {{ item.raza }}</p>
             <p *ngIf="typeObject === 'veterinarios'">
@@ -15,7 +17,7 @@
             </p>
         </div>
         <div class="info">
-            <a [routerLink]=" dynamicActionUrl + typeObject.slice(0, -1) + '/' + item.id" title="Detalles">
+            <a [routerLink]=" dynamicActionUrl + typeObject.slice(0, -1) + '/' + item.id"  title="Detalles">
                 <button class="btn btn-dark">
                     <i class="fa-solid fa-circle-info"></i>
                 </button>

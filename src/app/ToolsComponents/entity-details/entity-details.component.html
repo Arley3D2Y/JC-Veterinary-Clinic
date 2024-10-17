@@ -16,18 +16,18 @@
 
 <main>
   <ng-container *ngIf="typeEntity === 'cliente'">
-    <app-customer-card [customerSelected]="customer"></app-customer-card>
+    <app-customer-card></app-customer-card>
   </ng-container>
 
   <ng-container *ngIf="typeEntity === 'mascota'">
-    <app-pet-card [petSelected]="pet"></app-pet-card>
+    <app-pet-card></app-pet-card>
   </ng-container>
 
   <ng-container *ngIf="typeEntity === 'veterinario'">
-    <app-veterinario-card [veterinarySelected]="vet"></app-veterinario-card>
+    <app-veterinario-card></app-veterinario-card>
   </ng-container>
 
   <ng-container *ngIf="typeEntity === 'tratamiento'">
-    <app-tratamiento-card [treatmentSelected]="treatment"></app-tratamiento-card>
+    <app-treatment-card></app-treatment-card>
   </ng-container>
 </main>

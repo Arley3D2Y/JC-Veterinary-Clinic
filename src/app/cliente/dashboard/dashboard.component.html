@@ -1,12 +1,23 @@
 <div class="dashboard">
   <header class="datos_cliente">
-    <app-cliente-card [cliente]="cliente"></app-cliente-card>
+    <nav class="logout-layout">
+      <a (click)="logout()" title="Logout">
+        <img src="/images/logout.png" alt="logout" width="45px">
+      </a>
+    
+      <div *ngIf="isDataLoaded"  class="foto-cliente">
+        <img [src]="cliente.fotoString" [alt]="'Foto de ' + cliente.nombre" width="130" height="130">
+      </div>
+    </nav>
+    
+    <app-cliente-info-card *ngIf="isDataLoaded" [cliente]="cliente"></app-cliente-info-card>
   </header>
 
   <main class="main-mascotas">
     <h1>Mascotas</h1>
-    <app-pet-list [mascotas]="cliente.mascotas ?? []" (mascotaSeleccionada)="onMascotaSeleccionada($event)"></app-pet-list>
+    <app-pet-list [mascotas]="cliente?.mascotas" (mascotaSeleccionada)="onMascotaSeleccionada($event)"></app-pet-list>
 
-    <app-pet-card [mascotaSeleccionada]="mascotaSeleccionada"></app-pet-card>
+    <app-pet-card [mascotaSeleccionada]="petSelected"></app-pet-card>
+
   </main>
 </div>

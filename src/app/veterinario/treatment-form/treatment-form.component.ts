@@ -6,7 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
-
+import { Droga } from '../../model/droga';
+import { DrogaService } from '../../services/droga.service';
+import { Veterinario } from '../../model/veterinario';
+import { VeterinarioService } from '../../services/veterinario.service';
 
 @Component({
   selector: 'app-treatment-form',
@@ -27,17 +30,23 @@ export class TreatmentFormComponent {
     @Input() treatmentUpdate!: Tratamiento;
     @Input() pet!: Mascota;  // Recibe el cliente desde el padre
     @Input() operation!: string;
-  
+ 
+    drogas: Droga[] = [];
+
     constructor(
+      private serviceDroga: DrogaService,
       private router: Router,
     ) {}
   
     ngOnInit(): void {
       if (this.operation === 'actualizar' && this.treatmentUpdate) {
         this.formTreatment = { ...this.treatmentUpdate };
-      } else {
-        this.formTreatment;
       }
+      this.serviceDroga.findAll().subscribe(
+        (data: Droga[]) => {
+          this.drogas = data;
+        }
+      )
     }
   
     formTreatment: Tratamiento = {
@@ -46,19 +55,22 @@ export class TreatmentFormComponent {
       observaciones: '',
       fechaInicio: new Date(),
       fechaFin: new Date(),
-      mascota: this.pet,
-    }
+      mascota: {} as Mascota,
+      veterinario: {} as Veterinario, 
+      droga: {} as Droga
+    };
   
     pageBack() {
       if (this.operation === 'agregar') {
         this.router.navigate(['/veterinario/detalles/mascota/', this.pet.id]);
       } else {
-        this.router.navigate(['/veterinario/detalles/tratamiento/', this.treatmentUpdate.id]);
+        this.router.navigate(['/veterinario/detalles/tratamiento', this.pet.id]);        
       }
     }
   
     // Método para agregar o actualizar la mascota
-    savePet(form: any) {
+    saveTreatment(form: any) {
+      this.formTreatment.mascota = this.pet;
       this.addTreatmentEvent.emit(this.formTreatment);  // Emite el evento con la mascota
     }
   

@@ -44,4 +44,39 @@
 
 </section>
 
-<app-pet-tratamiento-table *ngIf="isDataLoaded" [pet]="petSelected"></app-pet-tratamiento-table>
+<h2>Tratamientos</h2>
+<section *ngIf="petSelected">
+
+    <!-- Tabla de tratamientos -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th>Veterinario</th>
+            <th>Observaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tratamiento of petSelected.tratamientos">
+            <td>{{ tratamiento.descripcion }}</td>
+            <td>{{ tratamiento.fechaInicio | date }}</td>
+            <td>{{ tratamiento.fechaFin | date }}</td>
+            <td>{{ tratamiento.veterinario?.nombre }}</td>
+            <td>{{ tratamiento.observaciones }}</td>
+            <td>
+                <button class="btn-mini btn-danger" (click)="deleteItem(tratamiento)">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <button class="btn btn-success" [routerLink]="['/veterinario/agregar/tratamiento/mascota', petSelected.id]" title="Añadir Trataminento">
+        Crear Tratamiento
+    </button>
+      
+  </section>
+  

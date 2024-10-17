@@ -9,7 +9,7 @@ import { Tratamiento } from '../model/tratamiento';
 })
 export class PetService {
 
-  private baseUrl = 'http://localhost:8091/mascotas'; // Definimos la URL base para facilitar
+  private baseUrl = 'http://localhost:8088/mascotas'; // Definimos la URL base para facilitar
 
   constructor( private http: HttpClient ) {  }
 
@@ -37,7 +37,7 @@ export class PetService {
     return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-client_id/${id}`);
   }
 
-  searhcByPetName(name: String): Observable<Mascota[]> {
+  searhcPetsByName(name: String): Observable<Mascota[]> {
     return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 

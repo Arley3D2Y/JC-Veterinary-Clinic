@@ -1,17 +1,5 @@
-<div class="layout">
-  <nav>
-  <a [routerLink]="['/login']" routerLinkActive="active" title="Logout">
-    <img src="/images/logout.png" alt="logout" width="45px">
-  </a>
-</nav>
-
 <form>
-
-  <div class="foto-cliente">
-    <img [src]="cliente.fotoString" [alt]="'Foto de ' + cliente.nombre" with="100" height="auto">
-  </div>
-
-  <legend>Datos Personales</legend>
+  <h1>Datos Personales</h1>
 
   <label for="nombre">
     <h3>Nombre</h3>
@@ -39,4 +27,3 @@
   </label>
 
 </form>
-</div>

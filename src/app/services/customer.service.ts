@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CustomerService {
 
-  private baseUrl = 'http://localhost:8091/clientes'; // Definimos la URL base para facilitar
+  private baseUrl = 'http://localhost:8088/clientes'; // Definimos la URL base para facilitar
 
   constructor( private http: HttpClient ) { }
 
@@ -30,6 +30,10 @@ export class CustomerService {
 
   deleteCustomer(id: Number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
+
+  sarchCustomersByName(name: String): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 
   searchByDocument(document: string): Observable<Cliente> {

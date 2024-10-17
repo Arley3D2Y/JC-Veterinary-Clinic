@@ -4,7 +4,8 @@ import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { CommonModule, Location } from '@angular/common';
-import { PetTratamientoTableComponent } from '../pet-tratamiento-table/pet-tratamiento-table.component';
+import { mergeMap, tap } from 'rxjs';
+import { TratamientoService } from '../../services/tratamiento.service';
 
 @Component({
   selector: 'app-pet-card',
@@ -12,13 +13,11 @@ import { PetTratamientoTableComponent } from '../pet-tratamiento-table/pet-trata
   imports: [
     CommonModule,
     RouterLink,
-    PetTratamientoTableComponent
   ],
   templateUrl: './pet-card.component.html',
   styleUrl: './pet-card.component.css'
 })
 export class PetCardComponent {
-  @Input()
   petSelected!: Mascota;
   isPetUpdated: Boolean = false;
 
@@ -28,6 +27,7 @@ export class PetCardComponent {
     private router: Router,
     private route: ActivatedRoute,
     private petService: PetService,
+    private treatmentService: TratamientoService,
     private location: Location,
   ) {
   }
@@ -35,10 +35,15 @@ export class PetCardComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
-      this.petService.findById(id).subscribe(pet => {
-        this.petSelected = pet;
-        this.isDataLoaded = true;
-      })
+
+      this.petService.findById(id).pipe(
+        tap(petInfo => {
+          this.petSelected = petInfo; // Asegúrate de que customerSelected esté cargado
+        }),
+        mergeMap(petInfo => this.petService.getTreatmentsByPetId(petInfo.id))
+      ).subscribe(treatments => {
+        this.petSelected.tratamientos = treatments; // Ahora puedes acceder a mascotas
+      });
     });
   }
 
@@ -55,6 +60,12 @@ export class PetCardComponent {
       } else if (this.isPetUpdated === false) {
         this.router.navigate(['/veterinario/mascotas']);
       }
+    })
+  }
+
+  deleteItem(item: any) {
+    this.treatmentService.deleteTratamiento(item.id).subscribe(() => {
+      this.ngOnInit();
     })
   }
 }

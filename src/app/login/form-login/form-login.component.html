@@ -5,7 +5,7 @@
     <ng-container *ngIf="userType === null">
         <ng-container *ngIf="typeUser === 'cliente'">
             <div class="form-group">
-                <input type="text" id="txtCedula" class="form-input" name="cedula" [(ngModel)]="formCliente.cedula"
+                <input type="text" id="txtCedula" class="form-input" name="cedula" [(ngModel)]="form.cedula"
                     required />
                 <label for="txtCedula" class="form-label">Ingrese su cédula</label>
             </div>
@@ -17,14 +17,14 @@
 
         <ng-container *ngIf="typeUser === 'veterinario'">
             <div class="form-group">
-                <input type="text" id="txtCorreo" class="form-input" name="correo" [(ngModel)]="formVeterinario.correo"
-                    required />
+                <input type="text" id="txtCorreo" class="form-input" name="correo" 
+                [(ngModel)]="form.correo" required/>
                 <label for="txtCorreo" class="form-label">Correo de usuario</label>
             </div>
 
             <div class="form-group">
                 <input type="password" id="txtPassword" class="form-input" name="password"
-                    [(ngModel)]="formVeterinario.password" required />
+                    [(ngModel)]="form.password" required />
                 <label for="txtPassword" class="form-label">Contraseña</label>
             </div>
         </ng-container>
@@ -43,19 +43,23 @@
     <!-- login de administrador -->
     <ng-container *ngIf="typeUser === 'administrador'">
         <div class="form-group">
-            <input type="text" id="txtUsuario" class="form-input" name="usuario" [(ngModel)]="formAdmin.usuario"
+            <input type="text" id="txtUsuario" class="form-input" name="usuario" [(ngModel)]="form.usuario"
                 required />
-            <label for="txtUsuario" class="form-label">Usuario</label>
+            <label for="txtUsuario" class="form-label">Administrador</label>
         </div>
 
         <div class="form-group">
-            <input type="password" id="txtPassword" class="form-input" name="password" [(ngModel)]="formAdmin.password"
+            <input type="password" id="txtPassword" class="form-input" name="password" [(ngModel)]="form.password"
                 required />
             <label for="txtPassword" class="form-label">Contraseña</label>
+        </div>
+
+        <div id="other-login">
+            <a> Bienvenido </a>
         </div>
     </ng-container>
 
     <app-login-options></app-login-options>
 
-    <button type="submit" class="btn btn-dark" title='Ingresar' [disabled]="!formGroup.valid">INGRESAR</button>
+    <button type="submit" class="btn btn-primary" title='Ingresar' [ngClass]="{'btn-incomplete': !formGroup.valid}" [disabled]="!formGroup.valid">INGRESAR</button>
 </form>

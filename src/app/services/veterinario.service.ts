@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Veterinario } from '../model/veterinario';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VeterinarioService {
+  private veterinarioIdSource = new BehaviorSubject<number | null>(null);
+  veterinarioId$ = this.veterinarioIdSource.asObservable();
 
-  private baseUrl = 'http://localhost:8091/veterinarios';
+  setVeterinarioId(id: number) {
+    this.veterinarioIdSource.next(id);
+  }
+
+  getVeterinarioId(): number | null {
+    return this.veterinarioIdSource.getValue();
+  }
+
+  private baseUrl = 'http://localhost:8088/veterinarios';
 
   constructor( private http: HttpClient ) { }
 
@@ -38,7 +48,7 @@ export class VeterinarioService {
   }
 
   // Buscar veterinarios por nombre
-  searchByName(name: string): Observable<Veterinario[]> {
+  sarchVeterinariosByName(name: string): Observable<Veterinario[]> {
     return this.http.get<Veterinario[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 

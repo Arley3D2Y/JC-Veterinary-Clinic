@@ -20,9 +20,7 @@ import { mergeMap, tap } from 'rxjs';
   styleUrl: './customer-card.component.css',
 })
 export class CustomerCardComponent {
-  @Input()
   customerSelected!: Cliente;
-  visiblePets: Boolean = false;
   
   constructor(
     private router: Router,

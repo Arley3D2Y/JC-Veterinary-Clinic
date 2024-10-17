@@ -23,6 +23,8 @@ import { Tratamiento } from '../../model/tratamiento';
 export class CardsTableComponent {
   // Datos genéricos, pueden ser clientes o mascotas
   items: any[] = [];
+  filteredItems: any[] = [];
+
   // Atributo que recibe el tipo de objeto (clientes o mascotas)
   @Input() typeObject!: 'clientes' | 'mascotas' | 'veterinarios' | 'drogas' | 'tratamientos';
   @Input() dynamicActionUrl: string = "";
@@ -53,7 +55,6 @@ export class CardsTableComponent {
     } else if (this.typeObject === 'tratamientos') {
       this.dynamicActionUrl = '/veterinario/detalles/';
       this.loadTratamientos();
-
     }
   }
   // Método genérico para eliminar el item (ya sea cliente o mascota)
@@ -77,7 +78,6 @@ export class CardsTableComponent {
     }
   }
 
-
   loadVeterinarios(): void {
     this.vetService.findAll().subscribe(
       (data: Veterinario[]) => {
@@ -87,11 +87,15 @@ export class CardsTableComponent {
   }
 
   loadTratamientos(): void {
-    this.tratamientoService.findAll().subscribe(
-      (data: Tratamiento[]) => {
-        this.items = data;
+    this.vetService.veterinarioId$.subscribe((id) => {
+      if (id != null) {
+        this.tratamientoService.searchTratamientoByVetId(id).subscribe(
+          (data: Tratamiento[]) => {
+            this.items = data;
+          }
+        );
       }
-    );
+    })
   }
 
   loadMascotas(): void {
@@ -108,6 +112,40 @@ export class CardsTableComponent {
         this.items = data;
       }
     );
+  }
+
+  searchItemsByName(name: string): void {
+    if (this.typeObject === 'clientes') {
+      this.customerService.sarchCustomersByName(name).subscribe(
+        (data: Cliente[]) => {
+          this.items = data;
+        }
+      );
+    }
+
+    if (this.typeObject === 'mascotas') {
+      this.petService.searhcPetsByName(name).subscribe(
+        (data: Mascota[]) => {
+          this.items = data;
+        }
+      );
+    }
+
+    if (this.typeObject === 'veterinarios') {
+      this.vetService.sarchVeterinariosByName(name).subscribe(
+        (data: Veterinario[]) => {
+          this.items = data;
+        }
+      );
+    }
+
+    if (this.typeObject === 'tratamientos') {
+      this.tratamientoService.sarchTratamientosByName(name).subscribe(
+        (data: Tratamiento[]) => {
+          this.items = data;
+        }
+      );
+    }
   }
 
 }

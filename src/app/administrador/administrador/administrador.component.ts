@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
@@ -18,6 +18,8 @@ import { CardsTableComponent } from '../../ToolsComponents/cards-table/cards-tab
   styleUrl: './administrador.component.css'
 })
 export class AdministradorComponent {
+  @ViewChild(CardsTableComponent) cardsTable!: CardsTableComponent; // Referencia al componente CardsTable
+
   // Defininimos un propiedad para manejar el tipo de objeto
   typeSection!: 'veterinarios' | 'tratamientos' ;
   constructor(private route: ActivatedRoute) {}
@@ -32,5 +34,11 @@ export class AdministradorComponent {
       this.route.data.subscribe((data) => {
         this.typeSection = data['type'];
       });
+    }
+
+    onSearch(searchTerm: string): void {
+      if (this.cardsTable) {
+        this.cardsTable.searchItemsByName(searchTerm); // Llama al método en CardsTableComponent
+      }
     }
 }

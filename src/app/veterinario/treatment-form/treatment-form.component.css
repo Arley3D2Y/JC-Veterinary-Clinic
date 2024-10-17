@@ -20,6 +20,7 @@ form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
 }
 
+
 .form-floating label {
     height: 20px;
     position: absolute;
@@ -56,3 +57,22 @@ form {
     align-self: center;
 }
 
+.custom-textarea {
+    height: 100px; /* Ajusta la altura aquí */
+    width: 100%; /* Ancho fijo */
+    resize: none; /* Desactiva la opción de redimensionar */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde del textarea */
+    border-radius: 5px; /* Esquinas redondeadas */
+    font-size: 21px; /* Tamaño de la fuente */
+    font-family: Arial, sans-serif; /* Fuente */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Estilo para el select y las opciones */
+.form-floating select {
+    font-size: 21px; /* Tamaño de letra del texto de las opciones */
+    border: 1px solid #ccc; /* Borde del select */
+    border-radius: 5px; /* Esquinas redondeadas */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+}

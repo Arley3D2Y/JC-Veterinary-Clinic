@@ -8,6 +8,7 @@ import { LoginOptionsComponent } from '../login-options/login-options.component'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Administrador } from '../../model/administrador';
+import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-form-login',
@@ -20,38 +21,29 @@ import { Administrador } from '../../model/administrador';
 })
 export class FormLoginComponent implements OnInit {
   @Input() userType: string | null = null;
-  typeUser!: string;
+  typeUser: string | null = null;
 
   // Modelo para el formulario
-  formCliente = {
-    cedula: ''
-  };
-
-  formAdmin = {
+  form = {
+    cedula: '',
     usuario: '',
-    password: ''
-  };
-
-  formVeterinario = {
+    password: '',
     correo: '',
-    password: ''
   };
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
+    private clientService: CustomerService,
     private vetService: VeterinarioService,
     private adminService: AdministradorService,
-    private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.typeUser = params['typeUser'] || 'cliente'; // Establecer 'cliente' por defecto
-    });
-    
-    // Si el 'userType' está definido, sobrescribir 'typeUser'
-    if (this.userType === 'administrador') {
-      this.typeUser = 'administrador';
+    if (this.userType) {
+      this.typeUser = this.userType;
+    } else {
+      this.typeUser = 'cliente';
     }
   }
 
@@ -62,45 +54,82 @@ export class FormLoginComponent implements OnInit {
   }
 
   clearForm() {
-    this.formCliente.cedula = '';
-    this.formVeterinario.correo = '';
-    this.formVeterinario.password = '';
-    this.formAdmin.password = '';
-    this.formAdmin.usuario = '';
+    this.form = {
+      cedula: '',
+      usuario: '',
+      password: '',
+      correo: '',
+    }
   }
 
   onSubmit() {
-    if (this.userType === null) {
-      // Login normal de clientes o veterinarios
-      if (this.typeUser === 'cliente') {
-        this.router.navigate(['cliente/dashboard', this.formCliente.cedula]);
-      } else if (this.typeUser === 'veterinario') {
-        this.vetService.searchbyEmail(this.formVeterinario.correo).subscribe(
-          (veterinario) => {
-            if (veterinario) {
-              if (veterinario.password === this.formVeterinario.password) {
-                this.router.navigate(['veterinario/clientes']);
-              } else {
-                alert('Contraseña incorrecta');
-              }
-            } else {
-              alert('Veterinario no encontrado');
-            }
-          });
-      }
-    }  else if (this.userType === 'administrador') {
-      this.adminService.seachByUser(this.formAdmin.usuario).subscribe(
-        (admin: Administrador) => { 
-          if (admin && admin.password === this.formAdmin.password) {
-            this.router.navigate(['administrador/veterinario']);
-          } else {
-            alert('Administrador no encontrado o contraseña incorrecta');
-          }
-        },
-        (error) => {
-          alert('Error al buscar administrador');
-        }
-      );
+    switch (this.typeUser) {
+      case 'cliente':
+        this.loginCliente();
+        break;
+
+      case 'veterinario':
+        this.loginVeterinario();
+        break;
+
+      case 'administrador':
+        this.loginAdministrador();
+        break;
+
+      default:
+        alert("Tipo de usuario no válido");
+        break;
     }
   }
+
+  private loginCliente() {
+    this.clientService.searchByDocument(this.form.cedula).subscribe({
+      next: (customer) => {
+        if (customer.cedula === this.form.cedula) {
+          this.router.navigate(['cliente/dashboard', this.form.cedula]);
+        }
+      },
+      error: (error) => {
+        if (error.status === 404) {
+          alert('Cliente no encontrado');
+        }
+      }
+    });
+  }
+
+  private loginVeterinario() {
+    this.vetService.searchbyEmail(this.form.correo).subscribe({
+      next: (veterinario) => {
+        if (veterinario.password === this.form.password) {
+          this.router.navigate(['veterinario/clientes'], { queryParams: { id: veterinario.id } });
+        } else {
+          alert('Contraseña incorrecta');
+        }
+      },
+      error: (error) => {
+        if (error.status === 404) {
+          alert('Veterinario no encontrado');
+        }
+      }
+    });
+  }
+
+  private loginAdministrador() {
+    this.adminService.seachByUser(this.form.usuario).subscribe({
+      next: (admin) => {
+        if (admin && admin.password === this.form.password) {
+          this.router.navigate(['administrador/veterinario']);
+        } else {
+          alert('Contraseña incorrecta');
+        }
+      },
+      error: (error) => {
+        if (error.status === 404) {
+          alert('Administrador no encontrado');
+        } else if (error.status === 401) {
+        }
+      }
+    });
+  }
+
 }

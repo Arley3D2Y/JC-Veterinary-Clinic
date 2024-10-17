@@ -6,7 +6,7 @@
       { path: '/veterinario/clientes', label: 'Clientes' }
   ]" [logoutRedirectUrl]="'/login'"></app-shared-header>
 </ng-container>
-<ng-container *ngIf="typeEntity === 'veterinario' || typeEntity === 'medicamento' ">
+<ng-container *ngIf="typeEntity === 'veterinario'">
     <app-shared-header [navLinks]="[
       { path: '/administrador/medicamento', label: 'Medicamentos' },
       { path: '/administrador/veterinario', label: 'Veterinario' },
@@ -35,8 +35,8 @@
     </ng-container>
 
     <ng-container *ngIf="typeEntity === 'tratamiento' && isDataLoaded">
-        <app-treatment-form [treatmentUpdate]="treatmentSelected" [operation]="typeOperation"
-            (addTreatmentEvent)="saveTreatment($event)">
+        <app-treatment-form [treatmentUpdate]="treatmentSelected" [pet]="petSelected" [operation]="typeOperation"
+            (addTreatmentEvent)="saveEntity($event)">
         </app-treatment-form>
     </ng-container>
 </main>

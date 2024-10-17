@@ -5,6 +5,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 
 import { VeterinarioService } from '../../services/veterinario.service';
 import { Veterinario } from '../../model/veterinario';
+
 @Component({
   selector: 'app-veterinario-card',
   standalone: true,
@@ -16,21 +17,23 @@ import { Veterinario } from '../../model/veterinario';
   styleUrl: './veterinario-card.component.css'
 })
 export class VeterinarioCardComponent {
-  @Input()
   veterinarySelected!: Veterinario;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private vetService: VeterinarioService
   ) {
   }
 
-  // ngOnInit(): void {
-  //   this.route.paramMap.subscribe(params => {
-  //     const id = Number(params.get('id'));
-  //     this.pets = this.customerService.getPetsByCustomerId(id);
-  //   });
-  // }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+      this.vetService.findById(id).subscribe(vet => {
+        this.veterinarySelected = vet;
+      })
+    });
+  }
 
   // Función para eliminar una mascota
   deleteVet(id: number) {
