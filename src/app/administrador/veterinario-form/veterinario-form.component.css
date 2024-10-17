@@ -1,27 +1,43 @@
 /* FORMULARIO */
 h1 {
     text-align: center;
-    margin-top: 20px;
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     color: #5E548E;
-    margin: 1%;
+    margin: 1.5%;
 }
 
 form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     width: 100%;
     max-width: 400px;
-    margin: 20px auto;
+    height: 90%;
+    margin-bottom: 30px;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
 }
 
-form button {
+.form-floating label {
+    height: 20px;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    font-size: 20px;
+    height: auto; /* Para que el label se ajuste a su contenido */
+    padding: 0px 10px; /* Añade un pequeño padding para ajustar la posición */
+    display: flex;
+    align-items: flex-start; /* Asegura que el contenido se alinee hacia la parte superior */
+}
+
+.form-floating input {
+    font-size: 21px;
+}
+
+.btn {
+    font-size: 20px;
     align-self: center;
 }
 
@@ -30,3 +46,12 @@ form button {
     background-color: #5E548E;
     border-color: #5E548E;
 }
+
+.mn-center-row {
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-self: center;
+}
+

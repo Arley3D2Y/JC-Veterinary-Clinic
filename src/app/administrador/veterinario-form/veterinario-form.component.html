@@ -2,40 +2,54 @@
 
 <!-- Formulario -->
 <form #vetForm="ngForm" (ngSubmit)="saveVet(vetForm)">
-  
+
   <!-- Campo Nombre -->
   <div class="form-floating mb-3">
-    <input [(ngModel)]="veterinary.nombre" name="nombre" required type="text" class="form-control" id="floatingInput"
+    <input [(ngModel)]="formVeterinario.nombre" name="nombre" required type="text" class="form-control" id="nombre"
       placeholder="Ingresa tu nombre">
-    <label for="floatingInput">Nombre</label>
+    <label for="nombre">Nombre</label>
   </div>
 
   <!-- Campo Cédula -->
   <div class="form-floating mb-3">
-    <input [(ngModel)]="veterinary.cedula" name="cedula" required type="text" class="form-control" id="cedula"
+    <input [(ngModel)]="formVeterinario.cedula" name="cedula" required type="text" class="form-control" id="cedula"
       placeholder="Ingresa tu cédula">
     <label for="cedula">Cédula</label>
   </div>
 
   <!-- Campo Correo -->
   <div class="form-floating mb-3">
-    <input [(ngModel)]="veterinary.correo" name="correo" required type="email" class="form-control" id="correo"
+    <input [(ngModel)]="formVeterinario.correo" name="correo" required type="email" class="form-control" id="correo"
       placeholder="Ingresa tu correo">
     <label for="correo">Email</label>
   </div>
 
   <!-- Campo Foto (URL) -->
   <div class="form-floating mb-3">
-    <input [(ngModel)]="veterinary.fotoString" name="fotoString" type="text" class="form-control" id="fotoString"
+    <input [(ngModel)]="formVeterinario.fotoString" name="fotoString" type="text" class="form-control" id="fotoString"
       placeholder="Ingresa URL de la foto">
     <label for="fotoString">Foto URL</label>
   </div>
 
+  <!-- Selección de Especialidades -->
+  <div class="form-group mb-3">
+    <label>Especialidades</label>
+    <div *ngFor="let especialidad of especialidades" class="form-check">
+      <input 
+        type="checkbox" 
+        class="form-check-input" 
+        [value]="especialidad | json" 
+        [checked]="selectedEspecialidades.includes(especialidad)"
+        (change)="onSelectSpeciality($event, especialidad)">
+      <label class="form-check-label">{{ especialidad.nombre }}</label>
+    </div>
+  </div>
+
+
   <br>
 
- 
+  <div class="mn-center-row">
     <button type="button" (click)="pageBack()" class="btn btn-danger">Volver</button>
     <button type="submit" [disabled]="!vetForm.form.valid" class="btn btn-primary">{{ operation | titlecase }}</button>
-
-
+  </div>
 </form>
