@@ -4,6 +4,8 @@ import { EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Veterinario } from '../../model/veterinario';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Especialidad } from '../../model/especialidad';
 
 @Component({
   selector: 'app-veterinario-form',
@@ -18,10 +20,13 @@ export class VeterinarioFormComponent {
   // Queremos que la mascota se transmita al componente padre a través de un evento
   @Output() addVeterinarioEvent = new EventEmitter<Veterinario>();  // Usa EventEmitter de @angular/core
 
-  @Input() veterinary!: any;  // Recibe el cliente desde el padre
+  @Input() veterinary!: Veterinario;  // Recibe el cliente desde el padre
   @Input() operation!: string;
-
+  especialidades: Especialidad[] = [];
+  selectedEspecialidades: Especialidad[] = [];
+ 
   constructor(
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +48,9 @@ export class VeterinarioFormComponent {
 
   pageBack() {
     if (this.operation === 'agregar') {
+      this.router.navigate(['/administrador/veterinario']);
     } else {
+      this.router.navigate(['/administrador/detalles/veterinario/', this.veterinary.id]);
     }
   }
 
