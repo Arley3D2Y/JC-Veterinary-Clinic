@@ -61,13 +61,16 @@ export class TreatmentFormComponent {
     };
   
     pageBack() {
-      this.router.navigate(['/veterinario/detalles/mascota/', this.pet.id]);
+      if (this.operation === 'agregar') {
+        this.router.navigate(['/veterinario/detalles/mascota/', this.pet.id]);
+      } else {
+        this.router.navigate(['/veterinario/detalles/tratamiento', this.pet.id]);        
+      }
     }
   
     // Método para agregar o actualizar la mascota
-    savePet(form: any) {
+    saveTreatment(form: any) {
       this.formTreatment.mascota = this.pet;
-      console.log(this.formTreatment);
       this.addTreatmentEvent.emit(this.formTreatment);  // Emite el evento con la mascota
     }
   

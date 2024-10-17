@@ -1,7 +1,7 @@
 <h1>{{ operation | titlecase }} tratamiento para {{ pet.nombre }}</h1>
 
 <!-- Formulario -->
-<form #petForm="ngForm" (ngSubmit)="savePet(petForm)">
+<form #petForm="ngForm" (ngSubmit)="saveTreatment(petForm)">
     <div class="form-floating mb-3">
         <input [(ngModel)]="formTreatment.descripcion" type="text" class="form-control" id="floatingDescripción"
             placeholder="Descripción" name="observaciones">
@@ -34,6 +34,11 @@
             <option *ngFor="let droga of drogas" [ngValue]="droga">{{ droga.nombre }}</option>
         </select>
         <label for="floatingDroga">Droga</label>
+    </div>
+    
+    <!-- Mostrar el nombre de la droga seleccionada -->
+    <div *ngIf="formTreatment.droga">
+        <p>Droga actual: {{ formTreatment.droga.nombre }}</p>
     </div>
 
     <div class="mn-center-row">

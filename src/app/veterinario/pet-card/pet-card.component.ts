@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { CommonModule, Location } from '@angular/common';
 import { mergeMap, tap } from 'rxjs';
+import { TratamientoService } from '../../services/tratamiento.service';
 
 @Component({
   selector: 'app-pet-card',
@@ -26,6 +27,7 @@ export class PetCardComponent {
     private router: Router,
     private route: ActivatedRoute,
     private petService: PetService,
+    private treatmentService: TratamientoService,
     private location: Location,
   ) {
   }
@@ -58,6 +60,12 @@ export class PetCardComponent {
       } else if (this.isPetUpdated === false) {
         this.router.navigate(['/veterinario/mascotas']);
       }
+    })
+  }
+
+  deleteItem(item: any) {
+    this.treatmentService.deleteTratamiento(item.id).subscribe(() => {
+      this.ngOnInit();
     })
   }
 }
