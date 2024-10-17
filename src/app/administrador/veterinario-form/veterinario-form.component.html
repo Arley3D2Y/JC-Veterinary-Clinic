@@ -38,13 +38,13 @@
       <input 
         type="checkbox" 
         class="form-check-input" 
-        [value]="especialidad | json" 
-        [checked]="selectedEspecialidades.includes(especialidad)"
-        (change)="onSelectSpeciality($event, especialidad)">
+        [checked]="isSpecialitySelected(especialidad)" 
+        (change)="onSelectSpeciality($event, especialidad)"
+      >
       <label class="form-check-label">{{ especialidad.nombre }}</label>
     </div>
   </div>
-
+  
 
   <br>
 
