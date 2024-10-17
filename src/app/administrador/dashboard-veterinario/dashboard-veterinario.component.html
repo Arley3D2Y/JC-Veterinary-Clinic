@@ -1,3 +1,9 @@
+<app-shared-header [navLinks]="[
+    { path: '/administrador/medicamentos', label: 'Medicamentos' },
+    { path: '/administrador/veterinario', label: 'Veterinario' },
+    { path: '/administrador/dashboard', label: 'Dashboard' }
+]" [logoutRedirectUrl]="'/login'"></app-shared-header>
+
 <div class="container">
   <header>
     <h1>Dashboard Administrador - Veterinaria</h1>
@@ -8,7 +14,7 @@
     <div class="dashboard-item">
       <h2>Tratamientos</h2>
       <ul>
-        <li>Total de tratamientos (último mes): <strong>{{ totalTratamientos }}</strong></li>
+        <li>Total de tratamientos (último mes): <strong>{{ tratamientosUltimoMes }}</strong></li>
       </ul>
       <h3>Tratamientos por tipo de medicamento (último mes)</h3>
       <table>
@@ -20,11 +26,14 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of tratamientosPorMedicamento">
-            <td>{{ item.medicamento }}</td>
+            <td>{{ item.nombre }}</td>
             <td>{{ item.cantidad }}</td>
           </tr>
         </tbody>
       </table>
+      <div class="chart-container">
+        <canvas id="tratamientosChart"></canvas>
+      </div>
       <h3>Top 3 tratamientos más vendidos</h3>
       <ol>
         <li *ngFor="let tratamiento of topTratamientos">
@@ -40,7 +49,7 @@
         <li>Veterinarios activos: <strong>{{ veterinariosActivos }}</strong></li>
         <li>Veterinarios inactivos: <strong>{{ veterinariosInactivos }}</strong></li>
       </ul>
-      <div class="chart-container">
+      <div class="chart-circle">
         <canvas id="veterinariosChart"></canvas>
       </div>
     </div>

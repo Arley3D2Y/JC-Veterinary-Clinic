@@ -1,59 +1,71 @@
-import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
-import { DashboardService } from '../../services/dashboard.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Chart, registerables } from 'chart.js';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard-veterinario',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    SharedHeaderComponent
   ],
   templateUrl: './dashboard-veterinario.component.html',
   styleUrls: ['./dashboard-veterinario.component.css']
 })
-export class DashboardVeterinarioComponent implements OnInit {
-  totalTratamientos: number = 0;
-  tratamientosPorMedicamento: any[] = [];
+export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
+  tratamientosUltimoMes: Number = 0;
+  tratamientosPorMedicamento: any[] = [ ];
   veterinariosActivos: number = 0;
   veterinariosInactivos: number = 0;
-  totalMascotas: number = 0;
-  mascotasActivas: number = 0;
-  ventasTotales: number = 0;
-  gananciasTotales: number = 0;
-  topTratamientos: any[] = [];
+  totalMascotas: number = 150;
+  mascotasActivas: number = 60;
+  ventasTotales: number = 12000;
+  gananciasTotales: number = 8000;
+  topTratamientos: any[] = [ ]
 
-  constructor(private dashboardService: DashboardService) {}
+  graficosCreados: boolean = false; // Bandera para controlar la creación de gráficos
+  isDataLoaded: boolean = false;
+
+  constructor(
+    private dashboardService: DashboardService,
+    private route: ActivatedRoute
+  ) {
+    // Registra los componentes necesarios para los gráficos
+    Chart.register(...registerables);
+  }
 
   ngOnInit() {
-    /*
-    this.cargarDatos();*/
+    this.dashboardService.getTotalTratamientos().subscribe((data: Number) => {
+      this.tratamientosUltimoMes = data;
+      this.isDataLoaded = true;
+    })
+    this.dashboardService.getTratamientosPorMedicamento().subscribe((data: any[]) => {
+      this.tratamientosPorMedicamento = data;
+
+      this.crearGraficoTratamientosPorMedicamento();
+      this.isDataLoaded = true;
+    })
+
+    this.dashboardService.getVeterinarios().subscribe((data: any) => {
+      this.veterinariosActivos = data.activos;
+      this.veterinariosInactivos = data.inactivos;
+
+      this.crearGraficoVeterinarios();
+      this.isDataLoaded = true;
+    })
   }
 
-  /*
-  cargarDatos() {
-    this.dashboardService.obtenerDatosDashboard().subscribe(
-      (datos) => {
-        this.totalTratamientos = datos.totalTratamientos;
-        this.tratamientosPorMedicamento = datos.tratamientosPorMedicamento;
-        this.veterinariosActivos = datos.veterinariosActivos;
-        this.veterinariosInactivos = datos.veterinariosInactivos;
-        this.totalMascotas = datos.totalMascotas;
-        this.mascotasActivas = datos.mascotasActivas;
-        this.ventasTotales = datos.ventasTotales;
-        this.gananciasTotales = datos.gananciasTotales;
-        this.topTratamientos = datos.topTratamientos;
-
-        this.crearGraficos();
-      },
-      (error) => {
-        console.error('Error al cargar los datos del dashboard', error);
-      }
-    );
+  ngAfterViewInit() {
+    if (!this.graficosCreados) { // Verifica si los gráficos ya han sido creados
+      this.crearGraficos(); // Crear gráficos después de que la vista se haya inicializado.
+      this.graficosCreados = true; // Marca la bandera como verdadera después de crear los gráficos
+    }
   }
-*/
+
   crearGraficos() {
-    this.crearGraficoVeterinarios();
     this.crearGraficoMascotas();
     this.crearGraficoFinanzas();
   }
@@ -94,6 +106,23 @@ export class DashboardVeterinarioComponent implements OnInit {
           label: 'Finanzas',
           data: [this.ventasTotales, this.gananciasTotales],
           borderColor: '#FF9F40'
+        }]
+      }
+    });
+  }
+
+  crearGraficoTratamientosPorMedicamento() {
+    const labels = this.tratamientosPorMedicamento.map(item => item.nombre);
+    const data = this.tratamientosPorMedicamento.map(item => item.cantidad);
+
+    new Chart('tratamientosChart', {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Cantidad de Tratamientos',
+          data: data,
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
         }]
       }
     });

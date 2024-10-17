@@ -14,12 +14,21 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+
 }
 
 .chart-container {
   position: relative;
   height: 200px;
   margin-top: 20px;
+
+}
+
+.chart-circle {
+  position: relative;
+  height: 500px;
+  margin-top: 20px;
+
 }
 
 h1 {
