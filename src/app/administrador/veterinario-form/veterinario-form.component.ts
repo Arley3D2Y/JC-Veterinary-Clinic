@@ -67,23 +67,24 @@ export class VeterinarioFormComponent {
       this.router.navigate(['/administrador/detalles/veterinario/', this.veterinary.id]);
     }
   }
-  onSelectSpeciality(event: Event, especialidad: Especialidad) {
-    const isChecked = (event.target as HTMLInputElement).checked;
-
-    if (isChecked) {
-      this.selectedEspecialidades.push(especialidad); // Añadir especialidad seleccionada
+  onSelectSpeciality(event: any, especialidad: Especialidad): void {
+    if (event.target.checked) {
+      // Agregar especialidad si está seleccionada
+      this.selectedEspecialidades.push(especialidad);
     } else {
-      // Eliminar especialidad no seleccionada
+      // Eliminar especialidad si no está seleccionada
       this.selectedEspecialidades = this.selectedEspecialidades.filter(e => e.id !== especialidad.id);
     }
   }
+  
   isSpecialitySelected(especialidad: Especialidad): boolean {
     return this.selectedEspecialidades.some(e => e.id === especialidad.id);
   }
   
   saveVet(form: any) {
     // Aseguramos que las especialidades no sean undefined antes de asignarlas
-    this.formVeterinario.especialidades = this.selectedEspecialidades || [];
+    this.formVeterinario.especialidades = this.selectedEspecialidades ;
+    console.log("Veterinario a guardar:", this.formVeterinario);
     this.addVeterinarioEvent.emit(this.formVeterinario);
   }
 }
