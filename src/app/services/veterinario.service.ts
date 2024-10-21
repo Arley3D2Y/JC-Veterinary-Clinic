@@ -7,6 +7,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class VeterinarioService {
+
+  private baseUrl = 'http://localhost:8088/veterinarios';
+
+  constructor(private http: HttpClient) { }
+
   private veterinarioIdSource = new BehaviorSubject<number | null>(null);
   veterinarioId$ = this.veterinarioIdSource.asObservable();
 
@@ -17,10 +22,6 @@ export class VeterinarioService {
   getVeterinarioId(): number | null {
     return this.veterinarioIdSource.getValue();
   }
-
-  private baseUrl = 'http://localhost:8088/veterinarios';
-
-  constructor( private http: HttpClient ) { }
 
   // Obtener todos los veterinarios
   findAll(): Observable<Veterinario[]> {

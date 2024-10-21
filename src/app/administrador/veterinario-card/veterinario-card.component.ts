@@ -35,7 +35,7 @@ export class VeterinarioCardComponent {
     });
   }
 
-  // Función para eliminar una mascota
+  // Función para eliminar
   deleteVet(id: number) {
     this.vetService.deleteVeterinario(id);
     this.router.navigate(['administrador/veterinario']); // Redirigir al componente de detalles del cliente
