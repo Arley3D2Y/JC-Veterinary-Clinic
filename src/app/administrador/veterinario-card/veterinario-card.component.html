@@ -22,8 +22,8 @@
         <div class="celda">
             <h3 class="title-celda">Especialidades</h3>
             <p class="celda-info">
-                <span *ngFor="let especialidad of veterinarySelected.especialidades; let last = last">
-                    {{ especialidad.nombre }}{{ !last ? ', ' : '' }}
+                <span>
+                    {{ veterinarySelected.especialidad }}
                 </span>
             </p>
         </div>

@@ -3,12 +3,14 @@ import { Tratamiento } from "./tratamiento";
 
 export interface Veterinario {
     id: number;
-    nombre: string;
     cedula: string;
-    correo: string;
     password: string;
+    nombre: string;
+    correo: string;
     fotoString: string;
+    cantidadAtenciones: number;
+    estado: boolean;
 
-    especialidades?: Especialidad[];
+    especialidad?: Especialidad;
     tratamietos?: Tratamiento[];
 }

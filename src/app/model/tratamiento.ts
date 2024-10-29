@@ -9,6 +9,7 @@ export interface Tratamiento {
     observaciones: string;
     fechaInicio: Date;
     fechaFin: Date;
+    activo: boolean;
 
     droga?: Droga;
     mascota?: Mascota;

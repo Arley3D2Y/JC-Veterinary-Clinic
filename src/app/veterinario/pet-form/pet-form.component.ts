@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
+import { Enfermedad } from '../../model/enfermedad';
+import { Estado } from '../../model/estado';
 
 @Component({
   selector: 'app-pet-form',
@@ -45,13 +47,14 @@ export class PetFormComponent {
     nombre: '',
     edad: '',
     peso: '',
-    estado: '',
-    enfermedad: '',
-    sexo: '',
     raza: '',
+    sexo: '',
     fotoString: '',
-    cliente: this.customer
-  }
+    enfermedad: { id: 0, nombre: '' } as Enfermedad,
+    estado: { id: 0, descripcion: '' } as Estado,
+    cliente: this.customer,
+    tratamientos: []
+  };
 
   pageBack() {
     if (this.operation === 'agregar') {

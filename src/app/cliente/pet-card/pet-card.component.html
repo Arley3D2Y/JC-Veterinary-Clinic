@@ -36,12 +36,12 @@
 
         <label for="enfermedad">
           <h3>Enfermedad</h3>
-          <p>{{ mascotaSeleccionada?.enfermedad || '-' }}</p>
+          <p>{{ mascotaSeleccionada?.enfermedad.nombre || '-' }}</p>
         </label>
-  
+        
         <label for="estado">
           <h3>Estado</h3>
-          <p>{{ mascotaSeleccionada?.estado || '-' }}</p>
+          <p>{{ mascotaSeleccionada?.estado.descripcion || '-' }}</p>
         </label>
   
       </form>

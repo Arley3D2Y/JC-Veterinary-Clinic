@@ -55,8 +55,9 @@ export class TreatmentFormComponent {
       observaciones: '',
       fechaInicio: new Date(),
       fechaFin: new Date(),
+      activo: true,
       mascota: {} as Mascota,
-      veterinario: {} as Veterinario, 
+      veterinario: {} as Veterinario,
       droga: {} as Droga
     };
   
