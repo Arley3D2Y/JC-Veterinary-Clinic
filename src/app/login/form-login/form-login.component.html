@@ -31,11 +31,11 @@
 
         <div id="other-login">
             <ng-container *ngIf="typeUser === 'cliente'">
-                <a type="button" (click)="changeUserType('veterinario')">Ingresar como veterinario</a>
+                <a type="button" id="aIngresarVeterinario" (click)="changeUserType('veterinario')">Ingresar como veterinario</a>
             </ng-container>
 
             <ng-container *ngIf="typeUser === 'veterinario'">
-                <a type="button" (click)="changeUserType('cliente')">Ingresar como cliente</a>
+                <a type="button" id="aIngresarCliente" (click)="changeUserType('cliente')">Ingresar como cliente</a>
             </ng-container>
         </div>
     </ng-container>
@@ -61,5 +61,5 @@
 
     <app-login-options></app-login-options>
 
-    <button type="submit" class="btn btn-primary" title='Ingresar' [ngClass]="{'btn-incomplete': !formGroup.valid}" [disabled]="!formGroup.valid">INGRESAR</button>
+    <button type="submit" class="btn btn-primary" id="btnLogin" title='Ingresar' [ngClass]="{'btn-incomplete': !formGroup.valid}" [disabled]="!formGroup.valid">INGRESAR</button>
 </form>

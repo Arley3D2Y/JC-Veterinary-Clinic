@@ -1,6 +1,6 @@
 <!-- SEARCH -->
 <section class="search">
-    <h1>Buscar {{ typeObject }}</h1>
+    <h1 id="h1Search">Buscar {{ typeObject }}</h1>
     <p> Buscardor de {{ typeObject }} usando el nombre. </p>
 
     <div class="search-bar">
@@ -20,7 +20,7 @@
     <ng-container *ngIf="typeObject === 'clientes'|| typeObject === 'veterinarios' ">
         <P>O tambien...</P>
         <ng-container *ngIf="typeObject === 'clientes'">
-            <button class="btn btn-dark-add" [routerLink]="['/veterinario/agregar/cliente']"
+            <button class="btn btn-dark-add" id="agregarCliente" [routerLink]="['/veterinario/agregar/cliente']"
                 title='Agregar cliente'>Registar</button>
         </ng-container>
         <ng-container *ngIf="typeObject === 'veterinarios'">

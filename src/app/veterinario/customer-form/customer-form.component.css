@@ -20,7 +20,7 @@ form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
 }
 
-.form-floating label {
+.form-control label {
     height: 20px;
     position: absolute;
     top: 8px;
@@ -32,7 +32,7 @@ form {
     align-items: flex-start; /* Asegura que el contenido se alinee hacia la parte superior */
 }
 
-.form-floating input {
+.form-control input {
     font-size: 21px;
 }
 
