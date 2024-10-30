@@ -18,6 +18,8 @@ import { error } from 'console';
 import { Tratamiento } from '../../model/tratamiento';
 import { TratamientoService } from '../../services/tratamiento.service';
 
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-form-handler',
   standalone: true,
@@ -49,7 +51,9 @@ export class FormHandlerComponent {
     private servicePet: PetService,
     private serviceClient: CustomerService,
     private serviceVet: VeterinarioService,
-    private serviceTreatment: TratamientoService
+    private serviceTreatment: TratamientoService,
+
+    private authService: AuthService
   ) {
     this.route.url.subscribe(url => {
       this.typeOperation = url[1].path;
@@ -176,14 +180,16 @@ export class FormHandlerComponent {
   }
 
   saveTreatment(treatment: Tratamiento) {
+    const vetID = this.authService.getVeterinarioData().id as number;
+    const petID = this.petSelected.id;
+    const drugID = treatment.droga!.id;
+
     if (this.typeOperation === 'agregar') {
-      this.serviceVet.veterinarioId$.subscribe((id) => {
-        if (id != null) {
-          this.serviceTreatment.addTratamiento(this.petSelected.id, id, treatment).subscribe(newTreatment => {
-            this.router.navigate(['veterinario/detalles/mascota', this.petSelected.id]);
-          });
-        }
-      })
+    
+      this.serviceTreatment.addTratamiento(petID, vetID, drugID, treatment).subscribe(
+        (newTreatment) => {
+          this.router.navigate(['veterinario/detalles/mascota', this.petSelected.id]);
+        });
     } else if (this.typeOperation === 'actualizar') {
       this.serviceTreatment.updateTratamiento(this.treatmentSelected.id, treatment).subscribe(updateTreatment => {
         this.router.navigate(['veterinario/detalles/tratamiento', updateTreatment.id]);

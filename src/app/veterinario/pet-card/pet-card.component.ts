@@ -4,8 +4,9 @@ import { Router, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PetService } from '../../services/pet.service';
 import { CommonModule, Location } from '@angular/common';
-import { mergeMap, tap } from 'rxjs';
+import { merge, mergeMap, tap } from 'rxjs';
 import { TratamientoService } from '../../services/tratamiento.service';
+import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-pet-card',
@@ -28,6 +29,7 @@ export class PetCardComponent {
     private route: ActivatedRoute,
     private petService: PetService,
     private treatmentService: TratamientoService,
+    private customerService: CustomerService,
     private location: Location,
   ) {
   }
@@ -35,17 +37,28 @@ export class PetCardComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
-
+  
+      // Obtener la información de la mascota
       this.petService.findById(id).pipe(
-        tap(petInfo => {
-          this.petSelected = petInfo; // Asegúrate de que customerSelected esté cargado
+        mergeMap(petInfo => {
+          this.petSelected = petInfo; // Asegúrate de que petSelected esté cargado
+          return this.customerService.sarchCustomerByPetId(id);
         }),
-        mergeMap(petInfo => this.petService.getTreatmentsByPetId(petInfo.id))
-      ).subscribe(treatments => {
-        this.petSelected.tratamientos = treatments; // Ahora puedes acceder a mascotas
-      });
+      ).pipe(
+        mergeMap(customerInfo => {
+          this.petSelected.cliente = customerInfo;
+          return this.petService.getTreatmentsByPetId(this.petSelected.id);
+        }
+      )).subscribe(
+        treatments => {
+          this.petSelected.tratamientos = treatments;
+          this.isDataLoaded = true;
+        }
+      )
     });
   }
+  
+  
 
   updatePet() {
     this.isPetUpdated = true;

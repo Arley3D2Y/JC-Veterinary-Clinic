@@ -29,6 +29,7 @@ export class SharedHeaderComponent {
 
   logout() {
     // Redirigir a la URL dinámica proporcionada, sin pasar el tipo de usuario
+    localStorage.clear();
     this.router.navigate([this.logoutRedirectUrl]);
   }
 }

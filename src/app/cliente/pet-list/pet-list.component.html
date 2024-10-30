@@ -1,6 +1,6 @@
 <section class="scroll-cards">
     <div *ngFor="let mascota of mascotas" class="card-pet" (click)="onSelectMascota(mascota)">
       <img [src]="mascota.fotoString" alt="Foto de mascota">
-      <h3>{{ mascota.nombre }}</h3>
+      <h3 class="h3ListMascotas">{{ mascota.nombre }}</h3>
     </div>
 </section>

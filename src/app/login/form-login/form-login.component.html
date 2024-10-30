@@ -31,7 +31,7 @@
 
         <div id="other-login">
             <ng-container *ngIf="typeUser === 'cliente'">
-                <a type="button" id="aIngresarVeterinario" (click)="changeUserType('veterinario')">Ingresar como veterinario</a>
+                <a type="button" id="aBtnChangeVet" (click)="changeUserType('veterinario')">Ingresar como veterinario</a>
             </ng-container>
 
             <ng-container *ngIf="typeUser === 'veterinario'">

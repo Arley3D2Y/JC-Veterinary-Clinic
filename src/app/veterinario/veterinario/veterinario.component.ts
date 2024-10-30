@@ -41,15 +41,6 @@ export class VeterinarioComponent {
       this.typeSection = data['type'];
     });
 
-    // Obtenemos el valor de `veterinarioId` desde la ruta
-    this.route.queryParams.subscribe((params) => {
-      const idParam = params['id'];
-
-      if (idParam) {
-        this.veterinarioId = +idParam; 
-        this.vetService.setVeterinarioId(this.veterinarioId); // Establecer el ID en el servicio
-      }
-    })
   }
 
   onSearch(searchTerm: string): void {

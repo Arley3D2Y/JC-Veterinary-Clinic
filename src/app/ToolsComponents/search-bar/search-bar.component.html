@@ -20,11 +20,11 @@
     <ng-container *ngIf="typeObject === 'clientes'|| typeObject === 'veterinarios' ">
         <P>O tambien...</P>
         <ng-container *ngIf="typeObject === 'clientes'">
-            <button class="btn btn-dark-add" id="agregarCliente" [routerLink]="['/veterinario/agregar/cliente']"
+            <button class="btn btn-dark-add" id="btnAgregarCliente" [routerLink]="['/veterinario/agregar/cliente']"
                 title='Agregar cliente'>Registar</button>
         </ng-container>
         <ng-container *ngIf="typeObject === 'veterinarios'">
-            <button class="btn btn-dark-add" [routerLink]="['/administrador/agregar/veterinario']"
+            <button class="btn btn-dark-add" id="btnAgregarVeterinario" [routerLink]="['/administrador/agregar/veterinario']"
                 title=' Agregar veterinario'>Registar</button>
         </ng-container>
     </ng-container>

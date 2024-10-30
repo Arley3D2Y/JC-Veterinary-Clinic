@@ -33,15 +33,16 @@ export class PetService {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
 
-  getPetsByCustomerId(id: Number): Observable<Mascota[]> {
-    return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-client_id/${id}`);
-  }
-
   searhcPetsByName(name: String): Observable<Mascota[]> {
     return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 
-  getTreatmentsByPetId(id: Number): Observable<Tratamiento[]> {
-    return this.http.get<Tratamiento[]>(`${this.baseUrl}/findTreatmentsByPetId/${id}`);
+  getPetsByCustomerId(id: Number): Observable<Mascota[]> {
+    return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-client_id/${id}`);
   }
+
+  getTreatmentsByPetId(id: Number): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.baseUrl}/tratamientos-mascota/${id}`);
+  }
+
 }

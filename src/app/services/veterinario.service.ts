@@ -12,17 +12,6 @@ export class VeterinarioService {
 
   constructor(private http: HttpClient) { }
 
-  private veterinarioIdSource = new BehaviorSubject<number | null>(null);
-  veterinarioId$ = this.veterinarioIdSource.asObservable();
-
-  setVeterinarioId(id: number) {
-    this.veterinarioIdSource.next(id);
-  }
-
-  getVeterinarioId(): number | null {
-    return this.veterinarioIdSource.getValue();
-  }
-
   // Obtener todos los veterinarios
   findAll(): Observable<Veterinario[]> {
     return this.http.get<Veterinario[]>(`${this.baseUrl}`);

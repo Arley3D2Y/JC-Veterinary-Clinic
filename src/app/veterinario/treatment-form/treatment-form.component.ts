@@ -70,9 +70,8 @@ export class TreatmentFormComponent {
     }
   
     // Método para agregar o actualizar la mascota
-    saveTreatment(form: any) {
-      this.formTreatment.mascota = this.pet;
-      this.addTreatmentEvent.emit(this.formTreatment);  // Emite el evento con la mascota
+    saveTreatment() {
+      this.addTreatmentEvent.emit(this.formTreatment);
     }
   
 }

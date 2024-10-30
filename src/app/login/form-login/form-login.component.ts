@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Administrador } from '../../model/administrador';
 import { CustomerService } from '../../services/customer.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-form-login',
@@ -37,6 +38,7 @@ export class FormLoginComponent implements OnInit {
     private clientService: CustomerService,
     private vetService: VeterinarioService,
     private adminService: AdministradorService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -101,7 +103,8 @@ export class FormLoginComponent implements OnInit {
     this.vetService.searchbyEmail(this.form.correo).subscribe({
       next: (veterinario) => {
         if (veterinario.password === this.form.password) {
-          this.router.navigate(['veterinario/clientes'], { queryParams: { id: veterinario.id } });
+          this.authService.login(veterinario.id, this.form.correo); // Guarda el ID y correo en localStorage
+          this.router.navigate(['veterinario/clientes']);
         } else {
           alert('Contraseña incorrecta');
         }
@@ -110,7 +113,11 @@ export class FormLoginComponent implements OnInit {
         if (error.status === 404) {
           alert('Veterinario no encontrado');
         }
+      },
+      complete: () => {
+        console.log("Proceso de login completado"); // Acción al finalizar la suscripción
       }
+  
     });
   }
 

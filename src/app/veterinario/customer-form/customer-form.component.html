@@ -1,4 +1,4 @@
-<h1>{{ operation | titlecase }} Cliente</h1>
+<h1 id="h1OperationCliente">{{ operation | titlecase }} Cliente</h1>
 <!-- Formulario -->
 <form #customerForm="ngForm" (ngSubmit)="saveClient(customerForm)">
     <div class="form-floating mb-3">
@@ -12,11 +12,16 @@
         <label for="cedula">Cedula</label>
     </div>
     <div class="form-floating mb-3">
-        <input [(ngModel)]="formCustomer.correo" type="text" class="form-control" id="correo"
-            placeholder="Correo" name="correo">
+        <input [(ngModel)]="formCustomer.correo" type="email" class="form-control" id="correo"
+            placeholder="Correo" name="correo" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            #correo="ngModel">
         <label for="correo">Email</label>
-
+        <div *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+            <small *ngIf="correo.errors?.['required']" class="text-danger">El correo es requerido.</small>
+            <small *ngIf="correo.errors?.['pattern']" class="text-danger">Ingresa un correo válido.</small>
+        </div>
     </div>
+
     <div class="form-floating mb-3">
         <input [(ngModel)]="formCustomer.celular" type="text" class="form-control" id="numero"
             placeholder="Numero" name="celular">

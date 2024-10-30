@@ -11,6 +11,8 @@ import { Cliente } from '../../model/cliente';
 import { TratamientoService } from '../../services/tratamiento.service';
 import { Tratamiento } from '../../model/tratamiento';
 
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-cards-table',
   standalone: true,
@@ -34,7 +36,8 @@ export class CardsTableComponent {
     private customerService: CustomerService,
     private petService: PetService,
     private vetService: VeterinarioService,
-    private tratamientoService: TratamientoService
+    private tratamientoService: TratamientoService,
+    private authService: AuthService
   ) {
   }
 
@@ -87,15 +90,13 @@ export class CardsTableComponent {
   }
 
   loadTratamientos(): void {
-    this.vetService.veterinarioId$.subscribe((id) => {
-      if (id != null) {
-        this.tratamientoService.searchTratamientoByVetId(id).subscribe(
-          (data: Tratamiento[]) => {
-            this.items = data;
-          }
-        );
+    const vetID = this.authService.getVeterinarioData().id as number;
+
+    this.tratamientoService.searchTratamientoByVetId(vetID).subscribe(
+      (data: Tratamiento[]) => {
+        this.items = data;
       }
-    })
+    );
   }
 
   loadMascotas(): void {

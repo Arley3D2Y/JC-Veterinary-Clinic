@@ -40,8 +40,8 @@ export class CustomerService {
     return this.http.get<Cliente>(`${this.baseUrl}/search-by-document/${document}`);
   }
 
-  getCustomerByPetId(id: Number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.baseUrl}/search-by-pet/${id}`);
+  sarchCustomerByPetId(id: Number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/search-by-pet_id/${id}`);
   }
 
 }

@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
 import { Enfermedad } from '../../model/enfermedad';
 import { Estado } from '../../model/estado';
+import { EstadoService } from '../../services/estado.service';
+import { EnfermedadService } from '../../services/enfermedad.service';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-pet-form',
@@ -30,8 +33,13 @@ export class PetFormComponent {
   @Input() customer!: Cliente;  // Recibe el cliente desde el padre
   @Input() operation!: string;
 
+  estados: Estado[] = [];
+  enfermedades: Enfermedad[] = [];
+
   constructor(
     private router: Router,
+    private serviceEstado: EstadoService,
+    private serviceEnfermedad: EnfermedadService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +48,16 @@ export class PetFormComponent {
     } else {
       this.formPet;
     }
+    this.serviceEstado.findAll().subscribe(
+      (data: Estado[]) => {
+        this.estados = data;
+      }
+    )
+    this.serviceEnfermedad.findAll().subscribe(
+      (data: Enfermedad[]) => {
+        this.enfermedades = data;
+      }
+    )
   }
 
   formPet: Mascota = {
@@ -50,8 +68,8 @@ export class PetFormComponent {
     raza: '',
     sexo: '',
     fotoString: '',
-    enfermedad: { id: 0, nombre: '' } as Enfermedad,
-    estado: { id: 0, descripcion: '' } as Estado,
+    enfermedad: {} as Enfermedad,
+    estado: {} as Estado,
     cliente: this.customer,
     tratamientos: []
   };
