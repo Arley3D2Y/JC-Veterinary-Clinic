@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GenericoDTO } from '../model/GEnericoDTO';
+import { GenericoDTO } from '../model/GenericoDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  private apiUrl = 'http://localhost:8088/dashboard'; // Ajusta esta URL según la configuración del backend
+  private apiUrl = 'http://localhost:8088/dashboard'; // Asegúrate de que esta URL corresponda al backend
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Método para obtener el total de tratamientos
-  getTotalTratamientos(): Observable<Number> {
-    return this.http.get<Number>(`${this.apiUrl}/total-tratamientos-mes`);
+  getTotalTratamientos(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/total-tratamientos-mes`);
   }
 
-// Método para obtener los tratamientos por medicamento
-getTratamientosPorMedicamento(): Observable<GenericoDTO[]> {
-  return this.http.get<GenericoDTO[]>(`${this.apiUrl}/tratamientos-por-medicamento`);
-}
+  // Método para obtener los tratamientos por medicamento
+  getTratamientosPorMedicamento(): Observable<GenericoDTO[]> {
+    return this.http.get<GenericoDTO[]>(`${this.apiUrl}/tratamientos-por-medicamento`);
+  }
 
   // Método para obtener el número de veterinarios activos e inactivos
   getVeterinarios(): Observable<{ activos: number, inactivos: number }> {
@@ -31,13 +31,18 @@ getTratamientosPorMedicamento(): Observable<GenericoDTO[]> {
     return this.http.get<{ total: number, activas: number }>(`${this.apiUrl}/mascotas`);
   }
 
-  // Método para obtener las ventas y ganancias totales
-  getFinanzas(): Observable<{ ventasTotales: number, gananciasTotales: number }> {
-    return this.http.get<{ ventasTotales: number, gananciasTotales: number }>(`${this.apiUrl}/finanzas`);
+  //Metodo para ver las ganacas totales en medicamentos
+  getGanancias(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/ganancias`);
   }
 
   // Método para obtener los tratamientos más populares
-  getTopTratamientos(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/top-tratamientos`);
+  getTopTratamientos(): Observable<GenericoDTO[]> {
+    return this.http.get<GenericoDTO[]>(`${this.apiUrl}/top-tratamientos`);
+  }
+
+  // Método para obtener el total de ventas por medicamento
+  obtenerTotalVentasPorMedicamento(): Observable<Map<string, number>> {
+    return this.http.get<Map<string, number>>(`${this.apiUrl}/ventas/medicamentos`);
   }
 }

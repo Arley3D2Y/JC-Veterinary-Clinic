@@ -31,9 +31,12 @@
           </tr>
         </tbody>
       </table>
+      <!-- Gráfico de Tratamientos por Medicamento -->
       <div class="chart-container">
         <canvas id="tratamientosChart"></canvas>
       </div>
+
+      <!-- Lista de Top Tratamientos -->
       <h3>Top 3 tratamientos más vendidos</h3>
       <ol>
         <li *ngFor="let tratamiento of topTratamientos">
@@ -49,6 +52,7 @@
         <li>Veterinarios activos: <strong>{{ veterinariosActivos }}</strong></li>
         <li>Veterinarios inactivos: <strong>{{ veterinariosInactivos }}</strong></li>
       </ul>
+      <!-- Gráfico de Veterinarios -->
       <div class="chart-circle">
         <canvas id="veterinariosChart"></canvas>
       </div>
@@ -61,6 +65,7 @@
         <li>Total de mascotas: <strong>{{ totalMascotas }}</strong></li>
         <li>Mascotas activas (en tratamiento): <strong>{{ mascotasActivas }}</strong></li>
       </ul>
+      <!-- Gráfico de Mascotas -->
       <div class="chart-container">
         <canvas id="mascotasChart"></canvas>
       </div>
@@ -73,6 +78,23 @@
         <li>Ventas totales: <strong>{{ ventasTotales }}</strong></li>
         <li>Ganancias totales: <strong>{{ gananciasTotales }}</strong></li>
       </ul>
+      <!-- Tabla de Ventas por Medicamento -->
+      <h3>Total Ventas por Medicamento</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Medicamento</th>
+            <th>Total Ventas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of totalVentasPorMedicamento | keyvalue">
+            <td>{{ entry.key }}</td>
+            <td>{{ entry.value | number:'1.0-2' }}</td> <!-- Formato para dos decimales -->
+          </tr>
+        </tbody>
+      </table>
+      <!-- Gráfico de Finanzas -->
       <div class="chart-container">
         <canvas id="finanzasChart"></canvas>
       </div>
