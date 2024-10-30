@@ -78,6 +78,22 @@
         <li>Ventas totales: <strong>{{ ventasTotales }}</strong></li>
         <li>Ganancias totales: <strong>{{ gananciasTotales }}</strong></li>
       </ul>
+      <!-- Tabla de Ventas por Medicamento -->
+      <h3>Total Ventas por Medicamento</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Medicamento</th>
+            <th>Total Ventas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of totalVentasPorMedicamento | keyvalue">
+            <td>{{ entry.key }}</td>
+            <td>{{ entry.value | number:'1.0-2' }}</td> <!-- Formato para dos decimales -->
+          </tr>
+        </tbody>
+      </table>
       <!-- Gráfico de Finanzas -->
       <div class="chart-container">
         <canvas id="finanzasChart"></canvas>

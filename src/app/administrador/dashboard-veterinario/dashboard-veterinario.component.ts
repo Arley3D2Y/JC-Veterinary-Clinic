@@ -16,15 +16,16 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./dashboard-veterinario.component.css']
 })
 export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
-  tratamientosUltimoMes: Number = 0;
-  tratamientosPorMedicamento: any[] = [ ];
+  tratamientosUltimoMes: number = 0;
+  tratamientosPorMedicamento: any[] = [];
   veterinariosActivos: number = 0;
   veterinariosInactivos: number = 0;
   totalMascotas: number = 0;
   mascotasActivas: number = 0;
-  ventasTotales: Number = 0;
-  gananciasTotales: Number = 0;
-  topTratamientos: any[] = [ ]
+  ventasTotales: number = 0;
+  gananciasTotales: number = 0;
+  topTratamientos: any[] = [];
+  totalVentasPorMedicamento: Map<string, number> = new Map(); // Variable para almacenar las ventas por medicamento
 
   graficosCreados: boolean = false; // Bandera para controlar la creación de gráficos
   isDataLoaded: boolean = false;
@@ -43,9 +44,9 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.cargarDatosMascotas(); 
-
-    this.dashboardService.getTotalTratamientos().subscribe((data: Number) => {
+    this.cargarDatosMascotas();
+    
+    this.dashboardService.getTotalTratamientos().subscribe((data: number) => {
       this.tratamientosUltimoMes = data;
       this.isDataLoaded = true;
     });
@@ -65,12 +66,13 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
       this.isDataLoaded = true;
     });
 
-    // this.dashboardService.getFinanzas().subscribe((data: any) => {
-    //   this.ventasTotales = data.ventasTotales;
-    //   this.gananciasTotales = data.gananciasTotales;
-    //   this.crearGraficoFinanzas();
-    //   this.chartFinanzas.update(); // Forzar actualización
-    // });
+    // Obtener total de ventas por medicamento
+    this.dashboardService.obtenerTotalVentasPorMedicamento().subscribe((data: Map<string, number>) => {
+      this.totalVentasPorMedicamento = data;
+      this.isDataLoaded = true; // Marca los datos como cargados
+    }, (error) => {
+      console.error('Error al obtener las ventas por medicamento', error);
+    });
   }
 
   ngAfterViewInit() {
@@ -96,7 +98,6 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
 
   cargarDatosMascotas(): void {
     this.dashboardService.getMascotas().subscribe(
@@ -132,7 +133,6 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
 
   crearGraficoFinanzas() {
     this.chartFinanzas = new Chart('finanzasChart', {

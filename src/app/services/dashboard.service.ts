@@ -40,4 +40,9 @@ export class DashboardService {
   getTopTratamientos(): Observable<GenericoDTO[]> {
     return this.http.get<GenericoDTO[]>(`${this.apiUrl}/top-tratamientos`);
   }
+
+  // Método para obtener el total de ventas por medicamento
+  obtenerTotalVentasPorMedicamento(): Observable<Map<string, number>> {
+    return this.http.get<Map<string, number>>(`${this.apiUrl}/ventas/medicamentos`);
+  }
 }
