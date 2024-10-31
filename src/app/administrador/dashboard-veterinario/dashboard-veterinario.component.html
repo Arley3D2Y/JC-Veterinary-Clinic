@@ -4,7 +4,7 @@
     { path: '/administrador/dashboard', label: 'Dashboard' }
 ]" [logoutRedirectUrl]="'/login'"></app-shared-header>
 
-<div class="container">
+<div class="container" *ngIf="isDataLoaded">
   <header>
     <h1>Dashboard Administrador - Veterinario</h1>
   </header>
@@ -49,8 +49,8 @@
     <div class="dashboard-item">
       <h2>Veterinarios</h2>
       <ul>
-        <li>Veterinarios activos: <strong>{{ estadoVeterinariosDTO[1].cantidadVeterinarios }}</strong></li>
-        <li>Veterinarios inactivos: <strong>{{ estadoVeterinariosDTO[0].cantidadVeterinarios }}</strong></li>
+        <li>Veterinarios activos: <strong>{{ estadoVeterinariosDTO[1].cantidadVeterinarios || 0 }}</strong></li>
+        <li>Veterinarios inactivos: <strong>{{ estadoVeterinariosDTO[0].cantidadVeterinarios || 0 }}</strong></li>
       </ul>
       <!-- Gráfico de Veterinarios -->
       <div class="chart-circle">
