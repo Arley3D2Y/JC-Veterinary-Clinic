@@ -6,7 +6,7 @@
 
 <div class="container">
   <header>
-    <h1>Dashboard Administrador - Veterinaria</h1>
+    <h1>Dashboard Administrador - Veterinario</h1>
   </header>
 
   <div class="dashboard-grid">
@@ -14,7 +14,7 @@
     <div class="dashboard-item">
       <h2>Tratamientos</h2>
       <ul>
-        <li>Total de tratamientos (último mes): <strong>{{ tratamientosUltimoMes }}</strong></li>
+        <li>Total de tratamientos (último mes): <strong>{{ totalTratamientosPorMes }}</strong></li>
       </ul>
       <h3>Tratamientos por tipo de medicamento (último mes)</h3>
       <table>
@@ -25,9 +25,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of tratamientosPorMedicamento">
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.cantidad }}</td>
+          <tr *ngFor="let item of tratamientoDrogaDTO">
+            <td>{{ item.nombreDroga }}</td>
+            <td>{{ item.cantidadTratamiento }}</td>
           </tr>
         </tbody>
       </table>
@@ -39,8 +39,8 @@
       <!-- Lista de Top Tratamientos -->
       <h3>Top 3 tratamientos más vendidos</h3>
       <ol>
-        <li *ngFor="let tratamiento of topTratamientos">
-          {{ tratamiento.nombre }} - {{ tratamiento.unidades }} unidades
+        <li *ngFor="let tratamiento of top3Tratamientos">
+          {{ tratamiento.descripcion }} - {{ tratamiento.droga?.UnidadesVendidas }} unidades
         </li>
       </ol>
     </div>
@@ -49,8 +49,8 @@
     <div class="dashboard-item">
       <h2>Veterinarios</h2>
       <ul>
-        <li>Veterinarios activos: <strong>{{ veterinariosActivos }}</strong></li>
-        <li>Veterinarios inactivos: <strong>{{ veterinariosInactivos }}</strong></li>
+        <li>Veterinarios activos: <strong>{{ estadoVeterinariosDTO[1].cantidadVeterinarios }}</strong></li>
+        <li>Veterinarios inactivos: <strong>{{ estadoVeterinariosDTO[0].cantidadVeterinarios }}</strong></li>
       </ul>
       <!-- Gráfico de Veterinarios -->
       <div class="chart-circle">
@@ -63,7 +63,7 @@
       <h2>Mascotas</h2>
       <ul>
         <li>Total de mascotas: <strong>{{ totalMascotas }}</strong></li>
-        <li>Mascotas activas (en tratamiento): <strong>{{ mascotasActivas }}</strong></li>
+        <li>Mascotas activas (en tratamiento): <strong>{{ estadoMascotasDTO[1].cantidad }}</strong></li>
       </ul>
       <!-- Gráfico de Mascotas -->
       <div class="chart-container">
@@ -75,25 +75,9 @@
     <div class="dashboard-item">
       <h2>Finanzas</h2>
       <ul>
-        <li>Ventas totales: <strong>{{ ventasTotales }}</strong></li>
-        <li>Ganancias totales: <strong>{{ gananciasTotales }}</strong></li>
+        <li>Ventas totales: <strong>{{ totalSales }}</strong></li>
+        <li>Ganancias totales: <strong>{{ totalProfits }}</strong></li>
       </ul>
-      <!-- Tabla de Ventas por Medicamento -->
-      <h3>Total Ventas por Medicamento</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Medicamento</th>
-            <th>Total Ventas</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let entry of totalVentasPorMedicamento | keyvalue">
-            <td>{{ entry.key }}</td>
-            <td>{{ entry.value | number:'1.0-2' }}</td> <!-- Formato para dos decimales -->
-          </tr>
-        </tbody>
-      </table>
       <!-- Gráfico de Finanzas -->
       <div class="chart-container">
         <canvas id="finanzasChart"></canvas>

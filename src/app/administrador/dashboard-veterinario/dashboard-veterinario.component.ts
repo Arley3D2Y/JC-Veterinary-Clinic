@@ -4,6 +4,11 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
 import { DashboardService } from '../../services/dashboard.service';
+import { TratamientoDrogaDTO } from '../../DTO/TratamientoDrogaDTO';
+import { EstadoVeterinariosDTO } from '../../DTO/EstadoVeterinariosDTO';
+import { EstadoMascotasDTO } from '../../DTO/EstadoMascotasDTO';
+import { mergeMap } from 'rxjs';
+import { Tratamiento } from '../../model/tratamiento';
 
 @Component({
   selector: 'app-dashboard-veterinario',
@@ -16,19 +21,18 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./dashboard-veterinario.component.css']
 })
 export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
-  tratamientosUltimoMes: number = 0;
-  tratamientosPorMedicamento: any[] = [];
-  veterinariosActivos: number = 0;
-  veterinariosInactivos: number = 0;
-  totalMascotas: number = 0;
-  mascotasActivas: number = 0;
-  ventasTotales: number = 0;
-  gananciasTotales: number = 0;
-  topTratamientos: any[] = [];
-  totalVentasPorMedicamento: Map<string, number> = new Map(); // Variable para almacenar las ventas por medicamento
 
-  graficosCreados: boolean = false; // Bandera para controlar la creación de gráficos
-  isDataLoaded: boolean = false;
+  totalTratamientosPorMes: number = 0;
+  tratamientoDrogaDTO: TratamientoDrogaDTO[] = [];
+  estadoVeterinariosDTO: EstadoVeterinariosDTO[] = [];
+  totalMascotas: number = 0;
+  estadoMascotasDTO: EstadoMascotasDTO[] = [];
+
+  totalSales: number = 0;
+  totalProfits: number = 0;
+  top3Tratamientos: Tratamiento[] = [];
+
+  graficosCreados: boolean = false;
 
   // Variables para almacenar las instancias de los gráficos
   chartVeterinarios: any;
@@ -38,79 +42,81 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
 
   constructor(
     private dashboardService: DashboardService,
-    private route: ActivatedRoute
   ) {
     Chart.register(...registerables);
   }
 
   ngOnInit() {
-    this.cargarDatosMascotas();
+    // this.cargarDatosMascotas();
     
-    this.dashboardService.getTotalTratamientos().subscribe((data: number) => {
-      this.tratamientosUltimoMes = data;
-      this.isDataLoaded = true;
+    this.dashboardService.getTotalTreatmentsLastMonth().subscribe((data: number) => {
+      this.totalTratamientosPorMes = data;
     });
     
-    this.dashboardService.getTratamientosPorMedicamento().subscribe((data: any[]) => {
-      this.tratamientosPorMedicamento = data;
+    this.dashboardService.getTratamientosPorMedicamento().subscribe((data: TratamientoDrogaDTO[]) => {
+      this.tratamientoDrogaDTO = data;
       this.crearGraficoTratamientosPorMedicamento();
-      this.chartTratamientosPorMedicamento.update(); // Forzar actualización
-      this.isDataLoaded = true;
     });
 
-    this.dashboardService.getVeterinarios().subscribe((data: any) => {
-      this.veterinariosActivos = data.activos;
-      this.veterinariosInactivos = data.inactivos;
-      this.crearGraficoVeterinarios();
-      this.chartVeterinarios.update(); // Forzar actualización
-      this.isDataLoaded = true;
+    this.dashboardService.getVeterinarios().subscribe({
+      next: (data: EstadoVeterinariosDTO[]) => {
+        this.estadoVeterinariosDTO = data;
+      }, 
+      complete: () => {
+        this.crearGraficoVeterinarios();
+      }
+    })
+
+    this.dashboardService.getTotalMascotas().pipe((
+      mergeMap((data: number) => {
+        this.totalMascotas = data;
+        return this.dashboardService.getMascotasActivasCount();
+      })
+    )).subscribe(
+      (data: EstadoMascotasDTO[]) => {
+        this.estadoMascotasDTO = data;
+        this.crearGraficoMascotas();
+      }
+    );
+
+    this.dashboardService.getTotalMascotas().subscribe((data: number) => {
+      this.totalMascotas = data;
+      this.crearGraficoMascotas();
     });
 
-    // Obtener total de ventas por medicamento
-    this.dashboardService.obtenerTotalVentasPorMedicamento().subscribe((data: Map<string, number>) => {
-      this.totalVentasPorMedicamento = data;
-      this.isDataLoaded = true; // Marca los datos como cargados
-    }, (error) => {
-      console.error('Error al obtener las ventas por medicamento', error);
-    });
+    this.dashboardService.getTotalSales().pipe((
+      mergeMap((data: number) => {
+        this.totalSales = data;
+        return this.dashboardService.getTotalProfits();
+      })
+    )).subscribe((data: number) => {
+      this.totalProfits = data;
+      this.crearGraficoFinanzas();
+    })
   }
+
+
 
   ngAfterViewInit() {
     if (!this.graficosCreados) { // Verifica si los gráficos ya han sido creados
-      this.crearGraficos(); // Crear gráficos después de que la vista se haya inicializado.
+      // this.crearGraficos(); // Crear gráficos después de que la vista se haya inicializado.
       this.graficosCreados = true; // Marca la bandera como verdadera después de crear los gráficos
     }
-  }
-
-  crearGraficos() {
-    this.crearGraficoFinanzas();
   }
 
   crearGraficoVeterinarios() {
     this.chartVeterinarios = new Chart('veterinariosChart', {
       type: 'pie',
       data: {
-        labels: ['Activos', 'Inactivos'],
+        labels: [ 'Activos', 'Inactivos'],
         datasets: [{
-          data: [this.veterinariosActivos, this.veterinariosInactivos],
+          data: [this.estadoVeterinariosDTO[1].cantidadVeterinarios, this.estadoVeterinariosDTO[0].cantidadVeterinarios],
           backgroundColor: ['#36A2EB', '#FF6384']
         }]
       }
     });
   }
 
-  cargarDatosMascotas(): void {
-    this.dashboardService.getMascotas().subscribe(
-      (data) => {
-        this.totalMascotas = data.total;
-        this.mascotasActivas = data.activas;
-        this.crearGraficoMascotas(); // Crea el gráfico después de obtener los datos
-      },
-      (error) => {
-        console.error('Error al obtener los datos de mascotas', error);
-      }
-    );
-  }
 
   crearGraficoMascotas(): void {
     this.chartMascotas = new Chart('mascotasChart', {
@@ -119,7 +125,7 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
         labels: ['Total', 'Activas'],
         datasets: [{
           label: 'Mascotas',
-          data: [this.totalMascotas, this.mascotasActivas],
+          data: [this.totalMascotas, this.estadoMascotasDTO[1].cantidad],
           backgroundColor: ['#4BC0C0', '#FFCE56']
         }]
       },
@@ -141,7 +147,7 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
         labels: ['Ventas', 'Ganancias'],
         datasets: [{
           label: 'Finanzas',
-          data: [this.ventasTotales, this.gananciasTotales],
+          data: [this.totalSales, this.totalProfits],
           borderColor: '#FF9F40'
         }]
       }
@@ -149,8 +155,8 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
   }
 
   crearGraficoTratamientosPorMedicamento() {
-    const labels = this.tratamientosPorMedicamento.map(item => item.nombre);
-    const data = this.tratamientosPorMedicamento.map(item => item.cantidad);
+    const labels = this.tratamientoDrogaDTO.map(item => item.nombreDroga);
+    const data = this.tratamientoDrogaDTO.map(item => item.cantidadTratamiento);
 
     this.chartTratamientosPorMedicamento = new Chart('tratamientosChart', {
       type: 'bar',
