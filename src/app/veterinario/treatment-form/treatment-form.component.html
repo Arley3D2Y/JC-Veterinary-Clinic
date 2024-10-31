@@ -1,39 +1,39 @@
-<h1>{{ operation | titlecase }} tratamiento para {{ pet.nombre }}</h1>
+<h1 id="h1OperationTratamiento">{{ operation | titlecase }} tratamiento para {{ pet.nombre }}</h1>
 
 <!-- Formulario -->
 <form #treatmentForm="ngForm" (ngSubmit)="saveTreatment()">
     <div class="form-floating mb-3">
-        <input [(ngModel)]="formTreatment.descripcion" type="text" class="form-control" id="floatingDescripción"
+        <input [(ngModel)]="formTreatment.descripcion" type="text" class="form-control" id="descripcion"
             placeholder="Descripción" name="observaciones">
-        <label for="floatingDescripción">Descripción</label>
+        <label for="descripcion">Descripción</label>
     </div>
 
     <div class="form-floating mb-3">
-        <textarea rows="10" [(ngModel)]="formTreatment.observaciones" class="form-control custom-textarea" id="floatingObservaciones"
+        <textarea rows="10" [(ngModel)]="formTreatment.observaciones" class="form-control custom-textarea" id="observaciones"
             placeholder="Observaciones" name="descripcion"></textarea>
-        <label for="floatingObservaciones">Observaciones</label>
+        <label for="observaciones">Observaciones</label>
     </div>
 
     <div class="d-flex flex-row gap-4">
         <div class="form-floating mb-3" style="width: 46.5%;">
-            <input [(ngModel)]="formTreatment.fechaInicio" type="date" class="form-control" id="floatingFechaInicio"
+            <input [(ngModel)]="formTreatment.fechaInicio" type="date" class="form-control" id="fechaInicio"
                 placeholder="Fecha de inicio" name="fechaInicio">
-            <label for="floatingFechaInicio">Fecha de inicio</label>
+            <label for="fechaInicio">Fecha de inicio</label>
         </div>
 
         <div class="form-floating mb-3" style="width: 47%;">
-            <input [(ngModel)]="formTreatment.fechaFin" type="date" class="form-control" id="floatingFechaFin"
+            <input [(ngModel)]="formTreatment.fechaFin" type="date" class="form-control" id="fechaFin"
                 placeholder="Fecha de fin" name="fechaFin">
-            <label for="floatingFechaFin">Fecha de fin</label>
+            <label for="fechaFin">Fecha de fin</label>
         </div>
     </div>
 
     <div class="form-floating mb-3">
-        <select [(ngModel)]="formTreatment.droga" class="form-control" style="height: 70px;" id="floatingDroga" name="droga">
+        <select [(ngModel)]="formTreatment.droga" class="form-control" style="height: 70px;" id="droga" name="droga">
             <option value="" disabled selected>Seleccione una droga</option>
             <option *ngFor="let droga of drogas" [ngValue]="droga">{{ droga.nombre }}</option>
         </select>
-        <label for="floatingDroga">Droga</label>
+        <label for="droga">Droga</label>
     </div>
     
     <!-- Mostrar el nombre de la droga seleccionada -->
@@ -45,7 +45,7 @@
         <button (click)="pageBack()" class="btn btn-danger">
             Volver
         </button>
-        <button type="submit" [disabled]="!treatmentForm.form.valid" class="btn btn-primary">{{ operation | titlecase }}</button>
+        <button type="submit" id="btnSubmitTratamiento" [disabled]="!treatmentForm.form.valid" class="btn btn-primary">{{ operation | titlecase }}</button>
     </div>
 
 </form>

@@ -1,7 +1,7 @@
 <!-- información del cliente -->
 <section *ngIf="petSelected" class="card-info">
     <!-- Imagen de la mascota -->
-    <img [src]="petSelected.fotoString" [alt]="'Foto de ' + petSelected.nombre">
+    <img id="imgInfoMascota" [src]="petSelected.fotoString" [alt]="'Foto de ' + petSelected.nombre">
 
     <article class="box-info">
         <!-- titulo -->
@@ -40,6 +40,10 @@
         <button class="btn btn-danger" (click)="deletePet(petSelected.id)">
             Eliminar
         </button>
+
+        <button class="btn btn-success" id="btnAgregarTratamiento" [routerLink]="['/veterinario/agregar/tratamiento/mascota', petSelected.id]" title="Añadir Trataminento">
+            Crear Tratamiento
+        </button>
     </article>
 
 </section>
@@ -60,7 +64,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let tratamiento of petSelected.tratamientos">
-            <td>{{ tratamiento.descripcion }}</td>
+            <td class="tdTratDescrip">{{ tratamiento.descripcion }}</td>
             <td>{{ tratamiento.fechaInicio | date }}</td>
             <td>{{ tratamiento.fechaFin | date }}</td>
             <td>{{ tratamiento.veterinario?.nombre }}</td>
@@ -73,10 +77,6 @@
           </tr>
         </tbody>
       </table>
-  
-      <button class="btn btn-success" [routerLink]="['/veterinario/agregar/tratamiento/mascota', petSelected.id]" title="Añadir Trataminento">
-        Crear Tratamiento
-    </button>
       
   </section>
   

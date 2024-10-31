@@ -6,7 +6,7 @@
 
 <div class="container" *ngIf="isDataLoaded">
   <header>
-    <h1>Dashboard Administrador - Veterinario</h1>
+    <h1 id="h1DashboardAdmin">Dashboard Administrador - Veterinario</h1>
   </header>
 
   <div class="dashboard-grid">
@@ -14,7 +14,7 @@
     <div class="dashboard-item">
       <h2>Tratamientos</h2>
       <ul>
-        <li>Total de tratamientos (último mes): <strong>{{ totalTratamientosPorMes }}</strong></li>
+        <li>Total de tratamientos (último mes): <strong id="strongCountTratamientos">{{ totalTratamientosPorMes }}</strong></li>
       </ul>
       <h3>Tratamientos por tipo de medicamento (último mes)</h3>
       <table>
@@ -76,7 +76,7 @@
       <h2>Finanzas</h2>
       <ul>
         <li>Ventas totales: <strong>{{ totalSales }}</strong></li>
-        <li>Ganancias totales: <strong>{{ totalProfits }}</strong></li>
+        <li>Ganancias totales: <strong id="strongTotalProfits">{{ totalProfits }}</strong></li>
       </ul>
       <!-- Gráfico de Finanzas -->
       <div class="chart-container">

@@ -5,13 +5,13 @@
 
     <div class="search-bar">
         <input type="text"
-            id="search"
+            id="inputSearchBar"
             [(ngModel)]="searchTerm"
             placeholder="Buscar {{ typeObject }}"
             (keyup.enter)="onSearch()"
         >
 
-        <button (click)="onSearch()">
+        <button id="btnSearchBar" (click)="onSearch()">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
     </div>
