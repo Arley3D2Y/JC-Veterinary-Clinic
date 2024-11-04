@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Chart, registerables } from 'chart.js/auto';
 import { CommonModule } from '@angular/common';
 import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
 import { DashboardService } from '../../services/dashboard.service';
@@ -21,6 +21,33 @@ import { Tratamiento } from '../../model/tratamiento';
 })
 export class DashboardVeterinarioComponent implements OnInit {
 
+  public chart: Chart<"line"> | null = null;
+
+  ngOnInit(): void {
+      const data = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [
+          {
+            label: 'My First Dataset',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+          }
+        ]
+      }
+
+      this.chart = new Chart('myChart', {
+        type: 'line',
+        data
+      });
+  }
+
+}
+
+/*
+export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
+
   totalTratamientosPorMes: number = 0;
   tratamientoDrogaDTO: TratamientoDrogaDTO[] = [];
   estadoVeterinariosDTO: EstadoVeterinariosDTO[] = [];
@@ -33,18 +60,21 @@ export class DashboardVeterinarioComponent implements OnInit {
   isDataLoaded = false;
 
   // Variables para almacenar las instancias de los gráficos
-  chartVeterinarios: any;
-  chartMascotas: any;
-  chartFinanzas: any;
-  chartTratamientosPorMedicamento: any;
+  chartVeterinarios: any = null;
+  chartMascotas: any = null;
+  chartFinanzas: any = null;
+  chartTratamientosPorMedicamento: any = null;
 
   constructor(private dashboardService: DashboardService) {
     Chart.register(...registerables);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+      
+  }
+
+  ngAfterViewInit() {
     this.loadDashboardData();
-    this.isDataLoaded = true;
   }
 
   private loadDashboardData() {
@@ -186,3 +216,4 @@ export class DashboardVeterinarioComponent implements OnInit {
 
 
 }
+*/
