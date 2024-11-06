@@ -2,68 +2,74 @@
 
 <!-- Formulario -->
 <form #petForm="ngForm" (ngSubmit)="savePet(petForm)">
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formPet.nombre" type="text" class="form-control" id="nombre"
-            placeholder="Nombre" name="nombre">
-        <label for="nombre">Nombre</label>
+    <div class="row  g-3">
+        <div class="col mb-3">
+            <input [(ngModel)]="formPet.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre"
+                name="nombre">
+        </div>
+
+        <div class="col mb-3">
+            <input [(ngModel)]="formPet.edad" type="text" class="form-control" id="edad" placeholder="Edad" name="edad">
+        </div>
     </div>
 
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formPet.edad" type="text" class="form-control" id="edad"
-            placeholder="Edad" name="edad">
-        <label for="edad">Edad</label>
+    <div class="row  g-3">
+        <div class="col mb-3">
+            <input [(ngModel)]="formPet.peso" type="text" class="form-control" id="peso" placeholder="Peso" name="peso">
+        </div>
+
+        <div class="col mb-3">
+            <input [(ngModel)]="formPet.raza" type="text" class="form-control" id="raza" placeholder="Raza" name="raza">
+        </div>
     </div>
 
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formPet.peso" type="text" class="form-control" id="peso"
-            placeholder="Peso" name="peso">
-        <label for="peso">Peso</label>
+    <div class="row  g-3">
+        <div class="col mb-3">
+            <select class="form-select form-control" [(ngModel)]="formPet.sexo" id="sexo" name="sexo">
+                <option value="" disabled selected>Elegir sexo</option>
+                <option value="Macho">Macho</option>
+                <option value="Hembra">Hembra</option>
+            </select>
+        </div>
+        <br>
+
+        <div class="col mb-3">
+            <input [(ngModel)]="formPet.fotoString" type="text" class="form-control" id="foto"
+                placeholder="Ingresa URL de la foto" name="fotoString">
+        </div>
     </div>
 
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formPet.raza" type="text" class="form-control" id="raza"
-            placeholder="Raza" name="raza">
-        <label for="raza">Raza</label>
-    </div>
+    <div class="row  g-3">
+        <div class="col mb-3">
+            <div class="form-floating">
+                <select [(ngModel)]="formPet.enfermedad" class="form-select" id="floatingEnfermedad" name="enfermedad"
+                    aria-label="Floating label select example">
+                    <option selected>Selecione una enfermedad</option>
+                    <option *ngFor="let enfermedad of enfermedades" [ngValue]="enfermedad">{{ enfermedad.nombre }}
+                    </option>
+                </select>
+                <label for="floatingSelect">Enfermedad</label>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="sexo">Sexo de la mascota</label>
-        <select class="form-select form-control" [(ngModel)]="formPet.sexo" id="sexo" name="sexo">
-            <option value="" disabled selected>Elegir sexo</option>
-            <option value="Macho">Macho</option>
-            <option value="Hembra">Hembra</option>
-        </select>
+        <div class="col mb-3">
+            <div class="form-floating">
+                <select [(ngModel)]="formPet.estado" class="form-control"  id="floatingEstado"
+                    name="estado">
+                    <option value="" disabled selected>Seleccione un estado</option>
+                    <option *ngFor="let estado of estados" [ngValue]="estado">{{ estado.descripcion }}</option>
+                </select>
+                <label for="floatingEstado">Estado</label>
+            </div>
+        </div>
     </div>
-    <br>
-
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formPet.fotoString" type="text" class="form-control" id="foto"
-            placeholder="Ingresa URL de la foto" name="fotoString">
-        <label for="foto">Foto URL</label>
-    </div>
-
-    <div class="form-floating mb-3">
-        <select [(ngModel)]="formPet.enfermedad" class="form-control" style="height: 70px;" id="floatingEnfermedad" name="enfermedad">
-            <option value="" disabled selected>Seleccione una enfermedad</option>
-            <option *ngFor="let enfermedad of enfermedades" [ngValue]="enfermedad">{{ enfermedad.nombre }}</option>
-        </select>
-        <label for="floatingEnfermedad">Enfermedad</label>
-    </div>
-
-    <div class="form-floating mb-3">
-        <select [(ngModel)]="formPet.estado" class="form-control" style="height: 70px;" id="floatingEstado" name="estado">
-            <option value="" disabled selected>Seleccione un estado</option>
-            <option *ngFor="let estado of estados" [ngValue]="estado">{{ estado.descripcion }}</option>
-        </select>
-        <label for="floatingEstado">Estado</label>
-    </div>
-
 
     <div class="mn-center-row">
         <button (click)="pageBack()" class="btn btn-danger">
             Volver
         </button>
-        <button type="submit" id="btnSubmitMascota" [disabled]="!petForm.form.valid" class="btn btn-primary">{{ operation | titlecase}}</button>
+        <button type="submit" id="btnSubmitMascota" [disabled]="!petForm.form.valid" class="btn btn-primary">{{
+            operation | titlecase}}</button>
     </div>
 
 </form>

@@ -1,48 +1,55 @@
 <h1 id="h1OperationCliente">{{ operation | titlecase }} Cliente</h1>
 <!-- Formulario -->
 <form #customerForm="ngForm" (ngSubmit)="saveClient(customerForm)">
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formCustomer.nombre" type="text" class="form-control" id="nombre"
-            placeholder="Nombre" name="nombre">
-        <label for="nombre">Nombre</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formCustomer.cedula" type="text" class="form-control" id="cedula"
-            placeholder="Cedula" name="cedula">
-        <label for="cedula">Cedula</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formCustomer.correo" type="email" class="form-control" id="correo"
-            placeholder="Correo" name="correo" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-            #correo="ngModel">
-        <label for="correo">Email</label>
-        <div *ngIf="correo.invalid && (correo.dirty || correo.touched)">
-            <small *ngIf="correo.errors?.['required']" class="text-danger">El correo es requerido.</small>
-            <small *ngIf="correo.errors?.['pattern']" class="text-danger">Ingresa un correo válido.</small>
+    <div class="row  g-3">
+        <div class="col mb-3">
+            <input [(ngModel)]="formCustomer.nombre" type="text" class="form-control" id="nombre" placeholder="Nombre"
+                name="nombre">
+         
+        </div>
+        <div class="col mb-3">
+            <input [(ngModel)]="formCustomer.cedula" type="text" class="form-control" id="cedula" placeholder="Cedula"
+                name="cedula">
+        
         </div>
     </div>
-
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formCustomer.celular" type="text" class="form-control" id="numero"
-            placeholder="Numero" name="celular">
-        <label for="numero">Numero telefonico</label>
+    <div class="row g-3">
+        <div class="col mb-3">
+            <input [(ngModel)]="formCustomer.correo" type="email" class="form-control" id="correo" placeholder="Correo"
+                name="correo" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #correo="ngModel">
+         
+            <div *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                <small *ngIf="correo.errors?.['required']" class="text-danger">El correo es requerido.</small>
+                <small *ngIf="correo.errors?.['pattern']" class="text-danger">Ingresa un correo válido.</small>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <input [(ngModel)]="formCustomer.celular" type="text" class="form-control" id="numero" placeholder="Numero"
+                name="celular">
+         
+        </div>
     </div>
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formCustomer.direccion" type="text" class="form-control" id="direccion"
-            placeholder="Dirección" name="direccion">
-        <label for="direccion">Dirección</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input [(ngModel)]="formCustomer.fotoString" type="text" class="form-control" id="foto"
-            placeholder="Ingresa URL de la foto" name="fotoString">
-        <label for="foto">Foto URL</label>
-    </div>
+    <div class="row g-3">
+        <div class="col mb-3">
+            <input [(ngModel)]="formCustomer.direccion" type="text" class="form-control" id="direccion"
+                placeholder="Dirección" name="direccion">
+         
+        </div>
+        <div class="col mb-3">
+            <input [(ngModel)]="formCustomer.fotoString" type="text" class="form-control" id="foto"
+                placeholder="Ingresa URL de la foto" name="fotoString">
+            
+        </div>
+     </div>
+     
     <br>
 
     <div class="mn-center-row">
-        <button (click)="pageBack()"
-            class="btn btn-danger">Volver</button>
-        <button type="submit" id="btnSumitCliente" [disabled]="!customerForm.form.valid" class="btn btn-primary">{{ operation | titlecase}}</button>
+        <button (click)="pageBack()" class="btn btn-danger">Volver</button>
+
+        
+        <button type="submit" id="btnSumitCliente" [disabled]="!customerForm.form.valid" class="btn btn-primary">{{
+            operation | titlecase}}</button>
     </div>
 
 </form>
