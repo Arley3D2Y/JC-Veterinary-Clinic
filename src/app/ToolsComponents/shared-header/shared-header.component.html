@@ -1,16 +1,49 @@
 <!-- HEADER -->
 <header>
-    <!-- Navbar -->
-    <div class="logout-layout">
-        <a type="button" (click)="logout()" title="Logout">
-            <img src="/images/logout.png" alt="logout" width="45px">
-        </a>
-    </div>
-    <nav>
-        <ul>
-            <li *ngFor="let link of navLinks">
-                <a class="aNavLink" [routerLink]="[link.path]" routerLinkActive="active">{{ link.label }}</a>
-            </li>
-        </ul>
+    <nav class="navbar fixed-top navar">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">Salir</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Menú</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body d-flex flex-column justify-content-between">
+            <!-- Nav Links -->
+            <ul class="navbar-nav flex-column">
+              <li *ngFor="let link of navLinks" class="nav-item">
+                <a class="nav-link" [routerLink]="[link.path]" routerLinkActive="active">{{ link.label }}</a>
+              </li>
+            </ul>
+            <!-- Logout Button -->
+            <div class="logout-layout mt-auto">
+              <a class="logout-btn" type="button" (click)="logout()" title="Logout">
+                <img src="/images/logout.png" alt="logout" width="45px" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
-</header>
+  </header>
+  
