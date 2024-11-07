@@ -32,4 +32,12 @@ export class SharedHeaderComponent {
     localStorage.clear();
     this.router.navigate([this.logoutRedirectUrl]);
   }
+
+  goBack() {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      this.router.navigate(['/default-page']);  // Redirige a una página predeterminada si no hay historial
+    }
+  }
 }

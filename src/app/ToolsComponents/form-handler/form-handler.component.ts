@@ -13,7 +13,7 @@ import { PetService } from '../../services/pet.service';
 import { CustomerService } from '../../services/customer.service';
 import { VeterinarioService } from '../../services/veterinario.service';
 import { Veterinario } from '../../model/veterinario';
-import { mergeMap } from 'rxjs';
+import { mergeMap, of } from 'rxjs';
 import { error } from 'console';
 import { Tratamiento } from '../../model/tratamiento';
 import { TratamientoService } from '../../services/tratamiento.service';
@@ -62,64 +62,92 @@ export class FormHandlerComponent {
     this.searchEntity();
   }
 
-  searchEntity() {
-    if (this.typeEntity === 'cliente') {
-      if (this.typeOperation === 'actualizar') {
-        this.serviceClient.findById(this.entityId).subscribe(
-          (customerInfo: Cliente) => {
-            this.customerSelected = customerInfo;
-            this.isDataLoaded = true; // Establecer la bandera a true
-          }
-        )
-      } else if (this.typeOperation === 'agregar') {
-        this.isDataLoaded = true; // Establecer la bandera a true
-      }
-    } else if (this.typeEntity === 'mascota') {
-      if (this.typeOperation === 'agregar') {
-        this.serviceClient.findById(this.entityId).subscribe(
-          (customerInfo: Cliente) => {
+// Crear un cliente vacío con valores predeterminados
+EMPTY_CLIENTE: Cliente = {
+  id: 0,
+  nombre: '',
+  cedula: '',
+  correo: '',
+  celular: '',
+  direccion: '',
+  fotoString: '',
+  mascotas: [] // Asignamos un array vacío para las mascotas, en caso de que no haya mascotas asociadas
+};
+searchEntity() {
+  if (this.typeEntity === 'cliente') {
+    if (this.typeOperation === 'actualizar') {
+      this.serviceClient.findById(this.entityId).subscribe(
+        (customerInfo: Cliente) => {
           this.customerSelected = customerInfo;
           this.isDataLoaded = true; // Establecer la bandera a true
-        });
-      } else if (this.typeOperation === 'actualizar') {
-        this.servicePet.findById(this.entityId).pipe(
-          mergeMap(petInfo => {
-            this.petSelected = petInfo;
-            return this.serviceClient.findById(petInfo.cliente!.id);
-          })
-        ).subscribe(clientInfo => {
-          this.customerSelected = clientInfo;
-          this.isDataLoaded = true; // Establecer la bandera a true
-        })
-      }
-    } else if (this.typeEntity === 'veterinario') {
-      if (this.typeOperation === 'actualizar') {
-        this.serviceVet.findById(this.entityId).subscribe(vetInfo => {
-          this.veterinarySelected = vetInfo;
-          this.isDataLoaded = true; // Establecer la bandera a true
-        })
-      } else {
+        },
+        (error) => {
+          console.error('Error al obtener cliente:', error);
+          // Si hay error al obtener el cliente, usamos el cliente vacío
+          this.customerSelected = this.EMPTY_CLIENTE;
+          this.isDataLoaded = true;
+        }
+      );
+    } else if (this.typeOperation === 'agregar') {
+      this.isDataLoaded = true; // Establecer la bandera a true
+    }
+  } else if (this.typeEntity === 'mascota') {
+    if (this.typeOperation === 'agregar') {
+      this.serviceClient.findById(this.entityId).subscribe(customerInfo => {
+        this.customerSelected = customerInfo;
         this.isDataLoaded = true; // Establecer la bandera a true
-      }
-    } else if (this.typeEntity === 'tratamiento') {
-      if (this.typeOperation === 'agregar') {
-        this.servicePet.findById(this.entityId).subscribe(data => {
-          this.petSelected = data;
-          this.isDataLoaded = true; // Establecer la bandera a true
-        });
-      } else if (this.typeOperation === 'actualizar') {
-        this.serviceTreatment.findById(this.entityId).pipe(
-          mergeMap(data => {
-            this.treatmentSelected = data;
-            return this.servicePet.findById(data.mascota!.id);
-          })
-        ).subscribe(petInfo => {
+      });
+    } else if (this.typeOperation === 'actualizar') {
+      this.servicePet.findById(this.entityId).pipe(
+        mergeMap(petInfo => {
           this.petSelected = petInfo;
-          this.isDataLoaded = true; // Establecer la bandera a true
+          if (this.petSelected.cliente) {
+            return this.serviceClient.findById(this.petSelected.cliente.id); // Si tiene cliente asociado, lo cargamos
+          } else {
+            console.warn("La mascota no tiene un cliente asociado.");
+            // Asignar un cliente vacío para evitar problemas
+            this.customerSelected = this.EMPTY_CLIENTE;
+            this.isDataLoaded = true;
+            return of(null); // Devuelve un observable vacío si no tiene cliente asociado
+          }
         })
-      }
+      ).subscribe(clientInfo => {
+        if (clientInfo) {
+          this.customerSelected = clientInfo; // Si existe cliente, lo asignamos
+        }
+        this.isDataLoaded = true; // Establecer la bandera a true
+      });
+    }
+  } else if (this.typeEntity === 'veterinario') {
+    if (this.typeOperation === 'actualizar') {
+      this.serviceVet.findById(this.entityId).subscribe(vetInfo => {
+        this.veterinarySelected = vetInfo;
+        this.isDataLoaded = true; // Establecer la bandera a true
+      });
+    } else {
+      this.isDataLoaded = true; // Establecer la bandera a true
+    }
+  } else if (this.typeEntity === 'tratamiento') {
+    if (this.typeOperation === 'agregar') {
+      this.servicePet.findById(this.entityId).subscribe(data => {
+        this.petSelected = data;
+        this.isDataLoaded = true; // Establecer la bandera a true
+      });
+    } else if (this.typeOperation === 'actualizar') {
+      this.serviceTreatment.findById(this.entityId).pipe(
+        mergeMap(data => {
+          this.treatmentSelected = data;
+          return this.servicePet.findById(data.mascota!.id);
+        })
+      ).subscribe(petInfo => {
+        this.petSelected = petInfo;
+        this.isDataLoaded = true; // Establecer la bandera a true
+      });
     }
   }
+}
+
+
   // Método para guardar entidad
   saveEntity(entity: Mascota | Cliente | Veterinario | Tratamiento) {
     if (this.typeEntity === 'cliente') {
@@ -142,7 +170,7 @@ export class FormHandlerComponent {
           alert('El cliente ya existe');
         }
       }
-    )
+      )
     } else if (this.typeOperation === 'actualizar') {
       this.serviceClient.updateCustomer(this.customerSelected.id, customer).subscribe(updateClient => {
         this.router.navigate(['veterinario/detalles/cliente', updateClient.id]);
@@ -165,13 +193,13 @@ export class FormHandlerComponent {
   saveVet(vet: Veterinario) {
     if (this.typeOperation === 'agregar') {
       this.serviceVet.addveterinario(vet).subscribe(newVet => {
-          this.router.navigate(['administrador/detalles/veterinario', newVet.id]);
-        }
+        this.router.navigate(['administrador/detalles/veterinario', newVet.id]);
+      }
       );
     } else if (this.typeOperation === 'actualizar') {
       this.serviceVet.updateveterinario(this.veterinarySelected.id, vet).subscribe(updateVet => {
-          this.router.navigate(['administrador/detalles/veterinario', updateVet.id]);
-        }
+        this.router.navigate(['administrador/detalles/veterinario', updateVet.id]);
+      }
       );
     }
   }
