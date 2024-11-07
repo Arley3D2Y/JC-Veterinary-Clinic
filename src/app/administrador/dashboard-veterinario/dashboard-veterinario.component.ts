@@ -19,33 +19,6 @@ import { Tratamiento } from '../../model/tratamiento';
   templateUrl: './dashboard-veterinario.component.html',
   styleUrls: ['./dashboard-veterinario.component.css']
 })
-export class DashboardVeterinarioComponent implements OnInit {
-
-  public chart: Chart<"line"> | null = null;
-
-  ngOnInit(): void {
-      const data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-          {
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-          }
-        ]
-      }
-
-      this.chart = new Chart('myChart', {
-        type: 'line',
-        data
-      });
-  }
-
-}
-
-/*
 export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
 
   totalTratamientosPorMes: number = 0;
@@ -70,7 +43,7 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-      
+      this.loadDashboardData();
   }
 
   ngAfterViewInit() {
@@ -216,4 +189,3 @@ export class DashboardVeterinarioComponent implements OnInit, AfterViewInit {
 
 
 }
-*/

@@ -1,67 +1,66 @@
 /* Header and Nav Bar Styling */
 header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    background-color: #5E548E;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .navar {
-    background-color: #5E548E;
-  }
-  
-  /* Nav Links Styling */
-  ul.navbar-nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-family: "ABeeZee", sans-serif;
-    font-weight: bold;
-  }
-  
-  .nav-item {
-    margin-bottom: 10px;
-  }
-  
-  .nav-link {
-    color: #9F86C0;
-    text-decoration: none;
-    font-size: 20px;
-  }
-  
-  .nav-link.active {
-    color: #BE95C4;
-  }
-  
-  .nav-link:hover {
-    color: #5E548E;
-    font-size: 21px;
-    transition: all 0.3s ease;
-  }
-  
-  /* Logout Button Styling */
-  .logout-layout {
-    margin-top: auto;
-    text-align: center;
-  }
-  
-  .logout-btn img {
-    transition: all 0.5s ease;
-  }
-  
-  .logout-btn:hover img {
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-  
-  /* Additional Styling for Logout Button */
-  .logout-btn {
-    background-color: #231942;
-    border-radius: 5px;
-    padding: 10px;
-    display: inline-block;
-  }
-  
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: #5E548E;
+  padding: 0;
+  margin: 0;
+}
+
+.navar {
+  background-color: #5E548E;
+}
+
+/* Nav Links Styling */
+ul.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: "ABeeZee", sans-serif;
+  font-weight: bold;
+}
+
+.nav-item {
+  margin-bottom: 10px;
+}
+
+.nav-link {
+  color: #9F86C0;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.nav-link.active {
+  color: #BE95C4;
+}
+
+.nav-link:hover {
+  color: #5E548E;
+  font-size: 21px;
+  transition: all 0.3s ease;
+}
+
+/* Logout Button Styling */
+.logout-layout {
+  margin-top: auto;
+  text-align: center;
+}
+
+.logout-btn img {
+  transition: all 0.5s ease;
+}
+
+.logout-btn:hover img {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* Additional Styling for Logout Button */
+.logout-btn {
+  background-color: #231942;
+  border-radius: 5px;
+  padding: 10px;
+  display: inline-block;
+}

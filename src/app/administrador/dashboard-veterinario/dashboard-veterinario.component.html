@@ -10,9 +10,79 @@
   </header>
 
   <div class="dashboard-grid">
+    <!-- Sección Tratamientos -->
+     
     <div class="dashboard-item">
-      <h2>Gráfico de Tratamientos</h2>
-      <canvas id="myChart" width="400" height="auto">{{ chart }}</canvas>
+      <h2>Tratamientos</h2>
+      <ul>
+        <li>Total de tratamientos (último mes): <strong id="strongCountTratamientos">{{ totalTratamientosPorMes }}</strong></li>
+      </ul>
+      <h3>Tratamientos por tipo de medicamento (último mes)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Medicamento</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of tratamientoDrogaDTO">
+            <td>{{ item.nombreDroga }}</td>
+            <td>{{ item.cantidadTratamiento }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Gráfico de Tratamientos por Medicamento -->
+      <div class="chart-container">
+        <canvas id="tratamientosChart"></canvas>
+      </div>
+
+      <!-- Lista de Top Tratamientos -->
+      <h3>Top 3 tratamientos más vendidos</h3>
+      <ol>
+        <li *ngFor="let tratamiento of top3Tratamientos">
+          {{ tratamiento.descripcion }} - {{ tratamiento.droga?.UnidadesVendidas }} unidades
+        </li>
+      </ol>
+    </div>
+
+    <!-- Sección Veterinarios -->
+    <div class="dashboard-item">
+      <h2>Veterinarios</h2>
+      <ul *ngIf="estadoMascotasDTO">
+        <li>Veterinarios activos: <strong>{{ estadoVeterinariosDTO[1].cantidadVeterinarios || 0 }}</strong></li>
+        <li>Veterinarios inactivos: <strong>{{ estadoVeterinariosDTO[0].cantidadVeterinarios || 0 }}</strong></li>
+      </ul>
+      <!-- Gráfico de Veterinarios -->
+      <div class="chart-circle">
+        <canvas id="veterinariosChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Sección Mascotas -->
+    <div class="dashboard-item">
+      <h2>Mascotas</h2>
+      <ul *ngIf="estadoMascotasDTO">
+        <li>Total de mascotas: <strong>{{ totalMascotas }}</strong></li>
+        <li>Mascotas activas (en tratamiento): <strong>{{ estadoMascotasDTO[1].cantidad }}</strong></li>
+      </ul>
+      <!-- Gráfico de Mascotas -->
+      <div class="chart-container">
+        <canvas id="mascotasChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Sección Finanzas -->
+    <div class="dashboard-item">
+      <h2>Finanzas</h2>
+      <ul>
+        <li>Ventas totales: <strong>{{ totalSales || 0 }}</strong></li>
+        <li>Ganancias totales: <strong id="strongTotalProfits">{{ totalProfits || 0}}</strong></li>
+      </ul>
+      <!-- Gráfico de Finanzas -->
+      <div class="chart-container">
+        <canvas id="finanzasChart"></canvas>
+      </div>
     </div>
   </div>
 </div>

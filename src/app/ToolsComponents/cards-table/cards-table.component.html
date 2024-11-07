@@ -1,7 +1,7 @@
 <section class="items_table">
     <div class="tableCenter" *ngFor="let item of items">
         <img *ngIf="item.fotoString" [src]="item.fotoString" width="90" height="90" [alt]="'Foto de ' + item.nombre">
-        <img *ngIf="typeObject === 'tratamientos'" [src]="item.mascota?.fotoString" width="90" height="90">
+        <img *ngIf="typeObject === 'tratamientos'" src="https://cdn-icons-png.flaticon.com/256/3302/3302055.png" width="90" height="90">
         <div>
             <h2 *ngIf="typeObject !== 'tratamientos'">{{ item.nombre }}</h2>
             <div *ngIf="typeObject === 'tratamientos'" class="tratamiento-info">
