@@ -30,13 +30,16 @@
   </div>
   <div class="row  g-3">
     <!-- Selección de Especialidad -->
-    <div class="col mb-3">
-      <label for="especialidadSelect" class="form-label">Especialidad</label>
-      <select [(ngModel)]="selectedEspecialidad" name="especialidad" required class="form-select"
-        id="especialidadSelect" (change)="selectedEspecialidad && onSelectSpeciality(selectedEspecialidad)">
-        <option *ngFor="let especialidad of especialidades" [ngValue]="especialidad">{{ especialidad.nombre }}</option>
-      </select>
-    </div>
+   <!-- Selección de Especialidad -->
+   <div class="col mb-3">
+    <label for="especialidadSelect" class="form-label">Especialidad</label>
+    <select [(ngModel)]="selectedEspecialidad" name="especialidad" required class="form-select" id="especialidadSelect">
+      <option *ngFor="let especialidad of especialidades" [ngValue]="especialidad">
+        {{ especialidad.nombre }}
+      </option>
+    </select>
+  </div>
+    
   </div>
   <!-- Botones de Acción -->
 
