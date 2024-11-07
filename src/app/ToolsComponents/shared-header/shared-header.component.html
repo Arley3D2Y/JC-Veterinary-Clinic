@@ -17,12 +17,18 @@
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column justify-content-between">
-          <!-- Enlaces de navegación -->
+         <!-- Nav Links -->
           <ul class="navbar-nav flex-column">
             <li *ngFor="let link of navLinks" class="nav-item">
               <a class="nav-link" [routerLink]="[link.path]" routerLinkActive="active">{{ link.label }}</a>
             </li>
           </ul>
+          <!-- Logout Button -->
+          <div class="logout-layout mt-auto">
+            <a class="logout-btn" type="button" (click)="logout()" title="Logout">
+              <img src="/images/logout.png" alt="logout" width="45px" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
