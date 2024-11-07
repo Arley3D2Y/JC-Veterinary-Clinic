@@ -57,8 +57,6 @@ export class PetCardComponent {
     });
   }
   
-  
-
   updatePet() {
     this.isPetUpdated = true;
     this.router.navigate(['/veterinario/actualizar/mascota', this.petSelected.id])
