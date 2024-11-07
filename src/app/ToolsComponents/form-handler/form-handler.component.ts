@@ -76,7 +76,8 @@ export class FormHandlerComponent {
       }
     } else if (this.typeEntity === 'mascota') {
       if (this.typeOperation === 'agregar') {
-        this.serviceClient.findById(this.entityId).subscribe(customerInfo => {
+        this.serviceClient.findById(this.entityId).subscribe(
+          (customerInfo: Cliente) => {
           this.customerSelected = customerInfo;
           this.isDataLoaded = true; // Establecer la bandera a true
         });
@@ -84,7 +85,7 @@ export class FormHandlerComponent {
         this.servicePet.findById(this.entityId).pipe(
           mergeMap(petInfo => {
             this.petSelected = petInfo;
-            return this.serviceClient.findById(this.petSelected.cliente!.id);
+            return this.serviceClient.findById(petInfo.cliente!.id);
           })
         ).subscribe(clientInfo => {
           this.customerSelected = clientInfo;
