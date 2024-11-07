@@ -38,7 +38,7 @@ export class CustomerCardComponent {
         tap(customerInfo => {
           this.customerSelected = customerInfo; // Asegúrate de que customerSelected esté cargado
         }),
-        mergeMap(customerInfo => this.petService.getPetsByCustomerId(customerInfo.id))
+        mergeMap(customerInfo => this.customerService.getPetsByCustomerId(customerInfo.id))
       ).subscribe(pets => {
         this.customerSelected.mascotas = pets; // Ahora puedes acceder a mascotas
       });

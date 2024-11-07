@@ -30,11 +30,6 @@ export class VeterinarioComponent {
     private vetService: VeterinarioService
   ) { }
 
-  // Puedes inicializar el tipo según lo que necesites o pasar dinámicamente al cargar
-  setTypeObject(type: 'clientes' | 'mascotas') {
-    this.typeSection = type;
-  }
-
   ngOnInit(): void {
     // Al cargar el componente, obtenemos el valor de `typeObject` desde la ruta
     this.route.data.subscribe((data) => {

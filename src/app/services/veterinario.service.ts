@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Veterinario } from '../model/veterinario';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Tratamiento } from '../model/tratamiento';
+import { Especialidad } from '../model/especialidad';
 
 @Injectable({
   providedIn: 'root'
@@ -27,14 +29,19 @@ export class VeterinarioService {
     return this.http.post<Veterinario>(`${this.baseUrl}/add`, veterinario);
   }
 
+  // Eliminar veterinario
+  deleteVeterinario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
+
   // Actualizar veterinario
   updateveterinario(id: number, veterinario: Veterinario): Observable<Veterinario> {
     return this.http.put<Veterinario>(`${this.baseUrl}/update/${id}`, veterinario);
   }
 
-  // Eliminar veterinario
-  deleteVeterinario(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  // Buscar veterinarios por cedula
+  clienteHome(): Observable<Veterinario> {
+    return this.http.get<Veterinario>(`${this.baseUrl}/details`);
   }
 
   // Buscar veterinarios por nombre
@@ -42,14 +49,12 @@ export class VeterinarioService {
     return this.http.get<Veterinario[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 
-  // Buscar veterinarios por cedula
-  searchByDocument(docuemnt: string): Observable<Veterinario> {
-    return this.http.get<Veterinario>(`${this.baseUrl}/search-by-document/${docuemnt}`);
+  getTratamientosByVet(): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.baseUrl}/tratamientos`);
   }
 
-  // Obtener veterinario por correo
-  searchbyEmail(email: string): Observable<Veterinario> {
-    return this.http.get<Veterinario>(`${this.baseUrl}/search-by-email/${email}`);
+  getEspecialidadByVet(id: number): Observable<Especialidad> {
+    return this.http.get<Especialidad>(`${this.baseUrl}/${id}/especialidad`);
   }
 
 }

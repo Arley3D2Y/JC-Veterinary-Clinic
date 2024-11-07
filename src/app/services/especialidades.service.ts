@@ -6,7 +6,9 @@ import { Especialidad } from '../model/especialidad';
   providedIn: 'root'
 })
 export class EspecialidadesService {
-  private baseUrl = ' http://localhost:8088/veterinarios/especialidades';
+  
+  private baseUrl = ' http://localhost:8088/especialidades';
+
   constructor(private http: HttpClient ) { }
 
   // Obtener todas las especialidades
@@ -16,7 +18,7 @@ export class EspecialidadesService {
 
   // Obtener una especialidad por ID
   findById(id: number): Observable<Especialidad> {
-    return this.http.get<Especialidad>(`${this.baseUrl}/${id}`);
+    return this.http.get<Especialidad>(`${this.baseUrl}/find/${id}`);
   }
 
   // Agregar una nueva especialidad
@@ -33,4 +35,10 @@ export class EspecialidadesService {
   deleteEspecialidad(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
+
+  // Buscar especialidades por nombre
+  searchByName(name: string): Observable<Especialidad[]> {
+    return this.http.get<Especialidad[]>(`${this.baseUrl}/search-by-name/${name}`);
+  }
+
 }

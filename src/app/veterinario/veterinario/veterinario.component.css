@@ -1,12 +1,12 @@
 main {
-    height: 91%; /* O la altura que desees */
+    height: 103%; /* O la altura que desees */
     width: 100vw; /* O el ancho que desees */
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 30px 40px;
+    padding: 120px 50px 50px 50px;
 }
 
 app-search-bar {

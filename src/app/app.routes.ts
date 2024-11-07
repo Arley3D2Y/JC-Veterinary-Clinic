@@ -11,13 +11,15 @@ import { AdministradorComponent } from './administrador/administrador/administra
 import { DashboardVeterinarioComponent } from './administrador/dashboard-veterinario/dashboard-veterinario.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirección a home
-    { path: 'home', component: WelcomePageComponent }, // Ruta para la landing page
-    { path: 'login', component: LoginComponent }, // Login usuario
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'home', component: WelcomePageComponent },
+    { path: 'login', component: LoginComponent },
     { path: 'login/administrador', component: LoginComponent, data: { type: 'administrador' } }, 
 
-    { path: 'cliente/dashboard/:cedula', component: DashboardComponent, data: { type: 'cliente' } }, // Ruta para el dashboard del cliente
-    
+    { path: 'cliente/home', component: DashboardComponent },    // Sin revisar
+    { path: 'veterinario/home', component: VeterinarioComponent, data: { type: 'clientes' } },
+    { path: 'administrador/home', component: AdministradorComponent, data: { type: 'veterinarios' } },
+
     { path: 'veterinario/clientes', component: VeterinarioComponent, data: { type: 'clientes' } },
     { path: 'veterinario/detalles/cliente/:id', component: EntityDetailsComponent, data: { type: 'cliente' } },
     { path: 'veterinario/agregar/cliente', component: FormHandlerComponent },

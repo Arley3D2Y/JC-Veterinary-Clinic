@@ -21,5 +21,24 @@ export class EnfermedadService {
     return this.http.get<Enfermedad>(`${this.baseUrl}/find/${id}`);
   }
 
+  addEnfermedad(enfermedad: Enfermedad): Observable<Enfermedad> {
+    return this.http.post<Enfermedad>(`${this.baseUrl}/add`, enfermedad);
+  }
+
+  updateEnfermedad(id: number, enfermedad: Enfermedad): Observable<Enfermedad> {
+    return this.http.put<Enfermedad>(`${this.baseUrl}/update/${id}`, enfermedad);
+  }
+
+  deleteEnfermedad(id: number) {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
+
+  searchByName(name: String): Observable<Enfermedad[]> {
+    return this.http.get<Enfermedad[]>(`${this.baseUrl}/search-by-name/${name}`);
+  }
+
+  getSintomasByEnfermedadId(id: number): Observable<Droga[]> {
+    return this.http.get<Droga[]>(`${this.baseUrl}/search-by-sintomas/${id}`);
+  }
 
 }

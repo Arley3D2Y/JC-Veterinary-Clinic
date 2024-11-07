@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Administrador } from '../../model/administrador';
 import { CustomerService } from '../../services/customer.service';
-import { AuthService } from '../../services/auth.service';
+import { User } from '../../model/user';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-form-login',
@@ -25,20 +26,15 @@ export class FormLoginComponent implements OnInit {
   typeUser: string | null = null;
 
   // Modelo para el formulario
-  form = {
-    cedula: '',
-    usuario: '',
-    password: '',
-    correo: '',
-  };
+  formUser: User = {
+    username: '',
+    password: ''
+  }
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private clientService: CustomerService,
-    private vetService: VeterinarioService,
-    private adminService: AdministradorService,
-    private authService: AuthService
+    private loginService: LoginService,
   ) { }
 
   ngOnInit() {
@@ -56,15 +52,13 @@ export class FormLoginComponent implements OnInit {
   }
 
   clearForm() {
-    this.form = {
-      cedula: '',
-      usuario: '',
-      password: '',
-      correo: '',
+    this.formUser = {
+      username: '',
+      password: ''
     }
   }
 
-  onSubmit() {
+  login() {
     switch (this.typeUser) {
       case 'cliente':
         this.loginCliente();
@@ -85,58 +79,30 @@ export class FormLoginComponent implements OnInit {
   }
 
   private loginCliente() {
-    this.clientService.searchByDocument(this.form.cedula).subscribe({
-      next: (customer) => {
-        if (customer.cedula === this.form.cedula) {
-          this.router.navigate(['cliente/dashboard', this.form.cedula]);
-        }
-      },
-      error: (error) => {
-        if (error.status === 404) {
-          alert('Cliente no encontrado');
-        }
+    this.loginService.loginCliente(this.formUser).subscribe(
+      (data) => {
+        localStorage.setItem('token', String(data)); // Guarda el token en localStorage
+        this.router.navigate(['cliente/home']);
       }
-    });
+    );
   }
 
   private loginVeterinario() {
-    this.vetService.searchbyEmail(this.form.correo).subscribe({
-      next: (veterinario) => {
-        if (veterinario.password === this.form.password) {
-          this.authService.login(veterinario.id, this.form.correo); // Guarda el ID y correo en localStorage
-          this.router.navigate(['veterinario/clientes']);
-        } else {
-          alert('Contraseña incorrecta');
-        }
-      },
-      error: (error) => {
-        if (error.status === 404) {
-          alert('Veterinario no encontrado');
-        }
-      },
-      complete: () => {
-        console.log("Proceso de login completado"); // Acción al finalizar la suscripción
+    this.loginService.loginVet(this.formUser).subscribe(
+      (data) => {
+        localStorage.setItem('token', String(data)); // Guarda el token en localStorage
+        this.router.navigate(['veterinario/home']);
       }
-  
-    });
+    )
   }
 
   private loginAdministrador() {
-    this.adminService.seachByUser(this.form.usuario).subscribe({
-      next: (admin) => {
-        if (admin && admin.password === this.form.password) {
-          this.router.navigate(['administrador/veterinario']);
-        } else {
-          alert('Contraseña incorrecta');
-        }
-      },
-      error: (error) => {
-        if (error.status === 404) {
-          alert('Administrador no encontrado');
-        } else if (error.status === 401) {
-        }
+    this.loginService.loginAdmin(this.formUser).subscribe(
+      (data) => {
+        localStorage.setItem('token', String(data)); // Guarda el token en localStorage
+        this.router.navigate(['administrador/home']);
       }
-    });
+    )
   }
 
 }

@@ -43,22 +43,15 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const cedula = String(params['cedula']);
-
-      if (cedula) {
-        this.clienteService.searchByDocument(cedula).pipe(
-          mergeMap((customerInfo: Cliente) => {
-            this.cliente = customerInfo;
-            return this.mascotaService.getPetsByCustomerId(customerInfo.id);
-          })
-        ).subscribe((mascotasInfo: Mascota[]) => {
-          this.cliente.mascotas = mascotasInfo; 
-          this.isDataLoaded = true;
-        });
-
-      }
-    });
+    this.clienteService.clienteHome().pipe( 
+      mergeMap((customerInfo: Cliente) => {
+        this.cliente = customerInfo;
+        return this.clienteService.getPetsByCustomerId(customerInfo.id);
+      })
+    ).subscribe((mascotasInfo: Mascota[]) => {
+      this.cliente.mascotas = mascotasInfo; 
+      this.isDataLoaded = true;
+    })
   }
 
   // Este método se ejecuta cuando una mascota es seleccionada en la lista

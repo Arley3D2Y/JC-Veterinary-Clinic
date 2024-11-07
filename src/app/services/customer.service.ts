@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cliente } from '../model/cliente';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Mascota } from '../model/mascota';
 
 @Injectable({
   providedIn: 'root'
@@ -24,24 +25,25 @@ export class CustomerService {
     return this.http.post<Cliente>(`${this.baseUrl}/add`, customer);
   }
 
+  deleteCustomer(id: Number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
+  
   updateCustomer(id: number, cliente: Cliente): Observable<Cliente> {
     return this.http.put<Cliente>(`${this.baseUrl}/update/${id}`, cliente);
   }
 
-  deleteCustomer(id: Number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  // Mostrar cliente
+  clienteHome(): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/details`);
   }
 
   sarchCustomersByName(name: String): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 
-  searchByDocument(document: string): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.baseUrl}/search-by-document/${document}`);
-  }
-
-  sarchCustomerByPetId(id: Number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.baseUrl}/search-by-pet_id/${id}`);
+  getPetsByCustomerId(id: Number): Observable<Mascota[]> {
+    return this.http.get<Mascota[]>(`${this.baseUrl}/${id}/mascotas`);
   }
 
 }

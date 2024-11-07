@@ -1,63 +1,58 @@
-<section *ngIf="customerSelected && customerSelected.id" class="card-info">
-    <!-- Imagen de la mascota -->
-    <img *ngIf="customerSelected.fotoString" [src]="customerSelected.fotoString" [alt]="'Foto de ' + customerSelected.nombre">
+<div class="section-card" style="width: 100%; height: 100%;">
+    <h1 *ngIf="customerSelected">Información de {{ customerSelected.nombre }}</h1>
 
-    <article class="box-info">
-        <!-- Título -->
-        <h1 id="h1NombreCliente">Información de {{ customerSelected.nombre }}</h1>
-        <!-- Información -->
-        <div class="celda">
-            <h3 class="title-celda">Nombre</h3>
-            <p class="celda-info">{{ customerSelected.nombre }}</p>
-        </div>
-        <div class="celda">
-            <h3 class="title-celda">Cédula</h3>
-            <p class="celda-info">{{ customerSelected.cedula }}</p>
-        </div>
-        <div class="celda">
-            <h3 class="title-celda">Correo</h3>
-            <p class="celda-info">{{ customerSelected.correo }}</p>
-        </div>
-        <div class="celda">
-            <h3 class="title-celda">Celular</h3>
-            <p class="celda-info">{{ customerSelected.celular }}</p>
-        </div>
-        <div class="celda">
-            <h3 class="title-celda">Dirección</h3>
-            <p class="celda-info">{{ customerSelected.direccion }}</p>
-        </div>
-        <div class="celda">
-            <h3 class="title-celda">ID</h3>
-            <p class="celda-info">{{ customerSelected.id }}</p>
-        </div>
+    <section class="flex-row gap-30" style="height: 100%;">
+        <section *ngIf="customerSelected" class="card-info">
 
-        <!-- Botones -->
-        <button class="btn btn-success" [routerLink]="['/veterinario/actualizar/cliente', customerSelected.id]">
-            Actualizar
-        </button>        
-
-        <button class="btn btn-danger" (click)="deleteCustomer(customerSelected.id)">
-            Eliminar
-        </button>
-    </article>
-</section>
-
-<h2>Mascotas</h2>
-<section class="card-items-info" *ngIf="customerSelected">
-
-    <article class="panel-cards">
-        <div class="pet-card" *ngFor="let mascota of customerSelected?.mascotas">
-            <a [routerLink]="['/veterinario/detalles/mascota', mascota.id]" title="Detalles">
-                <img [src]="mascota.fotoString" alt="Imagen de mascota">
-                <h3>{{mascota.nombre}}</h3>
-                <p>{{mascota.raza}}</p>
-            </a>
-        </div>
-
-        <div>
-            <a type="button" id="aAgregarMascota" [routerLink]="['/veterinario/agregar/mascota/cliente', customerSelected.id]" title="Añadir Mascota">
-                <i class="fa-solid fa-circle-plus"></i>
-            </a>
-        </div>
-    </article>
-</section>
+            <img *ngIf="customerSelected.fotoString !== null" [src]="customerSelected.fotoString" [alt]="">
+            
+            <article class="box-info flex-column">
+                <div class="celda">
+                    <p>{{ customerSelected.cedula }}</p>
+                </div>
+        
+                <div class="celda">
+                    <p>{{ customerSelected.correo }}</p>
+                </div>
+        
+                <div class="celda">
+                    <p>{{ customerSelected.celular }}</p>
+                </div>
+        
+                <div class="celda">
+                    <p>{{ customerSelected.direccion }}</p>
+                </div>
+        
+            </article>
+        
+            <section class="box-buttons flex-row  gap-10">
+                <button class="btn btn-primary" [routerLink]="['/veterinario/actualizar/cliente', customerSelected.id]">
+                    Actualizar
+                </button>        
+            
+                <button class="btn btn-danger" (click)="deleteCustomer(customerSelected.id)">
+                    Eliminar
+                </button>
+            </section>
+        </section>
+        
+        <section class="card-details">
+            <h2>Mascotas</h2>
+        
+            <section class="card-items-info" *ngIf="customerSelected">
+                <section class="scroll-cards">
+                    <div *ngFor="let mascota of customerSelected.mascotas" class="card-pet">
+                    <img [src]="mascota.fotoString" alt="Foto de mascota" [routerLink]="['/veterinario/detalles/mascota', mascota.id]">
+                        <h3 class="h3ListMascotas">{{ mascota.nombre }}</h3>
+                    </div>
+                </section>
+        
+            </section>    
+            <button class="btn btn-primary flex-row" [routerLink]="['/veterinario/agregar/mascota/cliente/', customerSelected.id]" title="Añadir Mascota">
+                Agregar
+             </button>
+        </section>
+    
+    </section>
+    
+</div>

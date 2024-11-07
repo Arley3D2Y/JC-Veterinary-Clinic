@@ -8,10 +8,8 @@ import { Router } from '@angular/router';
 
 import { SharedHeaderComponent } from '../../ToolsComponents/shared-header/shared-header.component';
 import { Enfermedad } from '../../model/enfermedad';
-import { Estado } from '../../model/estado';
-import { EstadoService } from '../../services/estado.service';
 import { EnfermedadService } from '../../services/enfermedad.service';
-import { Console } from 'console';
+import { EstadoSalud } from '../../model/estadoSalud';
 
 @Component({
   selector: 'app-pet-form',
@@ -33,12 +31,11 @@ export class PetFormComponent {
   @Input() customer!: Cliente;  // Recibe el cliente desde el padre
   @Input() operation!: string;
 
-  estados: Estado[] = [];
+  estados = EstadoSalud;
   enfermedades: Enfermedad[] = [];
 
   constructor(
     private router: Router,
-    private serviceEstado: EstadoService,
     private serviceEnfermedad: EnfermedadService
   ) {}
 
@@ -46,13 +43,8 @@ export class PetFormComponent {
     if (this.operation === 'actualizar' && this.petUpdated) {
       this.formPet = { ...this.petUpdated};
     } else {
-      this.formPet;
+      this.formPet.estado = EstadoSalud.SANO; // Asegura que el estado inicial sea 'SANO'
     }
-    this.serviceEstado.findAll().subscribe(
-      (data: Estado[]) => {
-        this.estados = data;
-      }
-    )
     this.serviceEnfermedad.findAll().subscribe(
       (data: Enfermedad[]) => {
         this.enfermedades = data;
@@ -69,7 +61,7 @@ export class PetFormComponent {
     sexo: '',
     fotoString: '',
     enfermedad: {} as Enfermedad,
-    estado: {} as Estado,
+    estado: EstadoSalud.SANO,  // Inicia con el valor 'SANO' del enum
     cliente: this.customer,
     tratamientos: []
   };

@@ -18,8 +18,6 @@ import { error } from 'console';
 import { Tratamiento } from '../../model/tratamiento';
 import { TratamientoService } from '../../services/tratamiento.service';
 
-import { AuthService } from '../../services/auth.service';
-
 @Component({
   selector: 'app-form-handler',
   standalone: true,
@@ -52,8 +50,6 @@ export class FormHandlerComponent {
     private serviceClient: CustomerService,
     private serviceVet: VeterinarioService,
     private serviceTreatment: TratamientoService,
-
-    private authService: AuthService
   ) {
     this.route.url.subscribe(url => {
       this.typeOperation = url[1].path;
@@ -88,7 +84,7 @@ export class FormHandlerComponent {
         this.servicePet.findById(this.entityId).pipe(
           mergeMap(petInfo => {
             this.petSelected = petInfo;
-            return this.serviceClient.findById(petInfo.cliente!.id);
+            return this.serviceClient.findById(this.petSelected.cliente!.id);
           })
         ).subscribe(clientInfo => {
           this.customerSelected = clientInfo;
@@ -155,7 +151,7 @@ export class FormHandlerComponent {
 
   savePet(pet: Mascota) {
     if (this.typeOperation === 'agregar') {
-      this.servicePet.addMascota(this.customerSelected.id, pet).subscribe(newPet => {
+      this.servicePet.addMascota(this.customerSelected.id, pet.enfermedad!.id, pet).subscribe(newPet => {
         this.router.navigate(['veterinario/detalles/mascota', newPet.id]);
       });
     } else if (this.typeOperation === 'actualizar') {
@@ -180,13 +176,11 @@ export class FormHandlerComponent {
   }
 
   saveTreatment(treatment: Tratamiento) {
-    const vetID = this.authService.getVeterinarioData().id as number;
     const petID = this.petSelected.id;
     const drugID = treatment.droga!.id;
 
     if (this.typeOperation === 'agregar') {
-    
-      this.serviceTreatment.addTratamiento(petID, vetID, drugID, treatment).subscribe(
+      this.serviceTreatment.addTratamiento(this.petSelected.id, treatment.droga!.id, treatment).subscribe(
         (newTreatment) => {
           this.router.navigate(['veterinario/detalles/mascota', this.petSelected.id]);
         });

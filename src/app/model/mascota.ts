@@ -1,7 +1,7 @@
 import { Cliente } from './cliente';
 import { Enfermedad } from './enfermedad';
-import { Estado } from './estado';
 import { Tratamiento } from './tratamiento';
+import { EstadoSalud } from './estadoSalud';
 
 export interface Mascota {
     id: number;
@@ -14,7 +14,7 @@ export interface Mascota {
     fotoString: string;
 
     enfermedad: Enfermedad;
-    estado: Estado;
+    estado: EstadoSalud;
 
     tratamientos?: Tratamiento[];
     cliente?: Cliente;

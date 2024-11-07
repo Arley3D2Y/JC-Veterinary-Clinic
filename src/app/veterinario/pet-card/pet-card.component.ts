@@ -29,7 +29,6 @@ export class PetCardComponent {
     private route: ActivatedRoute,
     private petService: PetService,
     private treatmentService: TratamientoService,
-    private customerService: CustomerService,
     private location: Location,
   ) {
   }
@@ -42,7 +41,7 @@ export class PetCardComponent {
       this.petService.findById(id).pipe(
         mergeMap(petInfo => {
           this.petSelected = petInfo; // Asegúrate de que petSelected esté cargado
-          return this.customerService.sarchCustomerByPetId(id);
+          return this.petService.getClientByPetId(this.petSelected.id);
         }),
       ).pipe(
         mergeMap(customerInfo => {

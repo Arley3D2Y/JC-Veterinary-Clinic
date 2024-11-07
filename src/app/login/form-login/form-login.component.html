@@ -1,11 +1,11 @@
-<form #formGroup="ngForm" (ngSubmit)="onSubmit()">
+<form #formGroup="ngForm" (ngSubmit)="login()">
     <img src="../images/avatar.png" alt="foto" width="85" height="85">
 
     <!-- Login de Usuario -->
     <ng-container *ngIf="userType === null">
         <ng-container *ngIf="typeUser === 'cliente'">
             <div class="form-group">
-                <input type="text" id="txtCedula" class="form-input" name="cedula" [(ngModel)]="form.cedula"
+                <input type="text" id="txtCedula" class="form-input" name="cedula" [(ngModel)]="formUser.username"
                     required />
                 <label for="txtCedula" class="form-label">Ingrese su cédula</label>
             </div>
@@ -18,13 +18,13 @@
         <ng-container *ngIf="typeUser === 'veterinario'">
             <div class="form-group">
                 <input type="text" id="txtCorreo" class="form-input" name="correo" 
-                [(ngModel)]="form.correo" required/>
+                [(ngModel)]="formUser.username" required/>
                 <label for="txtCorreo" class="form-label">Correo de usuario</label>
             </div>
 
             <div class="form-group">
                 <input type="password" id="txtPassword" class="form-input" name="password"
-                    [(ngModel)]="form.password" required />
+                    [(ngModel)]="formUser.password" required />
                 <label for="txtPassword" class="form-label">Contraseña</label>
             </div>
         </ng-container>
@@ -43,13 +43,13 @@
     <!-- login de administrador -->
     <ng-container *ngIf="typeUser === 'administrador'">
         <div class="form-group">
-            <input type="text" id="txtUsuario" class="form-input" name="usuario" [(ngModel)]="form.usuario"
+            <input type="text" id="txtUsuario" class="form-input" name="usuario" [(ngModel)]="formUser.username"
                 required />
             <label for="txtUsuario" class="form-label">Administrador</label>
         </div>
 
         <div class="form-group">
-            <input type="password" id="txtPassword" class="form-input" name="password" [(ngModel)]="form.password"
+            <input type="password" id="txtPassword" class="form-input" name="password" [(ngModel)]="formUser.password"
                 required />
             <label for="txtPassword" class="form-label">Contraseña</label>
         </div>

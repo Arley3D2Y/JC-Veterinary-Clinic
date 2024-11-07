@@ -3,6 +3,8 @@ import { Mascota } from '../model/mascota';
 import { Observable } from 'rxjs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Tratamiento } from '../model/tratamiento';
+import { Cliente } from '../model/cliente';
+import { Enfermedad } from '../model/enfermedad';
 
 @Injectable({
   providedIn: 'root'
@@ -21,28 +23,32 @@ export class PetService {
     return this.http.get<Mascota>(`${this.baseUrl}/find/${id}`);
   }
 
-  addMascota(customerId: Number, pet: Mascota): Observable<Mascota> {
-    return this.http.post<Mascota>(`${this.baseUrl}/add/cliente-id/${customerId}`, pet);
+  addMascota(idC: number, idE: number, pet: Mascota): Observable<Mascota> {
+    return this.http.post<Mascota>(`${this.baseUrl}/add/cliente-id/${idC}/enfermedad-id/${idE}`, pet);
   }
-  
-  updatePet(id: number, mascota: Mascota): Observable<Mascota> {
-    return this.http.put<Mascota>(`${this.baseUrl}/update/${id}`, mascota);
-  }
-
+ 
   deleteMascota(id: Number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
+
+  updatePet(id: number, mascota: Mascota): Observable<Mascota> {
+    return this.http.put<Mascota>(`${this.baseUrl}/update/${id}`, mascota);
   }
 
   searhcPetsByName(name: String): Observable<Mascota[]> {
     return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-name/${name}`);
   }
 
-  getPetsByCustomerId(id: Number): Observable<Mascota[]> {
-    return this.http.get<Mascota[]>(`${this.baseUrl}/search-by-client_id/${id}`);
+  getTreatmentsByPetId(id: Number): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.baseUrl}/${id}/tratamientos`);
   }
 
-  getTreatmentsByPetId(id: Number): Observable<Tratamiento[]> {
-    return this.http.get<Tratamiento[]>(`${this.baseUrl}/tratamientos-mascota/${id}`);
+  getClientByPetId(id: Number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.baseUrl}/${id}/cliente`);
+  }
+  
+  getEnfermedadByPetId(id: Number): Observable<Enfermedad> {
+    return this.http.get<Enfermedad>(`${this.baseUrl}/${id}/enfermedad`);
   }
 
 }
